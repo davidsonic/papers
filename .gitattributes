@@ -1,0 +1,5 @@
+# Git LFS configuration
+# This file tracks large files with Git LFS for better performance
+
+# Track the large papers archive with LFS
+data/papers_all.json filter=lfs diff=lfs merge=lfs -text
