@@ -131,12 +131,14 @@
 
         .tag-button {
             padding: 6px 12px;
-            background: var(--bg);
+            background: var(--bg-alt);
             border: 1px solid var(--border);
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.85em;
             transition: all 0.2s;
+            color: var(--text);
+            font-weight: 500;
         }
 
         .tag-button:hover {
@@ -149,6 +151,44 @@
             background: var(--primary);
             color: white;
             border-color: var(--primary);
+        }
+
+        .tag-frequency {
+            font-size: 0.7em;
+            opacity: 0.7;
+        }
+
+        .tag-input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .tag-input-group input {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.85em;
+            background: var(--bg);
+            color: var(--text);
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .tag-input-group button {
+            padding: 6px 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .tag-input-group button:hover {
+            opacity: 0.9;
         }
 
         .papers-grid {
@@ -337,21 +377,13 @@
             margin-top: 20px;
         }
 
-        .view-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .view-mode-buttons {
+        .sort-buttons {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
         }
 
-        .view-mode-btn {
+        .sort-btn {
             padding: 8px 14px;
             background: var(--bg-alt);
             border: 1px solid var(--border);
@@ -360,15 +392,16 @@
             font-size: 0.9em;
             transition: all 0.2s;
             font-weight: 500;
+            color: var(--text);
         }
 
-        .view-mode-btn:hover {
+        .sort-btn:hover {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
         }
 
-        .view-mode-btn.active {
+        .sort-btn.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
@@ -434,18 +467,6 @@
             text-align: center;
         }
 
-        .date-group {
-            margin-bottom: 30px;
-        }
-
-        .date-header {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--border);
-        }
 
         .compare-view {
             display: grid;
@@ -542,23 +563,13 @@
             </div>
 
             <div class="control-row">
-                <label>View Mode</label>
-                <div class="view-mode-buttons">
-                    <button class="view-mode-btn active" data-view="default">Default</button>
-                    <button class="view-mode-btn" data-view="date">By Date</button>
-                    <button class="view-mode-btn" data-view="upvotes">Top Upvotes</button>
-                    <button class="view-mode-btn" data-view="stars">Top Stars</button>
+                <label>Sort By</label>
+                <div class="sort-buttons">
+                    <button class="sort-btn active" data-sort="upvotes">HF Upvotes</button>
+                    <button class="sort-btn" data-sort="stars">GitHub Stars</button>
+                    <button class="sort-btn" data-sort="date">Latest First</button>
+                    <button class="sort-btn" data-sort="relevance">Relevance</button>
                 </div>
-            </div>
-
-            <div class="control-row">
-                <label>Sort by</label>
-                <select id="sortBy">
-                    <option value="upvotes">HF Upvotes</option>
-                    <option value="stars">GitHub Stars</option>
-                    <option value="date">Latest First</option>
-                    <option value="relevance">Relevance</option>
-                </select>
                 <div class="page-size-control">
                     <label>Papers per page:</label>
                     <select id="pageSize">
@@ -571,8 +582,12 @@
             </div>
 
             <div class="control-row">
-                <label>Tags</label>
+                <label>Tags (Top by frequency)</label>
                 <div id="tagFilter" class="tag-filter"></div>
+                <div class="tag-input-group">
+                    <input type="text" id="customTagInput" placeholder="Add custom tag...">
+                    <button id="addTagBtn">Add</button>
+                </div>
             </div>
 
             <div class="control-row">
@@ -600,15 +615,15 @@
         const state = {
             papers: [],
             tags: [],
+            topTags: [],           // Top 5 tags by frequency
+            customTags: [],        // User-added custom tags
             selectedTags: [],
             selectedPapers: new Set(),
             searchTerm: '',
             sortBy: 'upvotes',
             showCompare: false,
-            viewMode: 'default',    // 'default', 'date', 'upvotes', 'stars'
             currentPage: 1,
-            pageSize: 24,
-            selectedDate: null       // For date view mode
+            pageSize: 24
         };
 
         async function loadData() {
@@ -674,16 +689,74 @@
             return Array.from(tags).sort();
         }
 
-        function initializeUI() {
-            // Populate tag buttons
+        function analyzeTopTags() {
+            // Count tag frequencies from all papers
+            const tagCount = {};
+            state.papers.forEach(paper => {
+                const paperTags = [...(paper.tags || []), ...(paper.aiKeywords || [])];
+                paperTags.forEach(tag => {
+                    tagCount[tag] = (tagCount[tag] || 0) + 1;
+                });
+            });
+
+            // Sort by frequency and get top 5
+            const sorted = Object.entries(tagCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+
+            state.topTags = sorted.map(([tag, count]) => ({ tag, count }));
+            return state.topTags;
+        }
+
+        function populateTagButtons() {
             const tagFilter = document.getElementById('tagFilter');
-            state.tags.forEach(tag => {
+            tagFilter.innerHTML = '';
+
+            // Show top tags with frequency
+            state.topTags.forEach(({ tag, count }) => {
                 const btn = document.createElement('button');
                 btn.className = 'tag-button';
-                btn.textContent = tag;
+                btn.innerHTML = `${tag} <span class="tag-frequency">(${count})</span>`;
                 btn.onclick = () => toggleTag(tag);
                 tagFilter.appendChild(btn);
             });
+
+            // Show custom tags
+            state.customTags.forEach(tag => {
+                const btn = document.createElement('button');
+                btn.className = 'tag-button';
+                btn.textContent = `${tag} ✕`;
+                btn.title = 'Click to toggle, right-click to delete';
+                btn.onclick = () => toggleTag(tag);
+                btn.oncontextmenu = (e) => {
+                    e.preventDefault();
+                    removeCustomTag(tag);
+                };
+                tagFilter.appendChild(btn);
+            });
+        }
+
+        function addCustomTag(tag) {
+            const trimmed = tag.trim().toLowerCase();
+            if (trimmed && !state.customTags.includes(trimmed) && !state.topTags.find(t => t.tag.toLowerCase() === trimmed)) {
+                state.customTags.push(trimmed);
+                populateTagButtons();
+                updateTagButtons();
+            }
+        }
+
+        function removeCustomTag(tag) {
+            state.customTags = state.customTags.filter(t => t !== tag);
+            state.selectedTags = state.selectedTags.filter(t => t !== tag);
+            populateTagButtons();
+            updateTagButtons();
+            render();
+        }
+
+        function initializeUI() {
+            // Analyze and populate tag buttons
+            analyzeTopTags();
+            populateTagButtons();
 
             // Event listeners
             document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -691,9 +764,15 @@
                 render();
             });
 
-            document.getElementById('sortBy').addEventListener('change', (e) => {
-                state.sortBy = e.target.value;
-                render();
+            // Sort by buttons
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    state.sortBy = e.target.dataset.sort;
+                    state.currentPage = 1;
+                    render();
+                });
             });
 
             document.getElementById('clearFilters').addEventListener('click', () => {
@@ -701,7 +780,9 @@
                 state.searchTerm = '';
                 state.selectedPapers.clear();
                 document.getElementById('searchInput').value = '';
-                document.getElementById('sortBy').value = 'upvotes';
+                document.querySelector('.sort-btn.active').classList.remove('active');
+                document.querySelector('[data-sort="upvotes"]').classList.add('active');
+                state.sortBy = 'upvotes';
                 document.querySelectorAll('.tag-button').forEach(b => b.classList.remove('active'));
                 render();
             });
@@ -711,23 +792,26 @@
                 render();
             });
 
-            // View mode buttons
-            document.querySelectorAll('.view-mode-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    document.querySelectorAll('.view-mode-btn').forEach(b => b.classList.remove('active'));
-                    e.target.classList.add('active');
-                    state.viewMode = e.target.dataset.view;
-                    state.currentPage = 1;
-                    state.selectedDate = null;
-                    render();
-                });
-            });
-
             // Page size selector
             document.getElementById('pageSize').addEventListener('change', (e) => {
                 state.pageSize = parseInt(e.target.value);
                 state.currentPage = 1;
                 render();
+            });
+
+            // Custom tag input
+            document.getElementById('addTagBtn').addEventListener('click', () => {
+                const input = document.getElementById('customTagInput');
+                if (input.value.trim()) {
+                    addCustomTag(input.value);
+                    input.value = '';
+                }
+            });
+
+            document.getElementById('customTagInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    document.getElementById('addTagBtn').click();
+                }
             });
         }
 
@@ -744,7 +828,9 @@
 
         function updateTagButtons() {
             document.querySelectorAll('.tag-button').forEach(btn => {
-                if (state.selectedTags.includes(btn.textContent)) {
+                // Extract tag name (remove frequency counter and ✕ icon)
+                const tagText = btn.textContent.split(' (')[0].replace(' ✕', '');
+                if (state.selectedTags.includes(tagText)) {
                     btn.classList.add('active');
                 } else {
                     btn.classList.remove('active');
@@ -941,41 +1027,49 @@
             document.getElementById('pagination-bottom').style.display = 'flex';
 
             const paginationHTML = `
-                <button id="prevBtn" ${state.currentPage === 1 ? 'disabled' : ''}>← Previous</button>
+                <button class="pagination-prev" ${state.currentPage === 1 ? 'disabled' : ''}>← Previous</button>
                 <span class="pagination-info">
-                    Page <input type="number" id="pageInput" min="1" max="${totalPages}" value="${state.currentPage}" />
+                    Page <input type="number" class="pagination-input" min="1" max="${totalPages}" value="${state.currentPage}" />
                     of ${totalPages}
                 </span>
-                <button id="nextBtn" ${state.currentPage === totalPages ? 'disabled' : ''}>Next →</button>
+                <button class="pagination-next" ${state.currentPage === totalPages ? 'disabled' : ''}>Next →</button>
                 <span class="pagination-info">${(state.currentPage - 1) * state.pageSize + 1}-${Math.min(state.currentPage * state.pageSize, totalItems)} of ${totalItems}</span>
             `;
 
             document.getElementById('pagination-top').innerHTML = paginationHTML;
             document.getElementById('pagination-bottom').innerHTML = paginationHTML;
 
-            document.getElementById('prevBtn').addEventListener('click', () => {
-                if (state.currentPage > 1) {
-                    state.currentPage--;
-                    render();
-                    window.scrollTo(0, 0);
-                }
-            });
+            // Use event delegation for both top and bottom pagination
+            const paginationContainers = [
+                document.getElementById('pagination-top'),
+                document.getElementById('pagination-bottom')
+            ];
 
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                if (state.currentPage < totalPages) {
-                    state.currentPage++;
-                    render();
-                    window.scrollTo(0, 0);
-                }
-            });
+            paginationContainers.forEach(container => {
+                container.querySelector('.pagination-prev')?.addEventListener('click', () => {
+                    if (state.currentPage > 1) {
+                        state.currentPage--;
+                        render();
+                        window.scrollTo(0, 0);
+                    }
+                });
 
-            document.getElementById('pageInput').addEventListener('change', (e) => {
-                const page = parseInt(e.target.value);
-                if (page >= 1 && page <= totalPages) {
-                    state.currentPage = page;
-                    render();
-                    window.scrollTo(0, 0);
-                }
+                container.querySelector('.pagination-next')?.addEventListener('click', () => {
+                    if (state.currentPage < totalPages) {
+                        state.currentPage++;
+                        render();
+                        window.scrollTo(0, 0);
+                    }
+                });
+
+                container.querySelector('.pagination-input')?.addEventListener('change', (e) => {
+                    const page = parseInt(e.target.value);
+                    if (page >= 1 && page <= totalPages) {
+                        state.currentPage = page;
+                        render();
+                        window.scrollTo(0, 0);
+                    }
+                });
             });
         }
 
@@ -983,40 +1077,6 @@
             const start = (state.currentPage - 1) * state.pageSize;
             const end = start + state.pageSize;
             return papers.slice(start, end);
-        }
-
-        function renderDateView() {
-            // Group papers by date
-            const grouped = {};
-            state.papers.forEach(paper => {
-                const date = new Date(paper.publishedDate).toLocaleDateString();
-                if (!grouped[date]) grouped[date] = [];
-                grouped[date].push(paper);
-            });
-
-            const papersList = document.getElementById('papersList');
-            papersList.innerHTML = '';
-            document.getElementById('pagination-top').style.display = 'none';
-            document.getElementById('pagination-bottom').style.display = 'none';
-
-            // Sort dates descending
-            Object.keys(grouped).sort().reverse().forEach(date => {
-                const group = document.createElement('div');
-                group.className = 'date-group';
-
-                const header = document.createElement('div');
-                header.className = 'date-header';
-                header.textContent = `📅 ${date} (${grouped[date].length} papers)`;
-                group.appendChild(header);
-
-                const grid = document.createElement('div');
-                grid.className = 'papers-grid';
-                grouped[date].forEach(paper => {
-                    grid.appendChild(renderPaperCard(paper));
-                });
-                group.appendChild(grid);
-                papersList.appendChild(group);
-            });
         }
 
         function render() {
@@ -1027,17 +1087,6 @@
 
             const papersList = document.getElementById('papersList');
 
-            // Handle different view modes
-            if (state.viewMode === 'date') {
-                renderDateView();
-                document.getElementById('statsText').textContent = `
-                    Showing ${filtered.length} of ${state.papers.length} papers
-                    ${state.selectedPapers.size > 0 ? ` • ${state.selectedPapers.size} selected` : ''}
-                `;
-                return;
-            }
-
-            // Pagination for other view modes
             if (sorted.length === 0) {
                 papersList.innerHTML = `
                     <div class="empty" style="grid-column: 1 / -1;">
