@@ -1,0 +1,29 @@
+# Cache files (regenerate with scripts/fetch_papers.py)
+data/raw/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local testing
+.env
+*.local.json
