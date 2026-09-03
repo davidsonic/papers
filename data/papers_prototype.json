@@ -1,0 +1,1377 @@
+[
+  {
+    "id": "2312.11514",
+    "title": "LLM in a flash: Efficient Large Language Model Inference with Limited\n  Memory",
+    "abstract": "Large language models (LLMs) are central to modern natural language\nprocessing, delivering exceptional performance in various tasks. However, their\nintensive computational and memory requirements present challenges, especially\nfor devices with limited DRAM capacity. This paper tackles the challenge of\nefficiently running LLMs that exceed the available DRAM capacity by storing the\nmodel parameters on flash memory but bringing them on demand to DRAM. Our\nmethod involves constructing an inference cost model that harmonizes with the\nflash memory behavior, guiding us to optimize in two critical areas: reducing\nthe volume of data transferred from flash and reading data in larger, more\ncontiguous chunks. Within this flash memory-informed framework, we introduce\ntwo principal techniques. First, \"windowing'\" strategically reduces data\ntransfer by reusing previously activated neurons, and second, \"row-column\nbundling\", tailored to the sequential data access strengths of flash memory,\nincreases the size of data chunks read from flash memory. These methods\ncollectively enable running models up to twice the size of the available DRAM,\nwith a 4-5x and 20-25x increase in inference speed compared to naive loading\napproaches in CPU and GPU, respectively. Our integration of sparsity awareness,\ncontext-adaptive loading, and a hardware-oriented design paves the way for\neffective inference of LLMs on devices with limited memory.",
+    "authors": [
+      {
+        "_id": "6582524a5f6d8343825e4af2",
+        "user": {
+          "_id": "66280a4c7c988f33b795f90f",
+          "avatarUrl": "/avatars/7a618b39c4ed20f5490ea64fbb67b5ac.svg",
+          "isPro": false,
+          "fullname": "Iman Mirzadeh",
+          "user": "imirzadeh-apple",
+          "type": "user",
+          "name": "imirzadeh-apple"
+        },
+        "name": "Keivan Alizadeh",
+        "status": "extracted_confirmed",
+        "statusLastChangedAt": "2024-04-23T19:22:30.221Z",
+        "hidden": true
+      },
+      {
+        "_id": "6582524a5f6d8343825e4af3",
+        "name": "Iman Mirzadeh",
+        "hidden": false
+      },
+      {
+        "_id": "6582524a5f6d8343825e4af4",
+        "user": {
+          "_id": "63185e1a70b013d6609416ba",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/63185e1a70b013d6609416ba/xJ5DFEE-z97wuOGkMjV8-.png",
+          "isPro": true,
+          "fullname": "Dmitry Belenko",
+          "user": "depthwise",
+          "type": "user",
+          "name": "depthwise"
+        },
+        "name": "Dmitry Belenko",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2023-12-20T08:59:28.800Z",
+        "hidden": false
+      },
+      {
+        "_id": "6582524a5f6d8343825e4af5",
+        "name": "Karen Khatamifard",
+        "hidden": false
+      },
+      {
+        "_id": "6582524a5f6d8343825e4af6",
+        "name": "Minsik Cho",
+        "hidden": false
+      },
+      {
+        "_id": "6582524a5f6d8343825e4af7",
+        "name": "Carlo C Del Mundo",
+        "hidden": false
+      },
+      {
+        "_id": "6582524a5f6d8343825e4af8",
+        "name": "Mohammad Rastegari",
+        "hidden": false
+      },
+      {
+        "_id": "6582524a5f6d8343825e4af9",
+        "user": {
+          "_id": "62d188a6d50433c35eb14020",
+          "avatarUrl": "/avatars/fc3d149a27bc8396010a2a02148e8ca0.svg",
+          "isPro": false,
+          "fullname": "Mehrdad Farajtabar",
+          "user": "mfarajtabar",
+          "type": "user",
+          "name": "mfarajtabar"
+        },
+        "name": "Mehrdad Farajtabar",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2023-12-20T08:21:56.790Z",
+        "hidden": false
+      }
+    ],
+    "publishedDate": "2023-12-12T18:57:08.000Z",
+    "hfUpvotes": 265,
+    "githubRepo": null,
+    "githubStars": null,
+    "aiSummary": "Efficient inference for large language models on devices with limited DRAM by optimizing data transfer and access from flash memory.",
+    "aiKeywords": [
+      "large language models (LLMs)",
+      "flash memory",
+      "DRAM",
+      "inference cost model",
+      "data transfer",
+      "row-column bundling",
+      "sparsity awareness",
+      "context-adaptive loading",
+      "hardware-oriented design"
+    ],
+    "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2312.11514.png",
+    "summary": "Advanced research in Large language models (LLMs) are central to modern natural language\nprocessing, delivering exception. Key innovations with practical applications.",
+    "tags": [
+      "Research",
+      "AI",
+      "Innovation"
+    ],
+    "primaryCategory": "AI"
+  },
+  {
+    "id": "2402.17764",
+    "title": "The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits",
+    "abstract": "Recent research, such as BitNet, is paving the way for a new era of 1-bit\nLarge Language Models (LLMs). In this work, we introduce a 1-bit LLM variant,\nnamely BitNet b1.58, in which every single parameter (or weight) of the LLM is\nternary {-1, 0, 1}. It matches the full-precision (i.e., FP16 or BF16)\nTransformer LLM with the same model size and training tokens in terms of both\nperplexity and end-task performance, while being significantly more\ncost-effective in terms of latency, memory, throughput, and energy consumption.\nMore profoundly, the 1.58-bit LLM defines a new scaling law and recipe for\ntraining new generations of LLMs that are both high-performance and\ncost-effective. Furthermore, it enables a new computation paradigm and opens\nthe door for designing specific hardware optimized for 1-bit LLMs.",
+    "authors": [
+      {
+        "_id": "65ded4ff33599459308af370",
+        "user": {
+          "_id": "613f07f40153aafa379775f2",
+          "avatarUrl": "/avatars/3965175b320d753d9a5ccb0c7d9298a4.svg",
+          "isPro": false,
+          "fullname": "Shuming Ma",
+          "user": "shumingma",
+          "type": "user",
+          "name": "shumingma"
+        },
+        "name": "Shuming Ma",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-02-28T11:01:44.539Z",
+        "hidden": false
+      },
+      {
+        "_id": "65ded4ff33599459308af371",
+        "user": {
+          "_id": "63f71771d36951307fcb4dcd",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/63f71771d36951307fcb4dcd/1c-GSQmSSuDXyVWjxZFy_.jpeg",
+          "isPro": false,
+          "fullname": "Hongyu Wang",
+          "user": "hongyuw",
+          "type": "user",
+          "name": "hongyuw"
+        },
+        "name": "Hongyu Wang",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-02-28T11:41:14.755Z",
+        "hidden": false
+      },
+      {
+        "_id": "65ded4ff33599459308af372",
+        "user": {
+          "_id": "63d9074f89a9683b46d1c73d",
+          "avatarUrl": "/avatars/6dc070c7618f24b76d9df9882fcd5aed.svg",
+          "isPro": false,
+          "fullname": "Lingxiao Ma",
+          "user": "xysmlx",
+          "type": "user",
+          "name": "xysmlx"
+        },
+        "name": "Lingxiao Ma",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-09-18T13:16:16.361Z",
+        "hidden": false
+      },
+      {
+        "_id": "65ded4ff33599459308af373",
+        "user": {
+          "_id": "646c7b3849a37754bdeefe8e",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/646c7b3849a37754bdeefe8e/tejirZfCHm6EqhXOdnMUq.jpeg",
+          "isPro": false,
+          "fullname": "Lei",
+          "user": "LeiWang1999",
+          "type": "user",
+          "name": "LeiWang1999"
+        },
+        "name": "Lei Wang",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-07-03T07:42:25.603Z",
+        "hidden": false
+      },
+      {
+        "_id": "65ded4ff33599459308af374",
+        "name": "Wenhui Wang",
+        "hidden": false
+      },
+      {
+        "_id": "65ded4ff33599459308af375",
+        "user": {
+          "_id": "632bd2f72d6a805eeb4bc601",
+          "avatarUrl": "/avatars/6e1533e8a599f3068290aa69ac82cab7.svg",
+          "isPro": false,
+          "fullname": "HUANG SHAOHAN",
+          "user": "buaahsh",
+          "type": "user",
+          "name": "buaahsh"
+        },
+        "name": "Shaohan Huang",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-02-28T11:06:04.566Z",
+        "hidden": false
+      },
+      {
+        "_id": "65ded4ff33599459308af376",
+        "user": {
+          "_id": "5df85abada6d0311fd3d5408",
+          "avatarUrl": "/avatars/2331cf703c1b5d3a62e2050b1a6eb108.svg",
+          "isPro": false,
+          "fullname": "Li Dong",
+          "user": "unilm",
+          "type": "user",
+          "name": "unilm"
+        },
+        "name": "Li Dong",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-03-01T15:53:48.354Z",
+        "hidden": false
+      },
+      {
+        "_id": "65ded4ff33599459308af377",
+        "user": {
+          "_id": "64fa7e742d20ced4e9ecd835",
+          "avatarUrl": "/avatars/52db257f8600562905be61d16b78a4f4.svg",
+          "isPro": false,
+          "fullname": "ruipingwang",
+          "user": "RuipingWang1986",
+          "type": "user",
+          "name": "RuipingWang1986"
+        },
+        "name": "Ruiping Wang",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-02-28T11:05:07.170Z",
+        "hidden": false
+      },
+      {
+        "_id": "65ded4ff33599459308af378",
+        "user": {
+          "_id": "632bfc0e4a4991e7114f2a83",
+          "avatarUrl": "/avatars/19f8154a30d4787c5ebdf9657e37ea12.svg",
+          "isPro": false,
+          "fullname": "Jilong Xue",
+          "user": "jlxue",
+          "type": "user",
+          "name": "jlxue"
+        },
+        "name": "Jilong Xue",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-02-28T11:04:47.786Z",
+        "hidden": false
+      },
+      {
+        "_id": "65ded4ff33599459308af379",
+        "user": {
+          "_id": "6368c512fbfe97c16a40baba",
+          "avatarUrl": "/avatars/1c23bc7c0b6d9225699ce27647623d7a.svg",
+          "isPro": false,
+          "fullname": "Furu Wei",
+          "user": "thegenerality",
+          "type": "user",
+          "name": "thegenerality"
+        },
+        "name": "Furu Wei",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-02-28T11:03:55.843Z",
+        "hidden": false
+      }
+    ],
+    "publishedDate": "2024-02-27T18:56:19.000Z",
+    "hfUpvotes": 630,
+    "githubRepo": null,
+    "githubStars": null,
+    "aiSummary": "A 1-bit LLM variant, BitNet b1.58, achieves comparable performance to full-precision models with reduced computational costs and introduces new scaling laws and hardware design opportunities.",
+    "aiKeywords": [
+      "BitNet",
+      "1-bit LLM",
+      "ternary",
+      "Transformer",
+      "LLM",
+      "perplexity",
+      "end-task performance",
+      "latency",
+      "memory",
+      "throughput",
+      "energy consumption",
+      "scaling law",
+      "hardware optimization"
+    ],
+    "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2402.17764.png",
+    "summary": "Advanced research in Recent research, such as BitNet, is paving the way for a new era of 1-bit\nLarge Language Models (LLM. Key innovations with practical applications.",
+    "tags": [
+      "Research",
+      "AI",
+      "Innovation"
+    ],
+    "primaryCategory": "AI"
+  },
+  {
+    "id": "2404.14219",
+    "title": "Phi-3 Technical Report: A Highly Capable Language Model Locally on Your\n  Phone",
+    "abstract": "We introduce phi-3-mini, a 3.8 billion parameter language model trained on\n3.3 trillion tokens, whose overall performance, as measured by both academic\nbenchmarks and internal testing, rivals that of models such as Mixtral 8x7B and\nGPT-3.5 (e.g., phi-3-mini achieves 69% on MMLU and 8.38 on MT-bench), despite\nbeing small enough to be deployed on a phone. The innovation lies entirely in\nour dataset for training, a scaled-up version of the one used for phi-2,\ncomposed of heavily filtered web data and synthetic data. The model is also\nfurther aligned for robustness, safety, and chat format. We also provide some\ninitial parameter-scaling results with a 7B and 14B models trained for 4.8T\ntokens, called phi-3-small and phi-3-medium, both significantly more capable\nthan phi-3-mini (e.g., respectively 75% and 78% on MMLU, and 8.7 and 8.9 on\nMT-bench).",
+    "authors": [
+      {
+        "_id": "66271d7a322746c7bfca83a8",
+        "user": {
+          "_id": "649af1e3ca20306aeef590b8",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/649af1e3ca20306aeef590b8/Tvy8yf7zDO2FoNs03tWj6.jpeg",
+          "isPro": false,
+          "fullname": "Marah Abdin",
+          "user": "marah-abdin",
+          "type": "user",
+          "name": "marah-abdin"
+        },
+        "name": "Marah Abdin",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-04-23T13:00:35.357Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83a9",
+        "user": {
+          "_id": "651736dd20b18e99b44dd5d5",
+          "avatarUrl": "/avatars/c054eb2567e027408340a03a7ca0b29d.svg",
+          "isPro": false,
+          "fullname": "Sam Ade Jacobs",
+          "user": "samadejacobs",
+          "type": "user",
+          "name": "samadejacobs"
+        },
+        "name": "Sam Ade Jacobs",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:17:35.386Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83aa",
+        "user": {
+          "_id": "6324b8417d6d0cbbe2c65019",
+          "avatarUrl": "/avatars/7c1a468daaa984203a600a3b3526298f.svg",
+          "isPro": false,
+          "fullname": "Ammar Awan",
+          "user": "ammarawan",
+          "type": "user",
+          "name": "ammarawan"
+        },
+        "name": "Ammar Ahmad Awan",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:17:44.962Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ab",
+        "user": {
+          "_id": "623e17038972a8c030af23fa",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/623e17038972a8c030af23fa/2ERyhCNAdV2wt4uRy3Wq5.jpeg",
+          "isPro": false,
+          "fullname": "Jyoti Aneja",
+          "user": "jyotiA",
+          "type": "user",
+          "name": "jyotiA"
+        },
+        "name": "Jyoti Aneja",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:17:51.473Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ac",
+        "user": {
+          "_id": "6557a41ee74d1065f7d05c51",
+          "avatarUrl": "/avatars/b29e57fc61d1d3012637f84b82c14818.svg",
+          "isPro": false,
+          "fullname": "Ahmed Awadallah",
+          "user": "AhmedAwadallah",
+          "type": "user",
+          "name": "AhmedAwadallah"
+        },
+        "name": "Ahmed Awadallah",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:18:04.741Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ad",
+        "name": "Hany Awadalla",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ae",
+        "user": {
+          "_id": "5f3ec133a4dd343b63a632dd",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/1597948137099-noauth.jpeg",
+          "isPro": false,
+          "fullname": "Nguyen Bach",
+          "user": "nguyenbh",
+          "type": "user",
+          "name": "nguyenbh"
+        },
+        "name": "Nguyen Bach",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:18:30.800Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83af",
+        "user": {
+          "_id": "604cfaaad8a4193fd3a928ef",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/1615657716895-604cfaaad8a4193fd3a928ef.jpeg",
+          "isPro": false,
+          "fullname": "Amit Bahree",
+          "user": "bahree",
+          "type": "user",
+          "name": "bahree"
+        },
+        "name": "Amit Bahree",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:18:40.847Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b0",
+        "user": {
+          "_id": "6553cda0c81411e2aaf930b1",
+          "avatarUrl": "/avatars/291e4e9cef092d649ab734a3f09a3af1.svg",
+          "isPro": false,
+          "fullname": "Arash Bakhtiari",
+          "user": "arashb",
+          "type": "user",
+          "name": "arashb"
+        },
+        "name": "Arash Bakhtiari",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-04-24T11:11:57.013Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b1",
+        "user": {
+          "_id": "63c6aa9e656e7822e2359d9c",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/63c6aa9e656e7822e2359d9c/4rn_faJ23m_a6bevXEDG_.jpeg",
+          "isPro": false,
+          "fullname": "Harkirat Behl",
+          "user": "Harkirat",
+          "type": "user",
+          "name": "Harkirat"
+        },
+        "name": "Harkirat Behl",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-04-23T07:13:54.219Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b2",
+        "user": {
+          "_id": "65b9b627e7c838136275a681",
+          "avatarUrl": "/avatars/22423f3d9a6c4ee34cad3b0894d27d23.svg",
+          "isPro": false,
+          "fullname": "Alon Benhaim",
+          "user": "alonbenhaim",
+          "type": "user",
+          "name": "alonbenhaim"
+        },
+        "name": "Alon Benhaim",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:19:30.493Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b3",
+        "name": "Misha Bilenko",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b4",
+        "user": {
+          "_id": "65fdfbbbc91ba4c08ae76db9",
+          "avatarUrl": "/avatars/6a44dcf01a531966806f7de9df94178b.svg",
+          "isPro": false,
+          "fullname": "johan bjorck",
+          "user": "njb-ms",
+          "type": "user",
+          "name": "njb-ms"
+        },
+        "name": "Johan Bjorck",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:19:54.353Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b5",
+        "user": {
+          "_id": "64557408c9c0dcc8c24a7a92",
+          "avatarUrl": "/avatars/911ba8fc3c224578d5946dddd94bf4c0.svg",
+          "isPro": false,
+          "fullname": "Sebastien Bubeck",
+          "user": "sebubeck",
+          "type": "user",
+          "name": "sebubeck"
+        },
+        "name": "S\u00e9bastien Bubeck",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:20:04.354Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b6",
+        "user": {
+          "_id": "63599df91a0dca1aa2497470",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/1666817522152-noauth.png",
+          "isPro": false,
+          "fullname": "Martin Cai",
+          "user": "cailang",
+          "type": "user",
+          "name": "cailang"
+        },
+        "name": "Martin Cai",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:20:23.447Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b7",
+        "user": {
+          "_id": "66269c058f7573e6a6488532",
+          "avatarUrl": "/avatars/5d47ce0eaba09b385596ad5fd97f8ef7.svg",
+          "isPro": false,
+          "fullname": "Caio Mendes",
+          "user": "caiomms",
+          "type": "user",
+          "name": "caiomms"
+        },
+        "name": "Caio C\u00e9sar Teodoro Mendes",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:20:59.498Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b8",
+        "user": {
+          "_id": "64da876370446182be5b608d",
+          "avatarUrl": "/avatars/e412fdc71404ecdf638e416846e3ebfb.svg",
+          "isPro": false,
+          "fullname": "Weizhu Chen",
+          "user": "chenweizhu",
+          "type": "user",
+          "name": "chenweizhu"
+        },
+        "name": "Weizhu Chen",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:21:07.482Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83b9",
+        "user": {
+          "_id": "659c7ac977ac6f1bf5e63d7e",
+          "avatarUrl": "/avatars/86a6efde0d483564a67ed5f344d479a0.svg",
+          "isPro": false,
+          "fullname": "Vishrav Chaudhary",
+          "user": "vishravmsft",
+          "type": "user",
+          "name": "vishravmsft"
+        },
+        "name": "Vishrav Chaudhary",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:21:31.901Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ba",
+        "user": {
+          "_id": "65fe033542e4b66cd59bbc33",
+          "avatarUrl": "/avatars/71a5d01b83f36d2926aef9aed624b953.svg",
+          "isPro": false,
+          "fullname": "Parul Chopra",
+          "user": "Parul09",
+          "type": "user",
+          "name": "Parul09"
+        },
+        "name": "Parul Chopra",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:21:38.415Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83bb",
+        "user": {
+          "_id": "63f5562471a5d395c721cd8e",
+          "avatarUrl": "/avatars/ac296b6017e86ea04c73803fe2c44433.svg",
+          "isPro": false,
+          "fullname": "Allie Del Giorno",
+          "user": "microallie",
+          "type": "user",
+          "name": "microallie"
+        },
+        "name": "Allie Del Giorno",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:21:53.089Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83bc",
+        "user": {
+          "_id": "6157454831624da88210e627",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/1666203761402-6157454831624da88210e627.jpeg",
+          "isPro": false,
+          "fullname": "Gustavo de Rosa",
+          "user": "gugarosa",
+          "type": "user",
+          "name": "gugarosa"
+        },
+        "name": "Gustavo de Rosa",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:22:00.600Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83bd",
+        "user": {
+          "_id": "6316cbde29411a6864b9a15c",
+          "avatarUrl": "/avatars/649e713b17871a18f55ea8f167860ae3.svg",
+          "isPro": false,
+          "fullname": "Matthew Dixon",
+          "user": "mmdixon",
+          "type": "user",
+          "name": "mmdixon"
+        },
+        "name": "Matthew Dixon",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:22:06.151Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83be",
+        "user": {
+          "_id": "633723a80267ebcf0264c06b",
+          "avatarUrl": "/avatars/22bb971597e9f3abfa343280a9d0f65f.svg",
+          "isPro": false,
+          "fullname": "Ronen Eldan",
+          "user": "roneneldan",
+          "type": "user",
+          "name": "roneneldan"
+        },
+        "name": "Ronen Eldan",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:22:13.165Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83bf",
+        "user": {
+          "_id": "6604959a5186899ca9d62d27",
+          "avatarUrl": "/avatars/32416322dc3fd3b057d2cdd78750cdff.svg",
+          "isPro": false,
+          "fullname": "Dan I",
+          "user": "daniter-msft",
+          "type": "user",
+          "name": "daniter-msft"
+        },
+        "name": "Dan Iter",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:22:22.938Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c0",
+        "user": {
+          "_id": "62cdae333529c21a2283a0a1",
+          "avatarUrl": "/avatars/cafc2821e522bbd06d49830e36a073e3.svg",
+          "isPro": true,
+          "fullname": "Abhishek GOSWAMI",
+          "user": "abgoswam",
+          "type": "user",
+          "name": "abgoswam"
+        },
+        "name": "Abhishek Goswami",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:22:39.305Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c1",
+        "user": {
+          "_id": "63e1b4f77fbb6ae4d4f36aa4",
+          "avatarUrl": "/avatars/8e03bf9143be5e6456cc8e732ed3daaf.svg",
+          "isPro": false,
+          "fullname": "Suriya Gunasekar",
+          "user": "suriyagunasekar",
+          "type": "user",
+          "name": "suriyagunasekar"
+        },
+        "name": "Suriya Gunasekar",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:22:47.893Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c2",
+        "name": "Emman Haider",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c3",
+        "user": {
+          "_id": "5f04c4394ec31d33a72116d6",
+          "avatarUrl": "/avatars/75d4b9020070e73604b12e5adc1c8201.svg",
+          "isPro": false,
+          "fullname": "Junheng Hao",
+          "user": "jeffhao",
+          "type": "user",
+          "name": "jeffhao"
+        },
+        "name": "Junheng Hao",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:22:59.089Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c4",
+        "name": "Russell J. Hewett",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c5",
+        "name": "Jamie Huynh",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c6",
+        "user": {
+          "_id": "643dbfa31e5be78c66440fcf",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/643dbfa31e5be78c66440fcf/VtLrAlPY_4ncVrM4eL7V-.jpeg",
+          "isPro": false,
+          "fullname": "Mojan Javaheripi",
+          "user": "mojanjp",
+          "type": "user",
+          "name": "mojanjp"
+        },
+        "name": "Mojan Javaheripi",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:23:17.966Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c7",
+        "name": "Xin Jin",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c8",
+        "name": "Piero Kauffmann",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83c9",
+        "user": {
+          "_id": "64d6785b089bc502cea059be",
+          "avatarUrl": "/avatars/79a504d2b66aa256327c8d11243d41b0.svg",
+          "isPro": false,
+          "fullname": "Nikos Karampatziakis",
+          "user": "n17s",
+          "type": "user",
+          "name": "n17s"
+        },
+        "name": "Nikos Karampatziakis",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:23:34.411Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ca",
+        "user": {
+          "_id": "662476aec8920ec351b8d3d8",
+          "avatarUrl": "/avatars/791e40f53073563680ef18f75b3ea95e.svg",
+          "isPro": false,
+          "fullname": "Dongwoo Kim",
+          "user": "dongwookim-ms",
+          "type": "user",
+          "name": "dongwookim-ms"
+        },
+        "name": "Dongwoo Kim",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:23:48.587Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83cb",
+        "name": "Mahoud Khademi",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83cc",
+        "user": {
+          "_id": "635852141d66b442317cbe26",
+          "avatarUrl": "/avatars/bcf9164f6ac6393ffecc5f4383d12cbe.svg",
+          "isPro": false,
+          "fullname": "Lev Kurilenko",
+          "user": "lekurile",
+          "type": "user",
+          "name": "lekurile"
+        },
+        "name": "Lev Kurilenko",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:24:00.911Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83cd",
+        "name": "James R. Lee",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ce",
+        "user": {
+          "_id": "6303297604c75db08b8972e2",
+          "avatarUrl": "/avatars/693b2dada2244ba5d97df9518f473ccb.svg",
+          "isPro": false,
+          "fullname": "Yin Tat Lee",
+          "user": "yintat",
+          "type": "user",
+          "name": "yintat"
+        },
+        "name": "Yin Tat Lee",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:24:21.143Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83cf",
+        "user": {
+          "_id": "641d5a313f04f9bf2da17e8c",
+          "avatarUrl": "/avatars/4035f73c69ddb045573ad96db4f13f04.svg",
+          "isPro": false,
+          "fullname": "Yuanzhi Li",
+          "user": "Uushizhu1234",
+          "type": "user",
+          "name": "Uushizhu1234"
+        },
+        "name": "Yuanzhi Li",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:24:45.250Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d0",
+        "user": {
+          "_id": "63e6b5e22d2c508de9001afd",
+          "avatarUrl": "/avatars/43cec9e8b8d490bd259e383954846a1e.svg",
+          "isPro": false,
+          "fullname": "Chen Liang",
+          "user": "cliang1453",
+          "type": "user",
+          "name": "cliang1453"
+        },
+        "name": "Chen Liang",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-06-02T18:48:02.336Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d1",
+        "user": {
+          "_id": "637c3ac41c13d2970bf67625",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/637c3ac41c13d2970bf67625/K_KEPoWjj4k7EndHeU2Jt.png",
+          "isPro": false,
+          "fullname": "Weishung Liu ",
+          "user": "weish",
+          "type": "user",
+          "name": "weish"
+        },
+        "name": "Weishung Liu",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:24:59.941Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d2",
+        "name": "Eric Lin",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d3",
+        "name": "Zeqi Lin",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d4",
+        "user": {
+          "_id": "66269a329014ef4d10f55d9d",
+          "avatarUrl": "/avatars/d4866c32419a7dd07e9aa0660f4bafa9.svg",
+          "isPro": false,
+          "fullname": "Piyush Madan",
+          "user": "PiyushMadan",
+          "type": "user",
+          "name": "PiyushMadan"
+        },
+        "name": "Piyush Madan",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:25:40.367Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d5",
+        "name": "Arindam Mitra",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d6",
+        "user": {
+          "_id": "617c70112ee1adbd7739e7d5",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/1635545103491-noauth.jpeg",
+          "isPro": false,
+          "fullname": "Hardik Modi",
+          "user": "hardikmodi",
+          "type": "user",
+          "name": "hardikmodi"
+        },
+        "name": "Hardik Modi",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:26:10.428Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d7",
+        "user": {
+          "_id": "649bc84833486cdd77c01c66",
+          "avatarUrl": "/avatars/36f4e4bb15c337c4391bfbd234051f4c.svg",
+          "isPro": false,
+          "fullname": "Nguyen Anh",
+          "user": "Anhnguyen",
+          "type": "user",
+          "name": "Anhnguyen"
+        },
+        "name": "Anh Nguyen",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:26:19.012Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d8",
+        "user": {
+          "_id": "63200bb0b45367a05fef3049",
+          "avatarUrl": "/avatars/13e7a5c84d253c74112b3a6b058ae260.svg",
+          "isPro": false,
+          "fullname": "Brandon Norick",
+          "user": "bnorick",
+          "type": "user",
+          "name": "bnorick"
+        },
+        "name": "Brandon Norick",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:26:45.406Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83d9",
+        "name": "Barun Patra",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83da",
+        "name": "Daniel Perez-Becker",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83db",
+        "user": {
+          "_id": "65c52dad286bf45e79491697",
+          "avatarUrl": "/avatars/01ebc7979273df6e53971ae9835b503f.svg",
+          "isPro": false,
+          "fullname": "Thomas Portet",
+          "user": "thopo",
+          "type": "user",
+          "name": "thopo"
+        },
+        "name": "Thomas Portet",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:34:57.983Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83dc",
+        "user": {
+          "_id": "64e3d38c618cd90997ee0138",
+          "avatarUrl": "/avatars/847210a609b156fdb9d824cc815bde27.svg",
+          "isPro": false,
+          "fullname": "Reid Pryzant",
+          "user": "rpryzant",
+          "type": "user",
+          "name": "rpryzant"
+        },
+        "name": "Reid Pryzant",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:34:50.855Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83dd",
+        "user": {
+          "_id": "63bc6a611374e3ef9134a24e",
+          "avatarUrl": "/avatars/9df037b9cf7d7952a10d919e24a2ffa2.svg",
+          "isPro": false,
+          "fullname": "Heyang Qin",
+          "user": "heyangqin",
+          "type": "user",
+          "name": "heyangqin"
+        },
+        "name": "Heyang Qin",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:34:43.485Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83de",
+        "name": "Marko Radmilac",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83df",
+        "user": {
+          "_id": "64ec43147e2ec711a761c594",
+          "avatarUrl": "/avatars/e4fc3de141ff026eee6eaa0b91d34ff1.svg",
+          "isPro": false,
+          "fullname": "corby",
+          "user": "corbyrosset",
+          "type": "user",
+          "name": "corbyrosset"
+        },
+        "name": "Corby Rosset",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:34:30.505Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e0",
+        "name": "Sambudha Roy",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e1",
+        "user": {
+          "_id": "6477a7108ab7e732b6d86701",
+          "avatarUrl": "/avatars/3319db398ce8142bd7d61de1d2cd1b4b.svg",
+          "isPro": false,
+          "fullname": "Olli Saarikivi",
+          "user": "olsaarik",
+          "type": "user",
+          "name": "olsaarik"
+        },
+        "name": "Olli Saarikivi",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:34:13.500Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e2",
+        "name": "Amin Saied",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e3",
+        "name": "Adil Salim",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e4",
+        "user": {
+          "_id": "6626a4371ee17eac05a311ee",
+          "avatarUrl": "/avatars/0e0af517b715af3a7a4113855448702a.svg",
+          "isPro": false,
+          "fullname": "Michael Santacroce",
+          "user": "misantac",
+          "type": "user",
+          "name": "misantac"
+        },
+        "name": "Michael Santacroce",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:33:54.298Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e5",
+        "user": {
+          "_id": "5fea740dbb3114fa14c82934",
+          "avatarUrl": "/avatars/982a0b8fd622ed750480dcfb6b001c40.svg",
+          "isPro": false,
+          "fullname": "Shital Shah",
+          "user": "sytelus",
+          "type": "user",
+          "name": "sytelus"
+        },
+        "name": "Shital Shah",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:33:36.790Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e6",
+        "name": "Ning Shang",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e7",
+        "name": "Hiteshi Sharma",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e8",
+        "user": {
+          "_id": "630540f999870e13d3ddb997",
+          "avatarUrl": "/avatars/7dc53475142c0c5c3a04d7476682269d.svg",
+          "isPro": false,
+          "fullname": "Xia Song",
+          "user": "ssaaxx",
+          "type": "user",
+          "name": "ssaaxx"
+        },
+        "name": "Xia Song",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:32:42.218Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83e9",
+        "user": {
+          "_id": "6499d685ea2cdac80992e742",
+          "avatarUrl": "/avatars/c32741e7fc57c9a08722fab3877a7b81.svg",
+          "isPro": false,
+          "fullname": "Olatunji Ruwase",
+          "user": "tjruwase",
+          "type": "user",
+          "name": "tjruwase"
+        },
+        "name": "Olatunji Ruwase",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:32:31.128Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ea",
+        "name": "Xin Wang",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83eb",
+        "user": {
+          "_id": "6626ab758a19c27042ed5e73",
+          "avatarUrl": "/avatars/757f1fda0ce88a344d85bde05e468d9c.svg",
+          "isPro": false,
+          "fullname": "Rachel Ward",
+          "user": "rward314",
+          "type": "user",
+          "name": "rward314"
+        },
+        "name": "Rachel Ward",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:32:20.827Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ec",
+        "name": "Guanhua Wang",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ed",
+        "user": {
+          "_id": "64fcf02401aedd0e86e4b933",
+          "avatarUrl": "/avatars/602e8081d396101f537f773d873eb41b.svg",
+          "isPro": false,
+          "fullname": "Philipp Witte",
+          "user": "philippwitte",
+          "type": "user",
+          "name": "philippwitte"
+        },
+        "name": "Philipp Witte",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:30:48.497Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ee",
+        "user": {
+          "_id": "62910c52d1be2630c0d38a72",
+          "avatarUrl": "/avatars/40a72a10e3ea17809a09bde77360c194.svg",
+          "isPro": false,
+          "fullname": "Michael Wyatt",
+          "user": "mwyatt",
+          "type": "user",
+          "name": "mwyatt"
+        },
+        "name": "Michael Wyatt",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:30:36.125Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83ef",
+        "name": "Can Xu",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f0",
+        "user": {
+          "_id": "62abdf657b037eafffc48808",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/1655430982462-noauth.jpeg",
+          "isPro": false,
+          "fullname": "Jiahang Xu",
+          "user": "Jiahang",
+          "type": "user",
+          "name": "Jiahang"
+        },
+        "name": "Jiahang Xu",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:30:06.292Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f1",
+        "name": "Sonali Yadav",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f2",
+        "name": "Fan Yang",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f3",
+        "user": {
+          "_id": "646be72031968a60a021ddb3",
+          "avatarUrl": "/avatars/79f3766cf404fd180274dbc86ea4dac6.svg",
+          "isPro": false,
+          "fullname": "Ziyi Yang",
+          "user": "Ziyi-Yang",
+          "type": "user",
+          "name": "Ziyi-Yang"
+        },
+        "name": "Ziyi Yang",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-07-03T07:41:36.627Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f4",
+        "user": {
+          "_id": "65b01b8a29ae836e9ed5af24",
+          "avatarUrl": "/avatars/a8b78a4b54d3f10858c5925521357001.svg",
+          "isPro": false,
+          "fullname": "Donghan Yu",
+          "user": "donghanyu",
+          "type": "user",
+          "name": "donghanyu"
+        },
+        "name": "Donghan Yu",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:28:53.970Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f5",
+        "user": {
+          "_id": "64646896884f2e3e1ced3cd5",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/64646896884f2e3e1ced3cd5/86-t8V8LGMNaPQRXnADiD.png",
+          "isPro": false,
+          "fullname": "Zhang",
+          "user": "Chengruidong",
+          "type": "user",
+          "name": "Chengruidong"
+        },
+        "name": "Chengruidong Zhang",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:28:36.041Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f6",
+        "user": {
+          "_id": "63a6a3a93d8cc9b1183c6593",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/63a6a3a93d8cc9b1183c6593/UF-9ostqBHiAGDOuEtIw_.png",
+          "isPro": false,
+          "fullname": "Cyril Zhang",
+          "user": "cyrilzhang",
+          "type": "user",
+          "name": "cyrilzhang"
+        },
+        "name": "Cyril Zhang",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:28:23.642Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f7",
+        "user": {
+          "_id": "63601ee38fb9c2420ffbe45d",
+          "avatarUrl": "/avatars/56af091aaff1b42dcfbae84a6ee1e7f7.svg",
+          "isPro": true,
+          "fullname": "Jianwen Zhang",
+          "user": "jianwenzh",
+          "type": "user",
+          "name": "jianwenzh"
+        },
+        "name": "Jianwen Zhang",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:28:15.724Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f8",
+        "user": {
+          "_id": "62b0009c72043b05d29492b2",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/62b0009c72043b05d29492b2/NqRkX2YLhlfOLvYysa7dD.png",
+          "isPro": false,
+          "fullname": "Li Lyna Zhang",
+          "user": "lynazhang",
+          "type": "user",
+          "name": "lynazhang"
+        },
+        "name": "Li Lyna Zhang",
+        "status": "admin_assigned",
+        "statusLastChangedAt": "2024-04-23T07:28:03.688Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83f9",
+        "name": "Yi Zhang",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83fa",
+        "user": {
+          "_id": "6367f0be856a92b278915bb0",
+          "avatarUrl": "/avatars/6b36f53c74f0fa559aca5d4a8e3ed585.svg",
+          "isPro": false,
+          "fullname": "yunan",
+          "user": "yunan",
+          "type": "user",
+          "name": "yunan"
+        },
+        "name": "Yunan Zhang",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-04-24T11:11:55.084Z",
+        "hidden": false
+      },
+      {
+        "_id": "66271d7a322746c7bfca83fb",
+        "user": {
+          "_id": "66ce4c9f864befb39cfc74e9",
+          "avatarUrl": "/avatars/ef66398466c470fc1d384c6817d9e461.svg",
+          "isPro": false,
+          "fullname": "Xiren Zhou",
+          "user": "XirenZhou",
+          "type": "user",
+          "name": "XirenZhou"
+        },
+        "name": "Xiren Zhou",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2024-08-28T08:01:22.806Z",
+        "hidden": false
+      }
+    ],
+    "publishedDate": "2024-04-22T14:32:33.000Z",
+    "hfUpvotes": 262,
+    "githubRepo": null,
+    "githubStars": null,
+    "aiSummary": "Phi-3-mini, a compact 3.8 billion parameter language model, achieves competitive performance with larger models through an enhanced training dataset and alignment.",
+    "aiKeywords": [
+      "language model",
+      "MMLU",
+      "MT-bench",
+      "robustness",
+      "safety",
+      "chat format",
+      "parameter-scaling"
+    ],
+    "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2404.14219.png",
+    "summary": "Advanced research in We introduce phi-3-mini, a 3.8 billion parameter language model trained on\n3.3 trillion tokens, whos. Key innovations with practical applications.",
+    "tags": [
+      "Research",
+      "AI",
+      "Innovation"
+    ],
+    "primaryCategory": "AI"
+  }
+]
