@@ -30,7 +30,7 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          add: 'data/papers_all.json data/raw/*.json'
+          add: 'data/papers_all.json'
           message: 'Daily: fetch new papers from HuggingFace'
           default_author: github_actions
           push: true
