@@ -619,7 +619,8 @@
             </div>
 
             <div class="control-row">
-                <label>Date:</label>
+                <button id="toggleShowByDate" class="secondary">📅 Show by Date (ON)</button>
+                <label id="dateLabel">Date:</label>
                 <button id="prevDateBtn" class="secondary">← Previous</button>
                 <select id="dateSelector" style="min-width: 150px;"></select>
                 <button id="nextDateBtn" class="secondary">Next →</button>
@@ -657,7 +658,8 @@
             currentPage: 1,
             pageSize: 24,
             allDates: [],          // All unique dates in papers (sorted descending)
-            selectedDate: null     // Currently selected date for pagination
+            selectedDate: null,    // Currently selected date for pagination
+            showByDate: true       // Toggle between date-based view and full database
         };
 
         async function loadData() {
@@ -883,6 +885,31 @@
                 render();
             });
 
+            document.getElementById('toggleShowByDate').addEventListener('click', () => {
+                state.showByDate = !state.showByDate;
+                state.currentPage = 1;
+                const btn = document.getElementById('toggleShowByDate');
+                const dateLabel = document.getElementById('dateLabel');
+                const prevBtn = document.getElementById('prevDateBtn');
+                const nextBtn = document.getElementById('nextDateBtn');
+                const dateSelector = document.getElementById('dateSelector');
+
+                if (state.showByDate) {
+                    btn.textContent = '📅 Show by Date (ON)';
+                    dateLabel.style.display = 'block';
+                    prevBtn.style.display = 'block';
+                    nextBtn.style.display = 'block';
+                    dateSelector.style.display = 'block';
+                } else {
+                    btn.textContent = '📅 Show by Date (OFF)';
+                    dateLabel.style.display = 'none';
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                    dateSelector.style.display = 'none';
+                }
+                render();
+            });
+
             // Populate date selector and add listeners
             populateDateSelector();
 
@@ -961,8 +988,8 @@
         function filterPapers() {
             let filtered = state.papers;
 
-            // Filter by selected date
-            if (state.selectedDate) {
+            // Filter by selected date only if showByDate is enabled
+            if (state.showByDate && state.selectedDate) {
                 filtered = filtered.filter(paper => {
                     const paperDate = paper.publishedDate.split('T')[0];
                     return paperDate === state.selectedDate;
