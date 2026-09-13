@@ -749,6 +749,8 @@
                 btn.textContent = originalText;
             }, 1000);
         }
+
+        function analyzeTopTags() {
             // Count tag frequencies from all papers
             const tagCount = {};
             state.papers.forEach(paper => {
