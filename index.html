@@ -709,10 +709,81 @@
             min-width: 80px;
             text-align: center;
         }
+
+        /* GitHub Preview Styles */
+        .github-preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+
+        .github-preview-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .github-preview-modal {
+            background: var(--bg);
+            border-radius: 8px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+            width: 90vw;
+            height: 90vh;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .github-preview-overlay.active .github-preview-modal {
+            transform: scale(1);
+        }
+
+        .github-preview-content {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            position: relative;
+            padding: 0;
+        }
+
+        .github-preview-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0;
+        }
+
+        .github-preview-placeholder {
+            color: var(--text-light);
+            text-align: center;
+            font-size: 1.1em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
     </style>
 </head>
 <body>
-    <!-- Preview Modal -->
+    <!-- PDF Preview Modal -->
     <div id="previewOverlay" class="preview-overlay">
         <div class="preview-modal">
             <div class="preview-header">
@@ -726,6 +797,13 @@
                 <div class="preview-page-count" id="previewPageCount"></div>
                 <button class="preview-btn icon-only" id="previewNext">Next →</button>
             </div>
+        </div>
+    </div>
+
+    <!-- GitHub Preview Modal -->
+    <div id="githubPreviewOverlay" class="github-preview-overlay">
+        <div class="github-preview-modal">
+            <div id="githubPreviewContent" class="github-preview-content"></div>
         </div>
     </div>
 
@@ -792,6 +870,64 @@
     </div>
 
     <script>
+        // GitHub Preview Manager - Opens in a popup window
+        const githubPreview = {
+            currentUrl: null,
+            popupWindow: null,
+            hoverTimeout: null,
+            isPopupActive: false,
+
+            init() {
+                // Listen for when popup is closed by user
+                setInterval(() => {
+                    if (this.popupWindow && this.popupWindow.closed && this.isPopupActive) {
+                        this.isPopupActive = false;
+                    }
+                }, 500);
+            },
+
+            show(url) {
+                if (!url) return;
+                this.currentUrl = url;
+
+                // Don't open if one is already open
+                if (this.popupWindow && !this.popupWindow.closed) {
+                    this.popupWindow.focus();
+                    return;
+                }
+
+                // Open GitHub in a popup window
+                const width = 1000;
+                const height = 800;
+                const left = window.screenX + (window.outerWidth - width) / 2;
+                const top = window.screenY + (window.outerHeight - height) / 2;
+
+                this.popupWindow = window.open(
+                    url,
+                    'github-preview',
+                    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,menubar=yes,toolbar=yes,location=yes`
+                );
+
+                // Focus the popup
+                if (this.popupWindow) {
+                    this.popupWindow.focus();
+                    this.isPopupActive = true;
+                } else {
+                    // Fallback if popup blocked
+                    window.open(url, '_blank');
+                }
+            },
+
+            close() {
+                clearTimeout(this.hoverTimeout);
+                if (this.popupWindow && !this.popupWindow.closed) {
+                    this.popupWindow.close();
+                }
+                this.isPopupActive = false;
+                this.currentUrl = null;
+            }
+        };
+
         // Preview Manager
         const preview = {
             currentPaper: null,
@@ -1068,8 +1204,9 @@
         }
 
         function initializeUI() {
-            // Initialize preview manager
+            // Initialize preview managers
             preview.init();
+            githubPreview.init();
 
             // Analyze and populate tag buttons
             analyzeTopTags();
@@ -1318,13 +1455,13 @@
                     <div class="section">
                         <div class="paper-links">
                             ${paper.paperPage ? `<a href="${paper.paperPage}" target="_blank" class="link-button">📄 HF Page</a>` : ''}
-                            ${paper.githubRepo ? `<a href="${paper.githubRepo}" target="_blank" class="link-button">🔗 GitHub</a>` : ''}
+                            ${paper.githubRepo ? `<a href="${paper.githubRepo}" class="link-button github-link" data-github-url="${escapeHtml(paper.githubRepo)}">🔗 GitHub</a>` : ''}
                         </div>
                     </div>
                 </div>
             `;
 
-            // Add hover preview handler
+            // Add hover preview handler for PDF
             const thumbnailWrapper = card.querySelector('.thumbnail-wrapper');
             if (thumbnailWrapper) {
                 thumbnailWrapper.addEventListener('mouseenter', () => {
@@ -1335,6 +1472,28 @@
 
                 thumbnailWrapper.addEventListener('mouseleave', () => {
                     clearTimeout(preview.hoverTimeout);
+                });
+            }
+
+            // Add hover preview handler for GitHub link
+            const githubLink = card.querySelector('.github-link');
+            if (githubLink) {
+                githubLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const url = githubLink.dataset.githubUrl;
+                    githubPreview.show(url);
+                });
+
+                githubLink.addEventListener('mouseenter', () => {
+                    githubPreview.hoverTimeout = setTimeout(() => {
+                        const url = githubLink.dataset.githubUrl;
+                        githubPreview.show(url);
+                    }, 1000); // 1 second delay
+                });
+
+                githubLink.addEventListener('mouseleave', () => {
+                    clearTimeout(githubPreview.hoverTimeout);
+                    // Don't auto-close - let user manage the popup
                 });
             }
 
