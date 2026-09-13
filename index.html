@@ -122,6 +122,29 @@
             background: var(--text-light);
         }
 
+        .fetch-btn {
+            padding: 10px 16px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .fetch-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .fetch-btn.loading {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .tag-filter {
             display: flex;
             gap: 8px;
@@ -549,11 +572,16 @@
 <body>
     <div class="container">
         <header>
-            <h1>📚 HuggingFace Daily Papers Explorer</h1>
-            <p class="subtitle">
-                Browse, filter, and compare research papers from HuggingFace Daily Papers.
-                Sorted by GitHub stars, relevance, or latest. Click tags to filter or a paper to select for comparison.
-            </p>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
+                <div>
+                    <h1>📚 HuggingFace Daily Papers Explorer</h1>
+                    <p class="subtitle">
+                        Browse, filter, and compare research papers from HuggingFace Daily Papers.
+                        Sorted by GitHub stars, relevance, or latest. Click tags to filter or a paper to select for comparison.
+                    </p>
+                </div>
+                <button id="fetchBtn" class="fetch-btn" title="Manually trigger paper fetch from HuggingFace">⬇️ Fetch Now</button>
+            </div>
         </header>
 
         <div class="controls">
@@ -689,7 +717,35 @@
             return Array.from(tags).sort();
         }
 
-        function analyzeTopTags() {
+        function triggerFetchWorkflow() {
+            const btn = document.getElementById('fetchBtn');
+            const repoOwner = 'davidsonic';
+            const repoName = 'papers';
+            const workflowId = 'daily-fetch.yml';
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+            const originalText = btn.textContent;
+            btn.textContent = '⏳ Triggering...';
+
+            // Note: This requires a GitHub token with workflow permissions.
+            // Since we can't store tokens client-side, we'll provide instructions
+            // and open the GitHub Actions page instead.
+            const url = `https://github.com/${repoOwner}/${repoName}/actions/workflows/${workflowId}`;
+
+            // Show alert with instructions
+            alert(`Opening GitHub Actions workflow...\n\nSteps:\n1. Click "Run workflow" on the next page\n2. The fetch will run in ~30 seconds\n3. Return here and refresh the page to see new papers!\n\nURL: ${url}`);
+
+            // Open GitHub Actions page
+            window.open(url, '_blank');
+
+            // Reset button
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }, 1000);
+        }
             // Count tag frequencies from all papers
             const tagCount = {};
             state.papers.forEach(paper => {
@@ -763,6 +819,9 @@
                 state.searchTerm = e.target.value.toLowerCase();
                 render();
             });
+
+            // Fetch papers button
+            document.getElementById('fetchBtn').addEventListener('click', triggerFetchWorkflow);
 
             // Sort by buttons
             document.querySelectorAll('.sort-btn').forEach(btn => {
