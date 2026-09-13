@@ -610,8 +610,6 @@
             </div>
 
             <div class="control-row">
-                <label>Tags (Top by frequency)</label>
-                <div id="tagFilter" class="tag-filter"></div>
                 <div class="tag-input-group">
                     <input type="text" id="customTagInput" placeholder="Add custom tag...">
                     <button id="addTagBtn">Add</button>
@@ -786,6 +784,8 @@
 
         function populateTagButtons() {
             const tagFilter = document.getElementById('tagFilter');
+            if (!tagFilter) return; // Tag filter removed from UI, skip population
+
             tagFilter.innerHTML = '';
 
             // Show top tags with frequency
