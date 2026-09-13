@@ -558,7 +558,7 @@
 
         .preview-modal {
             background: var(--bg);
-            border-radius: 16px;
+            border-radius: 8px;
             box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
             display: flex;
             flex-direction: column;
@@ -575,12 +575,7 @@
         }
 
         .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 20px;
-            border-bottom: none;
-            background: transparent;
+            display: none;
         }
 
         .preview-title {
@@ -628,7 +623,7 @@
             justify-content: center;
             background: var(--bg);
             position: relative;
-            padding: 40px;
+            padding: 0;
         }
 
         .preview-content::-webkit-scrollbar {
@@ -863,7 +858,7 @@
                 iframe.style.width = '100%';
                 iframe.style.height = '100%';
                 iframe.style.border = 'none';
-                iframe.style.borderRadius = '8px';
+                iframe.style.borderRadius = '0';
                 iframe.title = 'PDF Preview';
 
                 iframe.onerror = () => {
