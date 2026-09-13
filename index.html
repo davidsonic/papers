@@ -662,7 +662,9 @@
 
                 // Try papers_all.json (full archive with 13,990+ papers)
                 try {
-                    const allPapersResp = await fetch('data/papers_all.json', {timeout: 30000});
+                    // Add cache-busting query param to force fresh fetch
+                    const cacheBuster = `?t=${Date.now()}`;
+                    const allPapersResp = await fetch(`data/papers_all.json${cacheBuster}`, {timeout: 30000});
                     if (allPapersResp.ok) {
                         papers = await allPapersResp.json();
                         console.log(`Loaded ${papers.length} papers from papers_all.json`);
