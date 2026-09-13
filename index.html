@@ -619,7 +619,10 @@
             </div>
 
             <div class="control-row">
-                <button id="toggleLatestDate" class="secondary">📅 Latest Date Only (ON)</button>
+                <label>Date:</label>
+                <button id="prevDateBtn" class="secondary">← Previous</button>
+                <select id="dateSelector" style="min-width: 150px;"></select>
+                <button id="nextDateBtn" class="secondary">Next →</button>
                 <button id="clearFilters">Clear Filters</button>
                 <button id="toggleCompare" class="secondary">Compare Selected</button>
             </div>
@@ -653,7 +656,8 @@
             showCompare: false,
             currentPage: 1,
             pageSize: 24,
-            latestDateOnly: true   // Show only papers from latest date by default
+            allDates: [],          // All unique dates in papers (sorted descending)
+            selectedDate: null     // Currently selected date for pagination
         };
 
         async function loadData() {
@@ -696,6 +700,11 @@
 
                 state.papers = papers;
                 state.tags = tags;
+
+                // Extract all unique dates and sort descending (latest first)
+                const uniqueDates = [...new Set(papers.map(p => p.publishedDate.split('T')[0]))];
+                state.allDates = uniqueDates.sort().reverse();
+                state.selectedDate = state.allDates[0]; // Select latest date by default
 
                 initializeUI();
                 render();
@@ -818,6 +827,20 @@
             render();
         }
 
+        function populateDateSelector() {
+            const selector = document.getElementById('dateSelector');
+            selector.innerHTML = '';
+            state.allDates.forEach(date => {
+                const option = document.createElement('option');
+                option.value = date;
+                option.textContent = date;
+                if (date === state.selectedDate) {
+                    option.selected = true;
+                }
+                selector.appendChild(option);
+            });
+        }
+
         function initializeUI() {
             // Analyze and populate tag buttons
             analyzeTopTags();
@@ -860,12 +883,33 @@
                 render();
             });
 
-            document.getElementById('toggleLatestDate').addEventListener('click', () => {
-                state.latestDateOnly = !state.latestDateOnly;
+            // Populate date selector and add listeners
+            populateDateSelector();
+
+            document.getElementById('dateSelector').addEventListener('change', (e) => {
+                state.selectedDate = e.target.value;
                 state.currentPage = 1;
-                const btn = document.getElementById('toggleLatestDate');
-                btn.textContent = state.latestDateOnly ? '📅 Latest Date Only (ON)' : '📅 Latest Date Only (OFF)';
                 render();
+            });
+
+            document.getElementById('prevDateBtn').addEventListener('click', () => {
+                const currentIdx = state.allDates.indexOf(state.selectedDate);
+                if (currentIdx < state.allDates.length - 1) {
+                    state.selectedDate = state.allDates[currentIdx + 1];
+                    state.currentPage = 1;
+                    document.getElementById('dateSelector').value = state.selectedDate;
+                    render();
+                }
+            });
+
+            document.getElementById('nextDateBtn').addEventListener('click', () => {
+                const currentIdx = state.allDates.indexOf(state.selectedDate);
+                if (currentIdx > 0) {
+                    state.selectedDate = state.allDates[currentIdx - 1];
+                    state.currentPage = 1;
+                    document.getElementById('dateSelector').value = state.selectedDate;
+                    render();
+                }
             });
 
             // Page size selector
@@ -917,13 +961,11 @@
         function filterPapers() {
             let filtered = state.papers;
 
-            // Filter to latest date only (by default)
-            if (state.latestDateOnly && state.papers.length > 0) {
-                const latestDate = new Date(Math.max(...state.papers.map(p => new Date(p.publishedDate))));
-                const latestDateStr = latestDate.toISOString().split('T')[0];
+            // Filter by selected date
+            if (state.selectedDate) {
                 filtered = filtered.filter(paper => {
                     const paperDate = paper.publishedDate.split('T')[0];
-                    return paperDate === latestDateStr;
+                    return paperDate === state.selectedDate;
                 });
             }
 
