@@ -619,6 +619,7 @@
             </div>
 
             <div class="control-row">
+                <button id="toggleLatestDate" class="secondary">📅 Latest Date Only (ON)</button>
                 <button id="clearFilters">Clear Filters</button>
                 <button id="toggleCompare" class="secondary">Compare Selected</button>
             </div>
@@ -651,7 +652,8 @@
             sortBy: 'upvotes',
             showCompare: false,
             currentPage: 1,
-            pageSize: 24
+            pageSize: 24,
+            latestDateOnly: true   // Show only papers from latest date by default
         };
 
         async function loadData() {
@@ -858,6 +860,14 @@
                 render();
             });
 
+            document.getElementById('toggleLatestDate').addEventListener('click', () => {
+                state.latestDateOnly = !state.latestDateOnly;
+                state.currentPage = 1;
+                const btn = document.getElementById('toggleLatestDate');
+                btn.textContent = state.latestDateOnly ? '📅 Latest Date Only (ON)' : '📅 Latest Date Only (OFF)';
+                render();
+            });
+
             // Page size selector
             document.getElementById('pageSize').addEventListener('change', (e) => {
                 state.pageSize = parseInt(e.target.value);
@@ -905,7 +915,19 @@
         }
 
         function filterPapers() {
-            return state.papers.filter(paper => {
+            let filtered = state.papers;
+
+            // Filter to latest date only (by default)
+            if (state.latestDateOnly && state.papers.length > 0) {
+                const latestDate = new Date(Math.max(...state.papers.map(p => new Date(p.publishedDate))));
+                const latestDateStr = latestDate.toISOString().split('T')[0];
+                filtered = filtered.filter(paper => {
+                    const paperDate = paper.publishedDate.split('T')[0];
+                    return paperDate === latestDateStr;
+                });
+            }
+
+            return filtered.filter(paper => {
                 // Search filter
                 if (state.searchTerm) {
                     const searchable = `${paper.title} ${paper.abstract}`.toLowerCase();
