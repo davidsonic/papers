@@ -1036,10 +1036,22 @@
 
             const pubDate = new Date(paper.publishedDate).toLocaleDateString();
 
-            // Thumbnail HTML
-            const thumbnailHtml = paper.thumbnail
-                ? `<img src="${escapeHtml(paper.thumbnail)}" alt="${escapeHtml(paper.title)}" class="paper-thumbnail" onerror="this.style.display='none'">`
-                : `<div class="paper-thumbnail placeholder">📄 No preview</div>`;
+            // Thumbnail HTML - support videos and images
+            let thumbnailHtml;
+            if (paper.thumbnail) {
+                const isVideo = /\.(mp4|webm|mov|avi)$/i.test(paper.thumbnail);
+                if (isVideo) {
+                    // User-uploaded video
+                    thumbnailHtml = `<video class="paper-thumbnail" autoplay loop muted playsinline onerror="this.style.display='none'">
+                        <source src="${escapeHtml(paper.thumbnail)}" type="video/mp4">
+                    </video>`;
+                } else {
+                    // Static image
+                    thumbnailHtml = `<img src="${escapeHtml(paper.thumbnail)}" alt="${escapeHtml(paper.title)}" class="paper-thumbnail" onerror="this.style.display='none'">`;
+                }
+            } else {
+                thumbnailHtml = `<div class="paper-thumbnail placeholder">📄 No preview</div>`;
+            }
 
             card.innerHTML = `
                 ${thumbnailHtml}
@@ -1120,9 +1132,19 @@
             selectedPapers.forEach(paper => {
                 const card = document.createElement('div');
                 card.className = 'compare-card';
-                const thumbnailHtml = paper.thumbnail
-                    ? `<img src="${escapeHtml(paper.thumbnail)}" alt="${escapeHtml(paper.title)}" class="paper-thumbnail" onerror="this.style.display='none'" style="margin-bottom: 12px;">`
-                    : `<div class="paper-thumbnail placeholder" style="margin-bottom: 12px;">📄 No preview</div>`;
+                let thumbnailHtml;
+                if (paper.thumbnail) {
+                    const isVideo = /\.(mp4|webm|mov|avi)$/i.test(paper.thumbnail);
+                    if (isVideo) {
+                        thumbnailHtml = `<video class="paper-thumbnail" autoplay loop muted playsinline onerror="this.style.display='none'" style="margin-bottom: 12px;">
+                            <source src="${escapeHtml(paper.thumbnail)}" type="video/mp4">
+                        </video>`;
+                    } else {
+                        thumbnailHtml = `<img src="${escapeHtml(paper.thumbnail)}" alt="${escapeHtml(paper.title)}" class="paper-thumbnail" onerror="this.style.display='none'" style="margin-bottom: 12px;">`;
+                    }
+                } else {
+                    thumbnailHtml = `<div class="paper-thumbnail placeholder" style="margin-bottom: 12px;">📄 No preview</div>`;
+                }
                 card.innerHTML = `
                     ${thumbnailHtml}
                     <div class="compare-title">${escapeHtml(paper.title)}</div>
