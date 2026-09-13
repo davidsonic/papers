@@ -610,13 +610,6 @@
             </div>
 
             <div class="control-row">
-                <div class="tag-input-group">
-                    <input type="text" id="customTagInput" placeholder="Add custom tag...">
-                    <button id="addTagBtn">Add</button>
-                </div>
-            </div>
-
-            <div class="control-row">
                 <button id="toggleShowByDate" class="secondary">📅 Show by Date (ON)</button>
                 <label id="dateLabel">Date:</label>
                 <button id="prevDateBtn" class="secondary">← Previous</button>
@@ -947,19 +940,6 @@
             });
 
             // Custom tag input
-            document.getElementById('addTagBtn').addEventListener('click', () => {
-                const input = document.getElementById('customTagInput');
-                if (input.value.trim()) {
-                    addCustomTag(input.value);
-                    input.value = '';
-                }
-            });
-
-            document.getElementById('customTagInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    document.getElementById('addTagBtn').click();
-                }
-            });
         }
 
         function toggleTag(tag) {
