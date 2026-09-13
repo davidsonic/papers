@@ -531,9 +531,209 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* Preview Modal Styles */
+        .preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+
+        .preview-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .preview-modal {
+            background: var(--bg);
+            border-radius: 16px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+            width: 95vw;
+            height: 95vh;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .preview-overlay.active .preview-modal {
+            transform: scale(1);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: none;
+            background: transparent;
+        }
+
+        .preview-title {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--text);
+            flex: 1;
+            margin-right: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            opacity: 0.8;
+        }
+
+        .preview-page-info {
+            display: none;
+        }
+
+        .preview-close {
+            background: rgba(0, 0, 0, 0.08);
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1em;
+            padding: 4px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border-radius: 6px;
+        }
+
+        .preview-close:hover {
+            background: rgba(0, 0, 0, 0.12);
+            color: var(--text);
+        }
+
+        .preview-content {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            position: relative;
+            padding: 40px;
+        }
+
+        .preview-content::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .preview-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .preview-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+        }
+
+        .preview-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .preview-content::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .preview-content::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+
+        .preview-placeholder {
+            color: var(--text-light);
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .preview-controls {
+            display: none;
+        }
+
+        .preview-btn {
+            padding: 6px 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .preview-btn:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+
+        .preview-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .preview-btn.icon-only {
+            padding: 6px 10px;
+            font-size: 1em;
+        }
+
+        .preview-page-count {
+            font-size: 0.9em;
+            color: var(--text-light);
+            min-width: 80px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <!-- Preview Modal -->
+    <div id="previewOverlay" class="preview-overlay">
+        <div class="preview-modal">
+            <div class="preview-header">
+                <div class="preview-title" id="previewTitle"></div>
+                <div class="preview-page-info" id="previewPageInfo"></div>
+                <button class="preview-close" id="previewClose">✕</button>
+            </div>
+            <div class="preview-content" id="previewContent"></div>
+            <div class="preview-controls" id="previewControls">
+                <button class="preview-btn icon-only" id="previewPrev">← Prev</button>
+                <div class="preview-page-count" id="previewPageCount"></div>
+                <button class="preview-btn icon-only" id="previewNext">Next →</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
@@ -597,6 +797,83 @@
     </div>
 
     <script>
+        // Preview Manager
+        const preview = {
+            currentPaper: null,
+            hoverTimeout: null,
+
+            init() {
+                const overlay = document.getElementById('previewOverlay');
+                const closeBtn = document.getElementById('previewClose');
+
+                // Close on overlay click
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        this.close();
+                    }
+                });
+
+                // Close button
+                closeBtn.addEventListener('click', () => this.close());
+
+                // Keyboard shortcut
+                document.addEventListener('keydown', (e) => {
+                    if (!overlay.classList.contains('active')) return;
+                    if (e.key === 'Escape') {
+                        this.close();
+                    }
+                });
+            },
+
+            show(paper) {
+                this.currentPaper = paper;
+
+                document.getElementById('previewTitle').textContent = paper.title;
+                this.renderContent();
+
+                const overlay = document.getElementById('previewOverlay');
+                overlay.classList.add('active');
+            },
+
+            close() {
+                const overlay = document.getElementById('previewOverlay');
+                overlay.classList.remove('active');
+                clearTimeout(this.hoverTimeout);
+                this.currentPaper = null;
+            },
+
+            renderContent() {
+                const content = document.getElementById('previewContent');
+                const paper = this.currentPaper;
+
+                if (!paper) {
+                    content.innerHTML = '<div class="preview-placeholder">No preview available</div>';
+                    return;
+                }
+
+                // Clear previous content
+                content.innerHTML = '';
+
+                // Construct arXiv PDF URL from paper ID
+                const pdfUrl = `https://arxiv.org/pdf/${paper.id}.pdf`;
+
+                const iframe = document.createElement('iframe');
+                iframe.className = 'preview-pdf';
+                iframe.src = pdfUrl;
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                iframe.style.borderRadius = '8px';
+                iframe.title = 'PDF Preview';
+
+                iframe.onerror = () => {
+                    content.innerHTML = '<div class="preview-placeholder">❌ PDF not available</div>';
+                };
+
+                content.appendChild(iframe);
+            }
+        };
+
         const state = {
             papers: [],
             tags: [],
@@ -796,6 +1073,9 @@
         }
 
         function initializeUI() {
+            // Initialize preview manager
+            preview.init();
+
             // Analyze and populate tag buttons
             analyzeTopTags();
             populateTagButtons();
@@ -978,6 +1258,7 @@
         function renderPaperCard(paper) {
             const card = document.createElement('div');
             card.className = 'paper-card';
+            card.dataset.paperId = state.papers.indexOf(paper);
 
             const authorNames = paper.authors && paper.authors.length > 0
                 ? paper.authors.slice(0, 3).map(a => a.name || 'Unknown').join(', ')
@@ -992,15 +1273,21 @@
                 const isVideo = /\.(mp4|webm|mov|avi)$/i.test(paper.thumbnail);
                 if (isVideo) {
                     // User-uploaded video
-                    thumbnailHtml = `<video class="paper-thumbnail" autoplay loop muted playsinline onerror="this.style.display='none'">
-                        <source src="${escapeHtml(paper.thumbnail)}" type="video/mp4">
-                    </video>`;
+                    thumbnailHtml = `<div class="thumbnail-wrapper" style="cursor: pointer;">
+                        <video class="paper-thumbnail" autoplay loop muted playsinline onerror="this.style.display='none'">
+                            <source src="${escapeHtml(paper.thumbnail)}" type="video/mp4">
+                        </video>
+                    </div>`;
                 } else {
                     // Static image
-                    thumbnailHtml = `<img src="${escapeHtml(paper.thumbnail)}" alt="${escapeHtml(paper.title)}" class="paper-thumbnail" onerror="this.style.display='none'">`;
+                    thumbnailHtml = `<div class="thumbnail-wrapper" style="cursor: pointer;">
+                        <img src="${escapeHtml(paper.thumbnail)}" alt="${escapeHtml(paper.title)}" class="paper-thumbnail" onerror="this.style.display='none'">
+                    </div>`;
                 }
             } else {
-                thumbnailHtml = `<div class="paper-thumbnail placeholder">📄 No preview</div>`;
+                thumbnailHtml = `<div class="thumbnail-wrapper" style="cursor: pointer;">
+                    <div class="paper-thumbnail placeholder">📄 No preview</div>
+                </div>`;
             }
 
             card.innerHTML = `
@@ -1042,6 +1329,19 @@
                 </div>
             `;
 
+            // Add hover preview handler
+            const thumbnailWrapper = card.querySelector('.thumbnail-wrapper');
+            if (thumbnailWrapper) {
+                thumbnailWrapper.addEventListener('mouseenter', () => {
+                    preview.hoverTimeout = setTimeout(() => {
+                        preview.show(paper);
+                    }, 1000); // 1 second delay
+                });
+
+                thumbnailWrapper.addEventListener('mouseleave', () => {
+                    clearTimeout(preview.hoverTimeout);
+                });
+            }
 
             return card;
         }
