@@ -619,6 +619,11 @@
             </div>
 
             <div class="control-row">
+                <button id="toggleShowByDate" class="secondary">📅 Show by Date (ON)</button>
+                <label id="dateLabel">Date:</label>
+                <button id="prevDateBtn" class="secondary">← Previous</button>
+                <select id="dateSelector" style="min-width: 150px;"></select>
+                <button id="nextDateBtn" class="secondary">Next →</button>
                 <button id="clearFilters">Clear Filters</button>
                 <button id="toggleCompare" class="secondary">Compare Selected</button>
             </div>
@@ -651,7 +656,10 @@
             sortBy: 'upvotes',
             showCompare: false,
             currentPage: 1,
-            pageSize: 24
+            pageSize: 24,
+            allDates: [],          // All unique dates in papers (sorted descending)
+            selectedDate: null,    // Currently selected date for pagination
+            showByDate: true       // Toggle between date-based view and full database
         };
 
         async function loadData() {
@@ -662,7 +670,9 @@
 
                 // Try papers_all.json (full archive with 13,990+ papers)
                 try {
-                    const allPapersResp = await fetch('data/papers_all.json', {timeout: 30000});
+                    // Add cache-busting query param to force fresh fetch
+                    const cacheBuster = `?t=${Date.now()}`;
+                    const allPapersResp = await fetch(`data/papers_all.json${cacheBuster}`, {timeout: 30000});
                     if (allPapersResp.ok) {
                         papers = await allPapersResp.json();
                         console.log(`Loaded ${papers.length} papers from papers_all.json`);
@@ -692,6 +702,11 @@
 
                 state.papers = papers;
                 state.tags = tags;
+
+                // Extract all unique dates and sort descending (latest first)
+                const uniqueDates = [...new Set(papers.map(p => p.publishedDate.split('T')[0]))];
+                state.allDates = uniqueDates.sort().reverse();
+                state.selectedDate = state.allDates[0]; // Select latest date by default
 
                 initializeUI();
                 render();
@@ -814,6 +829,20 @@
             render();
         }
 
+        function populateDateSelector() {
+            const selector = document.getElementById('dateSelector');
+            selector.innerHTML = '';
+            state.allDates.forEach(date => {
+                const option = document.createElement('option');
+                option.value = date;
+                option.textContent = date;
+                if (date === state.selectedDate) {
+                    option.selected = true;
+                }
+                selector.appendChild(option);
+            });
+        }
+
         function initializeUI() {
             // Analyze and populate tag buttons
             analyzeTopTags();
@@ -854,6 +883,60 @@
             document.getElementById('toggleCompare').addEventListener('click', () => {
                 state.showCompare = !state.showCompare;
                 render();
+            });
+
+            document.getElementById('toggleShowByDate').addEventListener('click', () => {
+                state.showByDate = !state.showByDate;
+                state.currentPage = 1;
+                const btn = document.getElementById('toggleShowByDate');
+                const dateLabel = document.getElementById('dateLabel');
+                const prevBtn = document.getElementById('prevDateBtn');
+                const nextBtn = document.getElementById('nextDateBtn');
+                const dateSelector = document.getElementById('dateSelector');
+
+                if (state.showByDate) {
+                    btn.textContent = '📅 Show by Date (ON)';
+                    dateLabel.style.display = 'block';
+                    prevBtn.style.display = 'block';
+                    nextBtn.style.display = 'block';
+                    dateSelector.style.display = 'block';
+                } else {
+                    btn.textContent = '📅 Show by Date (OFF)';
+                    dateLabel.style.display = 'none';
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                    dateSelector.style.display = 'none';
+                }
+                render();
+            });
+
+            // Populate date selector and add listeners
+            populateDateSelector();
+
+            document.getElementById('dateSelector').addEventListener('change', (e) => {
+                state.selectedDate = e.target.value;
+                state.currentPage = 1;
+                render();
+            });
+
+            document.getElementById('prevDateBtn').addEventListener('click', () => {
+                const currentIdx = state.allDates.indexOf(state.selectedDate);
+                if (currentIdx < state.allDates.length - 1) {
+                    state.selectedDate = state.allDates[currentIdx + 1];
+                    state.currentPage = 1;
+                    document.getElementById('dateSelector').value = state.selectedDate;
+                    render();
+                }
+            });
+
+            document.getElementById('nextDateBtn').addEventListener('click', () => {
+                const currentIdx = state.allDates.indexOf(state.selectedDate);
+                if (currentIdx > 0) {
+                    state.selectedDate = state.allDates[currentIdx - 1];
+                    state.currentPage = 1;
+                    document.getElementById('dateSelector').value = state.selectedDate;
+                    render();
+                }
             });
 
             // Page size selector
@@ -903,7 +986,17 @@
         }
 
         function filterPapers() {
-            return state.papers.filter(paper => {
+            let filtered = state.papers;
+
+            // Filter by selected date only if showByDate is enabled
+            if (state.showByDate && state.selectedDate) {
+                filtered = filtered.filter(paper => {
+                    const paperDate = paper.publishedDate.split('T')[0];
+                    return paperDate === state.selectedDate;
+                });
+            }
+
+            return filtered.filter(paper => {
                 // Search filter
                 if (state.searchTerm) {
                     const searchable = `${paper.title} ${paper.abstract}`.toLowerCase();
