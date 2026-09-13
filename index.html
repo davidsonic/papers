@@ -890,15 +890,16 @@
                 if (!url) return;
                 this.currentUrl = url;
 
-                // Don't open if one is already open
+                // If popup already exists, navigate to new URL
                 if (this.popupWindow && !this.popupWindow.closed) {
+                    this.popupWindow.location.href = url;
                     this.popupWindow.focus();
                     return;
                 }
 
-                // Open GitHub in a popup window
-                const width = 1000;
-                const height = 800;
+                // Open GitHub in a popup window - larger size
+                const width = 1400;
+                const height = 1000;
                 const left = window.screenX + (window.outerWidth - width) / 2;
                 const top = window.screenY + (window.outerHeight - height) / 2;
 
