@@ -379,21 +379,6 @@
             opacity: 0.9;
         }
 
-        .paper-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg-alt);
-        }
-
-        .paper-checkbox input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
         .stats {
             color: var(--text-light);
             font-size: 0.9em;
@@ -491,27 +476,6 @@
         }
 
 
-        .compare-view {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .compare-card {
-            background: var(--bg-alt);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px;
-        }
-
-        .compare-title {
-            font-weight: 700;
-            font-size: 1em;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-
         .loading {
             text-align: center;
             padding: 40px;
@@ -567,9 +531,282 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* Preview Modal Styles */
+        .preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+
+        .preview-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .preview-modal {
+            background: var(--bg);
+            border-radius: 8px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+            width: 95vw;
+            height: 95vh;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .preview-overlay.active .preview-modal {
+            transform: scale(1);
+        }
+
+        .preview-header {
+            display: none;
+        }
+
+        .preview-title {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--text);
+            flex: 1;
+            margin-right: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            opacity: 0.8;
+        }
+
+        .preview-page-info {
+            display: none;
+        }
+
+        .preview-close {
+            background: rgba(0, 0, 0, 0.08);
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1em;
+            padding: 4px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border-radius: 6px;
+        }
+
+        .preview-close:hover {
+            background: rgba(0, 0, 0, 0.12);
+            color: var(--text);
+        }
+
+        .preview-content {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            position: relative;
+            padding: 0;
+        }
+
+        .preview-content::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .preview-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .preview-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+        }
+
+        .preview-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .preview-content::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .preview-content::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+        }
+
+        .preview-placeholder {
+            color: var(--text-light);
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .preview-controls {
+            display: none;
+        }
+
+        .preview-btn {
+            padding: 6px 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .preview-btn:hover:not(:disabled) {
+            opacity: 0.9;
+        }
+
+        .preview-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .preview-btn.icon-only {
+            padding: 6px 10px;
+            font-size: 1em;
+        }
+
+        .preview-page-count {
+            font-size: 0.9em;
+            color: var(--text-light);
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* GitHub Preview Styles */
+        .github-preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+
+        .github-preview-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .github-preview-modal {
+            background: var(--bg);
+            border-radius: 8px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+            width: 90vw;
+            height: 90vh;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .github-preview-overlay.active .github-preview-modal {
+            transform: scale(1);
+        }
+
+        .github-preview-content {
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            position: relative;
+            padding: 0;
+        }
+
+        .github-preview-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0;
+        }
+
+        .github-preview-placeholder {
+            color: var(--text-light);
+            text-align: center;
+            font-size: 1.1em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
     </style>
 </head>
 <body>
+    <!-- PDF Preview Modal -->
+    <div id="previewOverlay" class="preview-overlay">
+        <div class="preview-modal">
+            <div class="preview-header">
+                <div class="preview-title" id="previewTitle"></div>
+                <div class="preview-page-info" id="previewPageInfo"></div>
+                <button class="preview-close" id="previewClose">✕</button>
+            </div>
+            <div class="preview-content" id="previewContent"></div>
+            <div class="preview-controls" id="previewControls">
+                <button class="preview-btn icon-only" id="previewPrev">← Prev</button>
+                <div class="preview-page-count" id="previewPageCount"></div>
+                <button class="preview-btn icon-only" id="previewNext">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GitHub Preview Modal -->
+    <div id="githubPreviewOverlay" class="github-preview-overlay">
+        <div class="github-preview-modal">
+            <div id="githubPreviewContent" class="github-preview-content"></div>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
@@ -610,28 +847,16 @@
             </div>
 
             <div class="control-row">
-                <label>Tags (Top by frequency)</label>
-                <div id="tagFilter" class="tag-filter"></div>
-                <div class="tag-input-group">
-                    <input type="text" id="customTagInput" placeholder="Add custom tag...">
-                    <button id="addTagBtn">Add</button>
-                </div>
-            </div>
-
-            <div class="control-row">
                 <button id="toggleShowByDate" class="secondary">📅 Show by Date (ON)</button>
                 <label id="dateLabel">Date:</label>
                 <button id="prevDateBtn" class="secondary">← Previous</button>
                 <select id="dateSelector" style="min-width: 150px;"></select>
                 <button id="nextDateBtn" class="secondary">Next →</button>
                 <button id="clearFilters">Clear Filters</button>
-                <button id="toggleCompare" class="secondary">Compare Selected</button>
             </div>
         </div>
 
         <div id="pagination-top" class="pagination" style="display: none;"></div>
-
-        <div id="compareView" class="compare-view" style="display: none;"></div>
 
         <div id="papersList" class="papers-grid">
             <div class="loading">Loading papers...</div>
@@ -645,16 +870,150 @@
     </div>
 
     <script>
+        // GitHub Preview Manager - Opens in a popup window
+        const githubPreview = {
+            currentUrl: null,
+            popupWindow: null,
+            hoverTimeout: null,
+            isPopupActive: false,
+
+            init() {
+                // Listen for when popup is closed by user
+                setInterval(() => {
+                    if (this.popupWindow && this.popupWindow.closed && this.isPopupActive) {
+                        this.isPopupActive = false;
+                    }
+                }, 500);
+            },
+
+            show(url) {
+                if (!url) return;
+                this.currentUrl = url;
+
+                // If popup already exists, navigate to new URL
+                if (this.popupWindow && !this.popupWindow.closed) {
+                    this.popupWindow.location.href = url;
+                    this.popupWindow.focus();
+                    return;
+                }
+
+                // Open GitHub in a popup window - larger size
+                const width = 1400;
+                const height = 1000;
+                const left = window.screenX + (window.outerWidth - width) / 2;
+                const top = window.screenY + (window.outerHeight - height) / 2;
+
+                this.popupWindow = window.open(
+                    url,
+                    'github-preview',
+                    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,menubar=yes,toolbar=yes,location=yes`
+                );
+
+                // Focus the popup
+                if (this.popupWindow) {
+                    this.popupWindow.focus();
+                    this.isPopupActive = true;
+                } else {
+                    // Fallback if popup blocked
+                    window.open(url, '_blank');
+                }
+            },
+
+            close() {
+                clearTimeout(this.hoverTimeout);
+                if (this.popupWindow && !this.popupWindow.closed) {
+                    this.popupWindow.close();
+                }
+                this.isPopupActive = false;
+                this.currentUrl = null;
+            }
+        };
+
+        // Preview Manager
+        const preview = {
+            currentPaper: null,
+            hoverTimeout: null,
+
+            init() {
+                const overlay = document.getElementById('previewOverlay');
+                const closeBtn = document.getElementById('previewClose');
+
+                // Close on overlay click
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        this.close();
+                    }
+                });
+
+                // Close button
+                closeBtn.addEventListener('click', () => this.close());
+
+                // Keyboard shortcut
+                document.addEventListener('keydown', (e) => {
+                    if (!overlay.classList.contains('active')) return;
+                    if (e.key === 'Escape') {
+                        this.close();
+                    }
+                });
+            },
+
+            show(paper) {
+                this.currentPaper = paper;
+
+                document.getElementById('previewTitle').textContent = paper.title;
+                this.renderContent();
+
+                const overlay = document.getElementById('previewOverlay');
+                overlay.classList.add('active');
+            },
+
+            close() {
+                const overlay = document.getElementById('previewOverlay');
+                overlay.classList.remove('active');
+                clearTimeout(this.hoverTimeout);
+                this.currentPaper = null;
+            },
+
+            renderContent() {
+                const content = document.getElementById('previewContent');
+                const paper = this.currentPaper;
+
+                if (!paper) {
+                    content.innerHTML = '<div class="preview-placeholder">No preview available</div>';
+                    return;
+                }
+
+                // Clear previous content
+                content.innerHTML = '';
+
+                // Construct arXiv PDF URL from paper ID
+                const pdfUrl = `https://arxiv.org/pdf/${paper.id}.pdf`;
+
+                const iframe = document.createElement('iframe');
+                iframe.className = 'preview-pdf';
+                iframe.src = pdfUrl;
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                iframe.style.borderRadius = '0';
+                iframe.title = 'PDF Preview';
+
+                iframe.onerror = () => {
+                    content.innerHTML = '<div class="preview-placeholder">❌ PDF not available</div>';
+                };
+
+                content.appendChild(iframe);
+            }
+        };
+
         const state = {
             papers: [],
             tags: [],
             topTags: [],           // Top 5 tags by frequency
             customTags: [],        // User-added custom tags
             selectedTags: [],
-            selectedPapers: new Set(),
             searchTerm: '',
             sortBy: 'upvotes',
-            showCompare: false,
             currentPage: 1,
             pageSize: 24,
             allDates: [],          // All unique dates in papers (sorted descending)
@@ -786,6 +1145,8 @@
 
         function populateTagButtons() {
             const tagFilter = document.getElementById('tagFilter');
+            if (!tagFilter) return; // Tag filter removed from UI, skip population
+
             tagFilter.innerHTML = '';
 
             // Show top tags with frequency
@@ -844,6 +1205,10 @@
         }
 
         function initializeUI() {
+            // Initialize preview managers
+            preview.init();
+            githubPreview.init();
+
             // Analyze and populate tag buttons
             analyzeTopTags();
             populateTagButtons();
@@ -871,17 +1236,11 @@
             document.getElementById('clearFilters').addEventListener('click', () => {
                 state.selectedTags = [];
                 state.searchTerm = '';
-                state.selectedPapers.clear();
                 document.getElementById('searchInput').value = '';
                 document.querySelector('.sort-btn.active').classList.remove('active');
                 document.querySelector('[data-sort="upvotes"]').classList.add('active');
                 state.sortBy = 'upvotes';
                 document.querySelectorAll('.tag-button').forEach(b => b.classList.remove('active'));
-                render();
-            });
-
-            document.getElementById('toggleCompare').addEventListener('click', () => {
-                state.showCompare = !state.showCompare;
                 render();
             });
 
@@ -947,19 +1306,6 @@
             });
 
             // Custom tag input
-            document.getElementById('addTagBtn').addEventListener('click', () => {
-                const input = document.getElementById('customTagInput');
-                if (input.value.trim()) {
-                    addCustomTag(input.value);
-                    input.value = '';
-                }
-            });
-
-            document.getElementById('customTagInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    document.getElementById('addTagBtn').click();
-                }
-            });
         }
 
         function toggleTag(tag) {
@@ -1045,9 +1391,7 @@
         function renderPaperCard(paper) {
             const card = document.createElement('div');
             card.className = 'paper-card';
-            if (state.selectedPapers.has(paper.id)) {
-                card.classList.add('selected');
-            }
+            card.dataset.paperId = state.papers.indexOf(paper);
 
             const authorNames = paper.authors && paper.authors.length > 0
                 ? paper.authors.slice(0, 3).map(a => a.name || 'Unknown').join(', ')
@@ -1056,16 +1400,31 @@
 
             const pubDate = new Date(paper.publishedDate).toLocaleDateString();
 
-            // Thumbnail HTML
-            const thumbnailHtml = paper.thumbnail
-                ? `<img src="${escapeHtml(paper.thumbnail)}" alt="${escapeHtml(paper.title)}" class="paper-thumbnail" onerror="this.style.display='none'">`
-                : `<div class="paper-thumbnail placeholder">📄 No preview</div>`;
+            // Thumbnail HTML - support videos and images
+            let thumbnailHtml;
+            if (paper.thumbnail) {
+                const isVideo = /\.(mp4|webm|mov|avi)$/i.test(paper.thumbnail);
+                if (isVideo) {
+                    // User-uploaded video
+                    thumbnailHtml = `<div class="thumbnail-wrapper" style="cursor: pointer;">
+                        <video class="paper-thumbnail" autoplay loop muted playsinline onerror="this.style.display='none'">
+                            <source src="${escapeHtml(paper.thumbnail)}" type="video/mp4">
+                        </video>
+                    </div>`;
+                } else {
+                    // Static image
+                    thumbnailHtml = `<div class="thumbnail-wrapper" style="cursor: pointer;">
+                        <img src="${escapeHtml(paper.thumbnail)}" alt="${escapeHtml(paper.title)}" class="paper-thumbnail" onerror="this.style.display='none'">
+                    </div>`;
+                }
+            } else {
+                thumbnailHtml = `<div class="thumbnail-wrapper" style="cursor: pointer;">
+                    <div class="paper-thumbnail placeholder">📄 No preview</div>
+                </div>`;
+            }
 
             card.innerHTML = `
                 ${thumbnailHtml}
-                <div class="paper-checkbox">
-                    <input type="checkbox" ${state.selectedPapers.has(paper.id) ? 'checked' : ''}>
-                </div>
                 <div class="paper-header">
                     <div class="paper-title">${escapeHtml(paper.title)}</div>
                     <div class="paper-meta">
@@ -1097,79 +1456,49 @@
                     <div class="section">
                         <div class="paper-links">
                             ${paper.paperPage ? `<a href="${paper.paperPage}" target="_blank" class="link-button">📄 HF Page</a>` : ''}
-                            ${paper.githubRepo ? `<a href="${paper.githubRepo}" target="_blank" class="link-button">🔗 GitHub</a>` : ''}
+                            ${paper.githubRepo ? `<a href="${paper.githubRepo}" class="link-button github-link" data-github-url="${escapeHtml(paper.githubRepo)}">🔗 GitHub</a>` : ''}
                         </div>
                     </div>
                 </div>
             `;
 
-            card.querySelector('input[type="checkbox"]').addEventListener('change', () => {
-                if (state.selectedPapers.has(paper.id)) {
-                    state.selectedPapers.delete(paper.id);
-                } else {
-                    state.selectedPapers.add(paper.id);
-                }
-                render();
-            });
+            // Add hover preview handler for PDF
+            const thumbnailWrapper = card.querySelector('.thumbnail-wrapper');
+            if (thumbnailWrapper) {
+                thumbnailWrapper.addEventListener('mouseenter', () => {
+                    preview.hoverTimeout = setTimeout(() => {
+                        preview.show(paper);
+                    }, 1000); // 1 second delay
+                });
 
-            card.addEventListener('click', (e) => {
-                if (e.target.tagName !== 'INPUT' && !e.target.closest('.paper-links')) {
-                    if (state.selectedPapers.has(paper.id)) {
-                        state.selectedPapers.delete(paper.id);
-                    } else {
-                        state.selectedPapers.add(paper.id);
-                    }
-                    render();
-                }
-            });
-
-            return card;
-        }
-
-        function renderComparison() {
-            const compareView = document.getElementById('compareView');
-            if (!state.showCompare || state.selectedPapers.size === 0) {
-                compareView.style.display = 'none';
-                return;
+                thumbnailWrapper.addEventListener('mouseleave', () => {
+                    clearTimeout(preview.hoverTimeout);
+                });
             }
 
-            compareView.innerHTML = '';
-            const selectedIds = Array.from(state.selectedPapers);
-            const selectedPapers = state.papers.filter(p => selectedIds.includes(p.id));
+            // Add hover preview handler for GitHub link
+            const githubLink = card.querySelector('.github-link');
+            if (githubLink) {
+                githubLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const url = githubLink.dataset.githubUrl;
+                    githubPreview.show(url);
+                });
 
-            selectedPapers.forEach(paper => {
-                const card = document.createElement('div');
-                card.className = 'compare-card';
-                const thumbnailHtml = paper.thumbnail
-                    ? `<img src="${escapeHtml(paper.thumbnail)}" alt="${escapeHtml(paper.title)}" class="paper-thumbnail" onerror="this.style.display='none'" style="margin-bottom: 12px;">`
-                    : `<div class="paper-thumbnail placeholder" style="margin-bottom: 12px;">📄 No preview</div>`;
-                card.innerHTML = `
-                    ${thumbnailHtml}
-                    <div class="compare-title">${escapeHtml(paper.title)}</div>
-                    <div class="section">
-                        <div class="section-title">Abstract</div>
-                        <div class="section-content" style="max-height: 200px; overflow-y: auto;">
-                            ${escapeHtml(paper.abstract)}
-                        </div>
-                    </div>
-                    ${paper.summary ? `
-                        <div class="section">
-                            <div class="section-title">AI Summary</div>
-                            <div class="section-content">${escapeHtml(paper.summary)}</div>
-                        </div>
-                    ` : ''}
-                    <div class="section">
-                        <div class="section-title">Stats</div>
-                        <div class="section-content">
-                            <div>👍 HF Upvotes: ${paper.hfUpvotes || 0}</div>
-                            <div>⭐ GitHub Stars: ${paper.githubStars || 'N/A'}</div>
-                        </div>
-                    </div>
-                `;
-                compareView.appendChild(card);
-            });
+                githubLink.addEventListener('mouseenter', () => {
+                    githubPreview.hoverTimeout = setTimeout(() => {
+                        const url = githubLink.dataset.githubUrl;
+                        githubPreview.show(url);
+                    }, 1000); // 1 second delay
+                });
 
-            compareView.style.display = 'grid';
+                githubLink.addEventListener('mouseleave', () => {
+                    clearTimeout(githubPreview.hoverTimeout);
+                    // Don't auto-close - let user manage the popup
+                });
+            }
+
+            return card;
         }
 
         function renderPagination(totalItems) {
@@ -1240,8 +1569,6 @@
             const filtered = filterPapers();
             const sorted = sortPapers(filtered);
 
-            renderComparison();
-
             const papersList = document.getElementById('papersList');
 
             if (sorted.length === 0) {
@@ -1269,7 +1596,6 @@
             // Update stats
             document.getElementById('statsText').textContent = `
                 Showing ${sorted.length} of ${state.papers.length} papers
-                ${state.selectedPapers.size > 0 ? ` • ${state.selectedPapers.size} selected` : ''}
             `;
         }
 

@@ -76,6 +76,11 @@ def fetch_papers_for_date(date: datetime, max_retries: int = 3) -> Optional[List
 def extract_paper_fields(entry: Dict[str, Any]) -> Dict[str, Any]:
     """Extract fields from HF daily paper entry."""
     paper = entry.get("paper", {})
+
+    # Use user-uploaded video if available, otherwise use HF thumbnail
+    media_urls = paper.get("mediaUrls", [])
+    thumbnail = media_urls[0] if media_urls else entry.get("thumbnail")
+
     return {
         "id": paper.get("id"),
         "title": paper.get("title"),
@@ -87,7 +92,7 @@ def extract_paper_fields(entry: Dict[str, Any]) -> Dict[str, Any]:
         "githubStars": paper.get("githubStars"),
         "aiSummary": paper.get("ai_summary"),
         "aiKeywords": paper.get("ai_keywords", []),
-        "thumbnail": entry.get("thumbnail"),  # HF thumbnail image URL
+        "thumbnail": thumbnail,  # User-uploaded video or HF thumbnail image
     }
 
 def fetch_new_papers(days_back: int = 7):
@@ -109,11 +114,12 @@ def fetch_new_papers(days_back: int = 7):
         except json.JSONDecodeError:
             print(f"Warning: could not parse {all_papers_file}", file=sys.stderr)
 
-    # Fetch new papers from the last N days
-    new_papers = {}
+    # Fetch papers from the last N days (both new and update existing)
+    all_papers = dict(existing_papers)  # Start with existing papers
     current = datetime.now()
     count_fetched = 0
     count_new = 0
+    count_updated = 0
 
     print(f"Fetching papers from the last {days_back} days...")
 
@@ -130,15 +136,18 @@ def fetch_new_papers(days_back: int = 7):
             for entry in papers:
                 extracted = extract_paper_fields(entry)
                 paper_id = extracted.get("id")
-                if paper_id and paper_id not in existing_papers and paper_id not in new_papers:
-                    new_papers[paper_id] = extracted
-                    count_new += 1
+                if paper_id:
+                    if paper_id in existing_papers:
+                        # Update existing paper (important for mediaUrls/videos)
+                        all_papers[paper_id] = extracted
+                        count_updated += 1
+                    else:
+                        # New paper
+                        all_papers[paper_id] = extracted
+                        count_new += 1
         else:
             # Empty result (no papers for this date)
             pass
-
-    # Merge with existing papers
-    all_papers = {**existing_papers, **new_papers}
     papers_list = list(all_papers.values())
 
     # Save updated archive
@@ -148,10 +157,11 @@ def fetch_new_papers(days_back: int = 7):
     print(f"\nFetch complete:")
     print(f"  Dates fetched: {count_fetched}")
     print(f"  New papers: {count_new}")
+    print(f"  Updated papers: {count_updated}")
     print(f"  Total papers in archive: {len(papers_list)}")
 
 if __name__ == "__main__":
-    days_back = 7
+    days_back = 1000
     if "--days" in sys.argv:
         idx = sys.argv.index("--days")
         if idx + 1 < len(sys.argv):
