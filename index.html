@@ -265,23 +265,35 @@
         .paper-institute {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-size: 0.75em;
-            color: var(--text-light);
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: var(--bg-alt);
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: var(--text);
+            font-weight: 500;
         }
 
         .paper-institute-logo {
-            width: 20px;
-            height: 20px;
-            border-radius: 3px;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            font-size: 0.8em;
+            font-size: 1.1em;
             color: white;
             flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .paper-institute-logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 6px;
+            object-fit: cover;
         }
 
         .paper-title {
@@ -1154,7 +1166,9 @@
                     if (instituteEl && paper.organization) {
                         const org = paper.organization;
                         instituteEl.innerHTML = `
-                            <img src="${escapeHtml(org.avatar)}" alt="${escapeHtml(org.fullname)}" style="width: 20px; height: 20px; border-radius: 3px;">
+                            <div class="paper-institute-logo">
+                                <img src="${escapeHtml(org.avatar)}" alt="${escapeHtml(org.fullname)}" title="${escapeHtml(org.fullname)}">
+                            </div>
                             <span>${escapeHtml(org.fullname)}</span>
                         `;
                     }
@@ -1507,9 +1521,11 @@
             }
 
             const orgHtml = paper.organization
-                ? `<img src="${escapeHtml(paper.organization.avatar)}" alt="${escapeHtml(paper.organization.fullname)}" style="width: 20px; height: 20px; border-radius: 3px;">
+                ? `<div class="paper-institute-logo">
+                     <img src="${escapeHtml(paper.organization.avatar)}" alt="${escapeHtml(paper.organization.fullname)}" title="${escapeHtml(paper.organization.fullname)}">
+                   </div>
                    <span>${escapeHtml(paper.organization.fullname)}</span>`
-                : `<div style="opacity: 0.5; font-size: 0.85em;">Organization...</div>`;
+                : `<div style="opacity: 0.6; font-size: 0.9em; padding: 8px; color: var(--text-light);">🏢 Organization...</div>`;
 
             card.innerHTML = `
                 ${thumbnailHtml}
