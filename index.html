@@ -262,6 +262,28 @@
             border-bottom: 1px solid var(--border);
         }
 
+        .paper-institute {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.75em;
+            color: var(--text-light);
+        }
+
+        .paper-institute-logo {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8em;
+            color: white;
+            flex-shrink: 0;
+        }
+
         .paper-title {
             font-size: 1em;
             font-weight: 700;
@@ -1069,6 +1091,9 @@
 
                 initializeUI();
                 render();
+
+                // Fetch organization data from HuggingFace Papers API for papers that don't have it
+                enrichPapersWithOrganization(papers);
             } catch (error) {
                 document.getElementById('papersList').innerHTML = `
                     <div class="empty">
@@ -1078,6 +1103,63 @@
                     </div>
                 `;
             }
+        }
+
+        // Enrich papers with organization data from HuggingFace API
+        async function enrichPapersWithOrganization(papers) {
+            try {
+                // Get unique dates from papers
+                const dates = [...new Set(papers.map(p => p.publishedDate.split('T')[0]))];
+
+                for (const date of dates) {
+                    try {
+                        const resp = await fetch(`https://huggingface.co/api/papers?date=${date}&limit=100`);
+                        if (!resp.ok) continue;
+
+                        const hfPapers = await resp.json();
+                        const orgMap = {};
+
+                        // Create map of paper ID to organization
+                        hfPapers.forEach(hfPaper => {
+                            if (hfPaper.organization) {
+                                orgMap[hfPaper.id] = hfPaper.organization;
+                            }
+                        });
+
+                        // Update papers with organization data
+                        papers.forEach(paper => {
+                            if (!paper.organization && orgMap[paper.id]) {
+                                paper.organization = orgMap[paper.id];
+                            }
+                        });
+
+                        // Re-render cards to show updated organization info
+                        updatePaperCards();
+                    } catch (e) {
+                        console.log(`Error fetching org data for ${date}:`, e.message);
+                    }
+                }
+            } catch (e) {
+                console.log('Error enriching papers:', e.message);
+            }
+        }
+
+        // Update paper cards with organization data
+        function updatePaperCards() {
+            document.querySelectorAll('.paper-card').forEach(cardEl => {
+                const idx = Array.from(cardEl.parentElement.children).indexOf(cardEl);
+                if (idx >= 0 && idx < state.papers.length) {
+                    const paper = state.papers[idx];
+                    const instituteEl = cardEl.querySelector('[data-institute]');
+                    if (instituteEl && paper.organization) {
+                        const org = paper.organization;
+                        instituteEl.innerHTML = `
+                            <img src="${escapeHtml(org.avatar)}" alt="${escapeHtml(org.fullname)}" style="width: 20px; height: 20px; border-radius: 3px;">
+                            <span>${escapeHtml(org.fullname)}</span>
+                        `;
+                    }
+                }
+            });
         }
 
         function extractAllTags(papers) {
@@ -1388,6 +1470,7 @@
             return sorted;
         }
 
+        // Fetch affiliation from arXiv metadata
         function renderPaperCard(paper) {
             const card = document.createElement('div');
             card.className = 'paper-card';
@@ -1423,9 +1506,17 @@
                 </div>`;
             }
 
+            const orgHtml = paper.organization
+                ? `<img src="${escapeHtml(paper.organization.avatar)}" alt="${escapeHtml(paper.organization.fullname)}" style="width: 20px; height: 20px; border-radius: 3px;">
+                   <span>${escapeHtml(paper.organization.fullname)}</span>`
+                : `<div style="opacity: 0.5; font-size: 0.85em;">Organization...</div>`;
+
             card.innerHTML = `
                 ${thumbnailHtml}
                 <div class="paper-header">
+                    <div class="paper-institute" data-institute="${state.papers.indexOf(paper)}">
+                        ${orgHtml}
+                    </div>
                     <div class="paper-title">${escapeHtml(paper.title)}</div>
                     <div class="paper-meta">
                         <span class="meta-item">📅 ${pubDate}</span>
