@@ -139,6 +139,9 @@ def fetch_new_papers(days_back: int = 7):
                 if paper_id:
                     if paper_id in existing_papers:
                         # Update existing paper (important for mediaUrls/videos)
+                        # PRESERVE organization data if it exists
+                        if "organization" in existing_papers[paper_id]:
+                            extracted["organization"] = existing_papers[paper_id]["organization"]
                         all_papers[paper_id] = extracted
                         count_updated += 1
                     else:
