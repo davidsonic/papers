@@ -5,7 +5,8 @@ writes a per-paper "what it added" one-liner, extracts lab lineage, and groups
 time into dynamic eras. Output feeds evolution.html.
 
 Usage:
-    ANTHROPIC_API_KEY=... python3 scripts/build_evolution.py "world model"
+    OPENROUTER_API_KEY=... python3 scripts/build_evolution.py "world model"
+
 
 Output: data/evolution/<slug>.json (+ cached intermediate steps)
 """
@@ -25,13 +26,15 @@ from typing import Any, Dict, List, Optional
 DATA_DIR = Path(__file__).parent.parent / "data"
 OUT_DIR = DATA_DIR / "evolution"
 CACHE_DIR = OUT_DIR / "_cache"
-API_KEY = os.environ.get("ANTHROPIC_API_KEY")
-AUTH_TOKEN = os.environ.get("ANTHROPIC_AUTH_TOKEN")
-BASE_URL = (os.environ.get("ANTHROPIC_BASE_URL") or "https://api.anthropic.com").rstrip("/")
+API_KEY = os.environ.get("OPENROUTER_API_KEY")
+BASE_URL = "https://openrouter.ai/api"
+# Model: z-ai/glm-5.3-flash via OpenRouter; override with EVOLUTION_MODEL.
+MODEL = os.environ.get("EVOLUTION_MODEL") or "z-ai/glm-5.3-flash"
+# Cache files are per-model so switching models never mixes or discards results.
+MODEL_KEY = re.sub(r"[^A-Za-z0-9]+", "-", MODEL)
 
-# Cheap model for per-paper work, stronger for synthesis.
-MODEL_WORKER = "claude-haiku-4-5"
-MODEL_SYNTH = "claude-haiku-4-5"
+MODEL_WORKER = MODEL
+MODEL_SYNTH = MODEL
 
 MAX_PAPERS = 320          # cap per keyword (top by relevance score)
 BATCH_SIZE = 20           # papers per one-liner call
@@ -46,14 +49,10 @@ def call_claude(prompt: str, model: str, max_tokens: int, retries: int = 3) -> O
         "messages": [{"role": "user", "content": prompt}],
     }
     headers = {
-        "anthropic-version": "2023-06-01",
+        "Authorization": f"Bearer {API_KEY}",
         "content-type": "application/json",
     }
-    if API_KEY:
-        headers["x-api-key"] = API_KEY
-    elif AUTH_TOKEN:
-        headers["Authorization"] = f"Bearer {AUTH_TOKEN}"
-    url = f"{BASE_URL}/v1/messages"
+    url = f"{BASE_URL}/v1/chat/completions"
     for attempt in range(retries):
         try:
             req = urllib.request.Request(
@@ -64,7 +63,7 @@ def call_claude(prompt: str, model: str, max_tokens: int, retries: int = 3) -> O
             )
             with urllib.request.urlopen(req, timeout=120) as resp:
                 data = json.loads(resp.read().decode())
-            return data["content"][0]["text"]
+            return data["choices"][0]["message"]["content"]
         except Exception as e:
             print(f"  API error ({e}), retry {attempt + 1}/{retries}", file=sys.stderr)
             time.sleep(3 * (attempt + 1))
@@ -140,7 +139,7 @@ def compact_paper(p: Dict[str, Any]) -> Dict[str, Any]:
 
 def write_one_liners(papers: List[Dict[str, Any]]) -> Dict[str, str]:
     """Per-paper: one sentence on what it added relative to prior work in its space."""
-    cache = CACHE_DIR / "one_liners.json"
+    cache = CACHE_DIR / f"one_liners.{MODEL_KEY}.json"
     if cache.exists():
         with open(cache) as f:
             return json.load(f)
@@ -175,7 +174,7 @@ def write_one_liners(papers: List[Dict[str, Any]]) -> Dict[str, str]:
 
 def write_threads(papers: List[Dict[str, Any]], one_liners: Dict[str, str]) -> List[List[str]]:
     """Cluster papers into idea threads; returns lists of paper ids per thread."""
-    cache = CACHE_DIR / "threads.json"
+    cache = CACHE_DIR / f"threads.{MODEL_KEY}.json"
     if cache.exists():
         with open(cache) as f:
             return json.load(f)
@@ -220,7 +219,7 @@ def write_threads(papers: List[Dict[str, Any]], one_liners: Dict[str, str]) -> L
 def write_genealogy(threads: List[Dict[str, Any]], one_liners: Dict[str, str],
                     papers_by_id: Dict[str, Dict[str, Any]]) -> Dict[str, List[List[str]]]:
     """Per thread: parent->child 'builds on' edges. Returns {thread_name: [[child, parent], ...]}."""
-    cache = CACHE_DIR / "genealogy.json"
+    cache = CACHE_DIR / f"genealogy.{MODEL_KEY}.json"
     if cache.exists():
         with open(cache) as f:
             return json.load(f)
@@ -266,7 +265,7 @@ def write_genealogy(threads: List[Dict[str, Any]], one_liners: Dict[str, str],
 def write_eras(papers: List[Dict[str, Any]], threads: List[Dict[str, Any]],
                one_liners: Dict[str, str], top_orgs: List[str]) -> Dict[str, Any]:
     """Dynamic time eras + per-lab lineage narrative. One synthesis call."""
-    cache = CACHE_DIR / "synthesis.json"
+    cache = CACHE_DIR / f"synthesis.{MODEL_KEY}.json"
     if cache.exists():
         with open(cache) as f:
             return json.load(f)
@@ -343,8 +342,8 @@ def derive_org(p: Dict[str, Any], one_liners: Dict[str, str]) -> str:
 
 
 def build(keyword: str):
-    if not API_KEY and not AUTH_TOKEN:
-        print("Error: ANTHROPIC_API_KEY or ANTHROPIC_AUTH_TOKEN not set", file=sys.stderr)
+    if not API_KEY:
+        print("Error: OPENROUTER_API_KEY not set", file=sys.stderr)
         sys.exit(1)
     slug = re.sub(r"[^a-z0-9]+", "-", keyword.lower()).strip("-")
     CACHE_DIR.mkdir(parents=True, exist_ok=True)

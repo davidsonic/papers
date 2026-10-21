@@ -341,19 +341,35 @@ function bindPreviews(root) {
 }
 
 async function loadManifest() {
+  const box = document.getElementById("suggestions");
+  box.innerHTML = "";
+  let m = [];
   try {
     const r = await fetch("data/evolution/manifest.json");
-    const m = await r.json();
-    const box = document.getElementById("suggestions");
-    box.innerHTML = "";
+    m = await r.json();
     m.forEach(e => {
       const b = document.createElement("button");
       b.textContent = `${e.keyword} (${e.paperCount} papers)`;
       b.onclick = () => explore(e.keyword);
       box.appendChild(b);
     });
-    return m;
-  } catch { return []; }
+  } catch {}
+  // Keywords this browser computed online before, cached in localStorage.
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k.startsWith(CACHE_PREFIX)) continue;
+      const slug = k.slice(CACHE_PREFIX.length);
+      if (m.some(e => e.slug === slug)) continue;
+      let d;
+      try { d = JSON.parse(localStorage.getItem(k)); } catch { continue; }
+      const b = document.createElement("button");
+      b.textContent = `${d.keyword} (${d.paperCount} papers, cached)`;
+      b.onclick = () => explore(d.keyword);
+      box.appendChild(b);
+    }
+  } catch {}
+  return m;
 }
 
 async function explore(keyword) {
@@ -366,14 +382,243 @@ async function explore(keyword) {
     if (!r.ok) throw new Error(r.status);
     data = await r.json();
   } catch {
-    content.innerHTML = `<div class="empty">No precomputed analysis for “${keyword}” yet.<br>
-      Run: <code>python3 scripts/build_evolution.py "${keyword}"</code></div>`;
-    return;
+    // Not precomputed: compute it online with OpenRouter (cached in localStorage).
+    data = await computeOnline(keyword, slug);
+    if (!data) return;
   }
   DATA = data;
   activeThread = null;
   document.getElementById("kw").value = keyword;
   render();
+}
+
+/* ---------- Online computation (OpenRouter, z-ai/glm-5.3-flash) ---------- */
+const OR_URL = "https://openrouter.ai/api/v1/chat/completions";
+const OR_MODEL = "z-ai/glm-5.3-flash";
+const MAX_PAPERS = 320, BATCH_SIZE = 20, ABSTRACT_CHARS = 700;
+const CACHE_PREFIX = "evo:";
+
+function getKey() {
+  try { return localStorage.getItem("openrouter_key") || ""; } catch { return ""; }
+}
+
+function askKey(content) {
+  content.innerHTML = `<div class="empty">Computing “${esc(lastKw)}” online needs an OpenRouter API key
+    (used only from your browser, stored in localStorage).<br><br>
+    <input type="password" id="orkey" placeholder="sk-or-..." style="padding:8px 12px;border:1px solid var(--border);
+    border-radius:8px;background:var(--bg);color:var(--text);width:min(420px,90%)">
+    <br><br><button id="orsave" style="padding:8px 20px;border-radius:8px;border:1px solid var(--border);
+    background:var(--accent);color:#fff;cursor:pointer">Save and compute</button></div>`;
+  document.getElementById("orsave").onclick = () => {
+    const k = document.getElementById("orkey").value.trim();
+    if (!k) return;
+    try { localStorage.setItem("openrouter_key", k); } catch {}
+    explore(lastKw);
+  };
+}
+
+async function orCall(prompt, maxTokens) {
+  const body = {
+    model: OR_MODEL,
+    max_tokens: maxTokens,
+    temperature: 0.3,
+    messages: [{ role: "user", content: prompt }],
+  };
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const r = await fetch(OR_URL, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${getKey()}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data = await r.json();
+      return data.choices[0].message.content;
+    } catch (e) {
+      if (attempt === 2) throw e;
+      await new Promise(res => setTimeout(res, 3000 * (attempt + 1)));
+    }
+  }
+}
+
+function firstJson(text) {
+  if (!text) return null;
+  text = text.trim().replace(/^```[a-z]*\n?/, "").replace(/\n?```$/, "");
+  for (const [a, b] of [["{", "}"], ["[", "]"]]) {
+    const s = text.indexOf(a);
+    if (s === -1) continue;
+    let depth = 0;
+    for (let i = s; i < text.length; i++) {
+      if (text[i] === a) depth++;
+      else if (text[i] === b && --depth === 0) {
+        try { return JSON.parse(text.slice(s, i + 1)); } catch { break; }
+      }
+    }
+  }
+  return null;
+}
+
+function status(content, msg) {
+  const el = document.getElementById("evo-status");
+  if (el) el.textContent = msg;
+  else content.innerHTML = `<div class="loading" id="evo-status">${esc(msg)}</div>`;
+}
+
+let lastKw = "";
+
+async function computeOnline(keyword, slug) {
+  lastKw = keyword;
+  const content = document.getElementById("content");
+  // Per-keyword result cache from a previous online run.
+  try {
+    const cached = localStorage.getItem(CACHE_PREFIX + slug);
+    if (cached) {
+      status(content, "Using cached online result — recomputing anyway would overwrite it; reload to skip this.");
+      return JSON.parse(cached);
+    }
+  } catch {}
+
+  if (!getKey()) { askKey(content); return null; }
+  content.innerHTML = '<div class="loading" id="evo-status">Loading paper index…</div>';
+
+  // 1. Select papers (same scoring as the script). The 88MB archive loads once,
+  //    then is kept for further keywords.
+  if (!window.__papers) {
+    const r = await fetch("data/papers_all.json");
+    window.__papers = await r.json();
+  }
+  const kw = keyword.toLowerCase();
+  const scored = [];
+  for (const p of window.__papers) {
+    const title = (p.title || "").toLowerCase();
+    const abstract = (p.abstract || "").toLowerCase();
+    const kws = (p.aiKeywords || []).join(" ").toLowerCase();
+    const th = title.split(kw).length - 1;
+    const ab = abstract.split(kw).length - 1;
+    const kh = kws.split(kw).length - 1;
+    if (!th && !ab && !kh) continue;
+    let score = th * 8 + Math.min(ab, 4) + kh * 2
+      + (p.hfUpvotes || 0) / 50 + Math.min(p.githubStars || 0, 5000) / 5000;
+    scored.push([score, p]);
+  }
+  scored.sort((a, b) => b[0] - a[0]);
+  const selected = scored.slice(0, MAX_PAPERS).map(x => x[1]);
+  if (!selected.length) {
+    content.innerHTML = `<div class="empty">No papers match “${esc(keyword)}”.</div>`;
+    return null;
+  }
+  const compact = selected.map(p => {
+    const org = p.organization;
+    let orgName = (org && typeof org === "object" && org.name) ? org.name : (typeof org === "string" ? org : "");
+    if (!orgName && p.githubRepo) {
+      const owner = p.githubRepo.split("/")[0];
+      if (/^[A-Za-z0-9][A-Za-z0-9_-]*$/.test(owner) && !/^http|^www|^github/i.test(owner)) orgName = owner;
+    }
+    return {
+      id: p.id, title: p.title, date: (p.publishedDate || "").slice(0, 10),
+      org: orgName || "Independent", upvotes: p.hfUpvotes || 0, stars: p.githubStars || 0,
+      github: p.githubRepo, abstract: (p.abstract || "").slice(0, ABSTRACT_CHARS),
+    };
+  });
+  const byId = {};
+  for (const p of compact) byId[p.id] = p;
+
+  // 2. One-liners, batched.
+  const oneLiners = {};
+  const batches = [];
+  for (let i = 0; i < compact.length; i += BATCH_SIZE) batches.push(compact.slice(i, i + BATCH_SIZE));
+  for (let bi = 0; bi < batches.length; bi++) {
+    status(content, `Step 1/3 · writing per-paper contributions (batch ${bi + 1}/${batches.length})…`);
+    const listing = JSON.stringify(batches[bi].map(p => ({ id: p.id, title: p.title, date: p.date, abstract: p.abstract })));
+    const out = firstJson(await orCall(
+      "Below are research papers (arXiv-style) with abstracts, sorted roughly by date. " +
+      "For EACH paper write ONE sentence (max 25 words) describing what NEW capability, " +
+      "technique, or problem shift it introduced relative to work that came before it " +
+      "(the earlier papers in the list are context for the later ones). " +
+      "Be concrete and technical, not generic. Do not praise.\n\nPapers:\n" + listing + "\n\n" +
+      'Return ONLY a JSON array: [{"id": "<id>", "added": "<sentence>"}, ...] ' +
+      "with exactly one entry per input paper, same ids.", 4096));
+    if (out) for (const it of out) if (it && it.id && it.added) oneLiners[it.id] = it.added;
+  }
+  for (const p of compact) if (!oneLiners[p.id]) oneLiners[p.id] = "";
+
+  // 3. Threads.
+  status(content, "Step 2/3 · clustering research threads…");
+  const tListing = JSON.stringify(compact.map(p => ({ id: p.id, title: p.title, date: p.date, added: oneLiners[p.id] })));
+  let threads = [];
+  const tout = firstJson(await orCall(
+    "Below are papers on one research area, each with a one-line 'added' note. " +
+    "Cluster them into distinct RESEARCH THREADS — a thread is a lineage of work " +
+    "tackling the same core problem or building on the same base idea. Rules:\n" +
+    "- 6 to 14 threads total. Every paper goes in exactly one thread.\n" +
+    "- Threads should be distinguishable by the problem they attack, not by venue or team.\n" +
+    "- Papers of the same direct lineage belong together even across years.\n\n" +
+    "Papers:\n" + tListing + "\n\n" +
+    'Return ONLY JSON: {"threads": [{"name": "<short thread name, 3-6 words>", "ids": ["<id>", ...]}, ...]}', 8192));
+  if (tout && tout.threads) {
+    threads = tout.threads.filter(t => t && t.ids && t.ids.length)
+      .map(t => ({ name: t.name || "?", ids: t.ids }));
+    const known = new Set(threads.flatMap(t => t.ids));
+    const leftovers = compact.filter(p => !known.has(p.id)).map(p => p.id);
+    if (leftovers.length) threads.push({ name: "Other", ids: leftovers });
+  } else {
+    threads = [{ name: "All papers", ids: compact.map(p => p.id) }];
+  }
+
+  // 4. Eras + lab lineage + field narrative (one call), then local representative picks.
+  status(content, "Step 3/3 · summarizing eras and lab lineages…");
+  const months = {};
+  for (const p of compact) { const m = p.date.slice(0, 7); months[m] = (months[m] || 0) + 1; }
+  const orgCounts = {};
+  for (const p of compact) orgCounts[p.org] = (orgCounts[p.org] || 0) + 1;
+  const topOrgs = Object.keys(orgCounts).filter(o => o !== "Independent")
+    .sort((a, b) => orgCounts[b] - orgCounts[a]).slice(0, 10);
+  const threadSummary = threads.map(t => {
+    const ds = t.ids.map(i => byId[i] && byId[i].date).filter(Boolean).sort();
+    return { name: t.name, count: t.ids.length, span: ds.length ? [ds[0], ds[ds.length - 1]] : [] };
+  });
+  const sample = [...compact].sort((a, b) => a.date.localeCompare(b.date));
+  const step = Math.max(1, Math.floor(sample.length / 60));
+  const timelineSample = sample.filter((_, i) => i % step === 0)
+    .map(p => ({ date: p.date, added: oneLiners[p.id].slice(0, 120) }));
+  const sout = firstJson(await orCall(
+    "You are analyzing how a research field evolved over time.\n" +
+    "Paper counts by month:\n" + JSON.stringify(months) + "\n\n" +
+    "Research threads (name, count, first/last date):\n" + JSON.stringify(threadSummary) + "\n\n" +
+    "Sample of paper contributions across time (date, what it added):\n" + JSON.stringify(timelineSample) + "\n\n" +
+    "Task 1: Group the timeline into 3-6 ERAS — periods where the field focused on a recognizable set of problems; eras need not be equal-length. For each: start month, end month, 4-8 word label, 2-3 sentence description, and 3-6 paper ids that best represent it.\n\n" +
+    "Task 2: For the top labs, write a 2-4 sentence LINEAGE note: how that lab's work evolved paper to paper and what it pushed toward. Use these EXACT org names as keys: " + JSON.stringify(topOrgs) + ".\n\n" +
+    "Task 3: Write a 4-6 sentence FIELD NARRATIVE: how the field moved from era to era and where it is heading.\n\n" +
+    'Return ONLY JSON:\n{"eras": [{"start": "YYYY-MM", "end": "YYYY-MM", "label": "...", "focus": "...", "representativeIds": ["id", ...]}], "labLineage": [{"org": "<exact org name from the list>", "note": "..."}], "fieldNarrative": "..."}', 8192)) || {};
+
+  // Era representatives picked locally by upvotes inside each era window.
+  for (const era of (sout.eras || [])) {
+    const win = compact.filter(p => era.start <= p.date.slice(0, 7) && p.date.slice(0, 7) <= era.end)
+      .sort((a, b) => (b.upvotes - a.upvotes) || a.date.localeCompare(b.date));
+    era.representativeIds = win.slice(0, 6).map(p => p.id);
+  }
+  const lineageByOrg = {};
+  for (const l of (sout.labLineage || [])) if (l && l.org) lineageByOrg[l.org] = l.note || "";
+
+  const result = {
+    keyword, builtAt: new Date().toISOString().slice(0, 10), paperCount: compact.length,
+    dateRange: [compact[0].date, compact[compact.length - 1].date],
+    threads: threads.map(t => {
+      const ps = t.ids.map(i => byId[i]).filter(Boolean)
+        .sort((a, b) => a.date.localeCompare(b.date));
+      return { name: t.name, count: ps.length, edges: [], papers: ps };
+    }).sort((a, b) => b.count - a.count),
+    eras: sout.eras || [],
+    labs: topOrgs.map(o => ({ org: o, count: orgCounts[o], note: lineageByOrg[o] || "" })),
+    fieldNarrative: sout.fieldNarrative || "",
+    online: true,
+  };
+
+  try { localStorage.setItem(CACHE_PREFIX + slug, JSON.stringify(result)); } catch {}
+  return result;
 }
 
 function threadOf(paperId) {
