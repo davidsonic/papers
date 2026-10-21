@@ -10,7 +10,7 @@ import sys
 import time
 import urllib.request
 import urllib.error
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
@@ -119,7 +119,9 @@ def fetch_new_papers(days_back: int = 7):
 
     # Fetch papers from the last N days (both new and update existing)
     all_papers = dict(existing_papers)  # Start with existing papers
-    current = datetime.now()
+    # Use UTC: HF publishes the next day's daily-papers page around 20:00 UTC,
+    # so "today" in UTC can already include the next calendar date's papers.
+    current = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(days=1)
     count_fetched = 0
     count_new = 0
     count_updated = 0
