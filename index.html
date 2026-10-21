@@ -140,6 +140,37 @@
             transform: scale(1.05);
         }
 
+        /* Cross-links to sibling paper explorers + fetch button, one row */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .explorer-links {
+            display: flex;
+            gap: 6px;
+        }
+
+        .explorer-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85em;
+            white-space: nowrap;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .explorer-link:hover {
+            background: var(--bg-alt);
+            transform: scale(1.05);
+        }
+
         .fetch-btn.loading {
             opacity: 0.6;
             cursor: not-allowed;
@@ -538,6 +569,16 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Stack header actions in one aligned column on phones */
+            .header-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .explorer-links {
+                justify-content: center;
+            }
+
             .paper-thumbnail {
                 height: 220px;
             }
@@ -851,7 +892,14 @@
                         Sorted by GitHub stars, relevance, or latest. Click tags to filter or a paper to select for comparison.
                     </p>
                 </div>
-                <button id="fetchBtn" class="fetch-btn" title="Manually trigger paper fetch from HuggingFace">⬇️ Fetch Now</button>
+                <div class="header-actions">
+                    <div class="explorer-links">
+                        <a class="explorer-link" data-explorer="conferences" href="https://gisbi-kim.github.io/conference-explorers/" title="Conference paper explorers">🎓 Conferences</a>
+                        <a class="explorer-link" data-explorer="paperhub" href="https://paperhub.cn/" title="PaperHub">🧭 PaperHub</a>
+                        <a class="explorer-link" data-explorer="hf" href="https://huggingface.co/papers/date/" title="HuggingFace Daily Papers">🤗 HuggingFace</a>
+                    </div>
+                    <button id="fetchBtn" class="fetch-btn" title="Manually trigger paper fetch from HuggingFace">⬇️ Fetch Now</button>
+                </div>
             </div>
         </header>
 
