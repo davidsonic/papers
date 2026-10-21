@@ -1502,7 +1502,9 @@
                   + (paper.authors.length > 3 ? ', ...' : '')
                 : 'Unknown authors';
 
-            const pubDate = new Date(getPaperDate(paper)).toLocaleDateString();
+            // Show the announcement date as-is (plain YYYY-MM-DD); parsing it
+            // as a Date would shift it a day in timezones west of UTC.
+            const pubDate = getPaperDate(paper);
 
             // Thumbnail HTML - support videos and images
             let thumbnailHtml;
