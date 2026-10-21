@@ -101,6 +101,7 @@ def extract_paper_fields(entry: Dict[str, Any], announcement_date: str) -> Dict[
         "githubStars": paper.get("githubStars"),  # Star count from that repo
         "aiSummary": paper.get("ai_summary"),  # HF's AI-generated summary (if available)
         "aiKeywords": paper.get("ai_keywords", []),  # HF's AI-extracted keywords (if available)
+        "organization": entry.get("organization"),  # Org info from HF (may be None)
         "thumbnail": entry.get("thumbnail"),  # HF thumbnail image URL
     }
 

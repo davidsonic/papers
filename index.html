@@ -1152,9 +1152,6 @@
 
                 initializeUI();
                 render();
-
-                // Fetch organization data from HuggingFace Papers API for papers that don't have it
-                enrichPapersWithOrganization(papers);
             } catch (error) {
                 document.getElementById('papersList').innerHTML = `
                     <div class="empty">
@@ -1173,64 +1170,12 @@
             return (paper.announcementDate || (paper.publishedDate || '').split('T')[0]);
         }
 
-        // Enrich papers with organization data from HuggingFace API
-        async function enrichPapersWithOrganization(papers) {
-            try {
-                // Get unique dates from papers
-                const dates = [...new Set(papers.map(getPaperDate))];
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-                for (const date of dates) {
-                    try {
-                        const resp = await fetch(`https://huggingface.co/api/daily_papers?date=${date}`);
-                        if (!resp.ok) continue;
-
-                        const hfPapers = await resp.json();
-                        const orgMap = {};
-
-                        // Create map of paper ID to organization
-                        hfPapers.forEach(hfPaper => {
-                            if (hfPaper.organization) {
-                                orgMap[hfPaper.id] = hfPaper.organization;
-                            }
-                        });
-
-                        // Update papers with organization data
-                        papers.forEach(paper => {
-                            if (!paper.organization && orgMap[paper.id]) {
-                                paper.organization = orgMap[paper.id];
-                            }
-                        });
-
-                        // Re-render cards to show updated organization info
-                        updatePaperCards();
-                    } catch (e) {
-                        console.log(`Error fetching org data for ${date}:`, e.message);
-                    }
-                }
-            } catch (e) {
-                console.log('Error enriching papers:', e.message);
-            }
-        }
-
-        // Update paper cards with organization data
-        function updatePaperCards() {
-            document.querySelectorAll('.paper-card').forEach(cardEl => {
-                const idx = Array.from(cardEl.parentElement.children).indexOf(cardEl);
-                if (idx >= 0 && idx < state.papers.length) {
-                    const paper = state.papers[idx];
-                    const instituteEl = cardEl.querySelector('[data-institute]');
-                    if (instituteEl && paper.organization) {
-                        const org = paper.organization;
-                        instituteEl.innerHTML = `
-                            <div class="paper-institute-logo">
-                                <img src="${escapeHtml(org.avatar)}" alt="${escapeHtml(org.fullname)}" title="${escapeHtml(org.fullname)}">
-                            </div>
-                            <span>${escapeHtml(org.fullname)}</span>
-                        `;
-                    }
-                }
-            });
-        }
+        // Organization data now ships inside papers_all.json (extracted from
+        // the daily_papers API at fetch time), so no client-side enrichment
+        // requests are needed — that approach hit HF rate limits and showed
+        // nothing. renderPaperCard just reads paper.organization.
 
         function extractAllTags(papers) {
             // Extract unique tags from papers
@@ -1578,12 +1523,13 @@
                 </div>`;
             }
 
-            const orgHtml = paper.organization
-                ? `<div class="paper-institute-logo">
+            // Organization ships in papers_all.json; HF shows nothing when absent
+            const orgHtml = paper.organization ? `
+                     <div class="paper-institute-logo">
                      <img src="${escapeHtml(paper.organization.avatar)}" alt="${escapeHtml(paper.organization.fullname)}" title="${escapeHtml(paper.organization.fullname)}">
                    </div>
                    <span>${escapeHtml(paper.organization.fullname)}</span>`
-                : `<div style="opacity: 0.6; font-size: 0.9em; padding: 8px; color: var(--text-light);">🏢 Organization...</div>`;
+                : '';
 
             card.innerHTML = `
                 ${thumbnailHtml}

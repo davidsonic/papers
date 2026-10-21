@@ -95,6 +95,7 @@ def extract_paper_fields(entry: Dict[str, Any], announcement_date: str) -> Dict[
         "githubStars": paper.get("githubStars"),
         "aiSummary": paper.get("ai_summary"),
         "aiKeywords": paper.get("ai_keywords", []),
+        "organization": entry.get("organization"),  # Org info from HF (may be None)
         "thumbnail": thumbnail,  # User-uploaded video or HF thumbnail image
     }
 
