@@ -151,7 +151,7 @@ h1 { font-size: 1.5rem; margin: 0 0 4px; }
 }
 .map-head h3 { margin: 0; font-size: 1rem; }
 .map-scroll { overflow-x: auto; }
-.map-svg { display: block; min-width: 2000px; width: 2000px; }
+.map-svg { display: block; min-width: 900px; width: 100%; }
 .map-tick { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
 .map-year { fill: var(--text-dim); font-size: 11px; }
 .map-edge {
@@ -539,14 +539,14 @@ function mapTrack(t) {
     }
   }
 
-  // X position: proportional to time across a wide canvas so full titles fit.
+  // X position: rank by date, evenly spaced but proportional-ish to time.
   const times = papers.map(p => new Date(p.date).getTime());
   const t0 = Math.min(...times), t1 = Math.max(...times);
   const span = Math.max(1, t1 - t0);
   const x = {};
   papers.forEach(p => {
     const tms = new Date(p.date).getTime();
-    x[p.id] = 60 + ((tms - t0) / span) * 880; // 60..940 within a 1000-wide track
+    x[p.id] = 60 + ((tms - t0) / span) * 100; // percent 0-100 within track
   });
 
   const laneH = Math.min(74, Math.max(26, 420 / Math.max(1, maxLane))), headH = 42;
@@ -572,12 +572,13 @@ function mapTrack(t) {
     svg += `<path d="M ${x1} ${y1} C ${x1} ${mid}, ${x2} ${mid}, ${x2} ${y2}" class="map-edge" data-child="${child}" data-parent="${parent}"></path>`;
   }
   // Nodes
+  const labelLen = laneH < 40 ? 14 : 26;
   for (const p of papers) {
     const px = x[p.id], py = headH + lane[p.id] * laneH + 26;
     svg += `<a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener">
       <g class="map-node" data-id="${p.id}" transform="translate(${px},${py})">
         <circle r="7"><title>${esc(p.title)} (${p.date.slice(0, 7)}${p.org ? " · " + p.org : ""})</title></circle>
-        <text y="-13" text-anchor="middle" class="map-label">${esc(p.title)}</text>
+        <text y="-13" text-anchor="middle" class="map-label">${esc(shorten(p.title, labelLen))}</text>
       </g></a>`;
   }
   svg += "</svg>";
@@ -588,6 +589,9 @@ function mapTrack(t) {
     <div class="map-scroll">${svg}</div>
   </div>`;
 }
+
+// Break a title into up to maxLines short lines; the last line takes the overflow with "…".
+function shorten(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
 
 function highlightLineage(node, on) {
   const svg = node.closest("svg");
