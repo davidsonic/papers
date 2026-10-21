@@ -73,7 +73,7 @@ def fetch_papers_for_date(date: datetime, max_retries: int = 3) -> Optional[List
 
     return None
 
-def extract_paper_fields(entry: Dict[str, Any]) -> Dict[str, Any]:
+def extract_paper_fields(entry: Dict[str, Any], announcement_date: str) -> Dict[str, Any]:
     """Extract fields from HF daily paper entry."""
     paper = entry.get("paper", {})
 
@@ -87,6 +87,9 @@ def extract_paper_fields(entry: Dict[str, Any]) -> Dict[str, Any]:
         "abstract": paper.get("summary", ""),
         "authors": paper.get("authors", []),
         "publishedDate": paper.get("publishedAt"),
+        # Date the paper was featured on HF's daily papers page (the grouping
+        # key huggingface.co/papers uses); differs from the arXiv publish date.
+        "announcementDate": announcement_date,
         "hfUpvotes": paper.get("upvotes", 0),
         "githubRepo": paper.get("githubRepo"),
         "githubStars": paper.get("githubStars"),
@@ -134,7 +137,7 @@ def fetch_new_papers(days_back: int = 7):
             count_fetched += 1
             print(f"  {date_str}: {len(papers)} papers")
             for entry in papers:
-                extracted = extract_paper_fields(entry)
+                extracted = extract_paper_fields(entry, date_str)
                 paper_id = extracted.get("id")
                 if paper_id:
                     if paper_id in existing_papers:

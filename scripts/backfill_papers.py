@@ -80,7 +80,7 @@ def fetch_papers_for_date(date: datetime, force: bool = False, max_retries: int 
 
     return None
 
-def extract_paper_fields(entry: Dict[str, Any]) -> Dict[str, Any]:
+def extract_paper_fields(entry: Dict[str, Any], announcement_date: str) -> Dict[str, Any]:
     """
     Extract and normalize fields from HF daily paper entry.
     Entry is {paper: {...}, publishedAt, title, summary, thumbnail, ...}
@@ -93,6 +93,9 @@ def extract_paper_fields(entry: Dict[str, Any]) -> Dict[str, Any]:
         "abstract": paper.get("summary", ""),  # HF API calls it "summary" but it's the abstract
         "authors": paper.get("authors", []),
         "publishedDate": paper.get("publishedAt"),
+        # Date the paper was featured on HF's daily papers page (the grouping
+        # key huggingface.co/papers uses); differs from the arXiv publish date.
+        "announcementDate": announcement_date,
         "hfUpvotes": paper.get("upvotes", 0),
         "githubRepo": paper.get("githubRepo"),  # Single GitHub repo URL
         "githubStars": paper.get("githubStars"),  # Star count from that repo
@@ -127,7 +130,7 @@ def backfill_papers(start: datetime = START_DATE, end: datetime = TODAY, force: 
             count_fetched += 1
             print(f"  {date_str}: {len(papers)} papers", file=sys.stdout)
             for paper in papers:
-                extracted = extract_paper_fields(paper)
+                extracted = extract_paper_fields(paper, date_str)
                 paper_id = extracted.get("id")
                 if paper_id and paper_id not in all_papers:
                     all_papers[paper_id] = extracted
