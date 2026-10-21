@@ -140,6 +140,37 @@
             transform: scale(1.05);
         }
 
+        /* Cross-links to sibling paper explorers + fetch button, one row */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .explorer-links {
+            display: flex;
+            gap: 6px;
+        }
+
+        .explorer-link {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85em;
+            white-space: nowrap;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .explorer-link:hover {
+            background: var(--bg-alt);
+            transform: scale(1.05);
+        }
+
         .fetch-btn.loading {
             opacity: 0.6;
             cursor: not-allowed;
@@ -538,6 +569,16 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Stack header actions in one aligned column on phones */
+            .header-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .explorer-links {
+                justify-content: center;
+            }
+
             .paper-thumbnail {
                 height: 220px;
             }
@@ -851,7 +892,17 @@
                         Sorted by GitHub stars, relevance, or latest. Click tags to filter or a paper to select for comparison.
                     </p>
                 </div>
-                <button id="fetchBtn" class="fetch-btn" title="Manually trigger paper fetch from HuggingFace">⬇️ Fetch Now</button>
+                <div class="header-actions">
+                    <div class="explorer-links">
+                        <a class="explorer-link" href="evolution.html" title="Research evolution explorer" style="font-weight:600">🧬 Evolution</a>
+                        <a class="explorer-link" href="conference.html" title="Conference accepted-paper evolution (NeurIPS/ICLR/ICML/CVPR 2026)">🎓 Conference Evolution</a>
+                        <a class="explorer-link" data-explorer="conferences" href="https://gisbi-kim.github.io/conference-explorers/" title="Conference paper explorers">🎓 Conferences</a>
+                        <a class="explorer-link" data-explorer="paperhub" href="https://paperhub.cn/" title="PaperHub">🧭 PaperHub</a>
+                        <a class="explorer-link" data-explorer="hf" href="https://huggingface.co/papers/" title="HuggingFace Daily Papers">🤗 HuggingFace</a>
+                        <a class="explorer-link" data-explorer="salesforce" href="https://www.salesforceairesearch.com/publications" title="Salesforce AI Research publications">☁️ Salesforce AI</a>
+                    </div>
+                    <button id="fetchBtn" class="fetch-btn" title="Manually trigger paper fetch from HuggingFace">⬇️ Fetch Now</button>
+                </div>
             </div>
         </header>
 
@@ -1097,15 +1148,12 @@
                 state.tags = tags;
 
                 // Extract all unique dates and sort descending (latest first)
-                const uniqueDates = [...new Set(papers.map(p => p.publishedDate.split('T')[0]))];
+                const uniqueDates = [...new Set(papers.map(getPaperDate))];
                 state.allDates = uniqueDates.sort().reverse();
                 state.selectedDate = state.allDates[0]; // Select latest date by default
 
                 initializeUI();
                 render();
-
-                // Fetch organization data from HuggingFace Papers API for papers that don't have it
-                enrichPapersWithOrganization(papers);
             } catch (error) {
                 document.getElementById('papersList').innerHTML = `
                     <div class="empty">
@@ -1117,64 +1165,19 @@
             }
         }
 
-        // Enrich papers with organization data from HuggingFace API
-        async function enrichPapersWithOrganization(papers) {
-            try {
-                // Get unique dates from papers
-                const dates = [...new Set(papers.map(p => p.publishedDate.split('T')[0]))];
-
-                for (const date of dates) {
-                    try {
-                        const resp = await fetch(`https://huggingface.co/api/papers?date=${date}&limit=100`);
-                        if (!resp.ok) continue;
-
-                        const hfPapers = await resp.json();
-                        const orgMap = {};
-
-                        // Create map of paper ID to organization
-                        hfPapers.forEach(hfPaper => {
-                            if (hfPaper.organization) {
-                                orgMap[hfPaper.id] = hfPaper.organization;
-                            }
-                        });
-
-                        // Update papers with organization data
-                        papers.forEach(paper => {
-                            if (!paper.organization && orgMap[paper.id]) {
-                                paper.organization = orgMap[paper.id];
-                            }
-                        });
-
-                        // Re-render cards to show updated organization info
-                        updatePaperCards();
-                    } catch (e) {
-                        console.log(`Error fetching org data for ${date}:`, e.message);
-                    }
-                }
-            } catch (e) {
-                console.log('Error enriching papers:', e.message);
-            }
+        // Grouping key: the date the paper was featured on HF's daily papers
+        // page (announcementDate), matching huggingface.co/papers. Falls back
+        // to the arXiv publish date for legacy data without announcementDate.
+        function getPaperDate(paper) {
+            return (paper.announcementDate || (paper.publishedDate || '').split('T')[0]);
         }
 
-        // Update paper cards with organization data
-        function updatePaperCards() {
-            document.querySelectorAll('.paper-card').forEach(cardEl => {
-                const idx = Array.from(cardEl.parentElement.children).indexOf(cardEl);
-                if (idx >= 0 && idx < state.papers.length) {
-                    const paper = state.papers[idx];
-                    const instituteEl = cardEl.querySelector('[data-institute]');
-                    if (instituteEl && paper.organization) {
-                        const org = paper.organization;
-                        instituteEl.innerHTML = `
-                            <div class="paper-institute-logo">
-                                <img src="${escapeHtml(org.avatar)}" alt="${escapeHtml(org.fullname)}" title="${escapeHtml(org.fullname)}">
-                            </div>
-                            <span>${escapeHtml(org.fullname)}</span>
-                        `;
-                    }
-                }
-            });
-        }
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+        // Organization data now ships inside papers_all.json (extracted from
+        // the daily_papers API at fetch time), so no client-side enrichment
+        // requests are needed — that approach hit HF rate limits and showed
+        // nothing. renderPaperCard just reads paper.organization.
 
         function extractAllTags(papers) {
             // Extract unique tags from papers
@@ -1433,7 +1436,7 @@
             // Filter by selected date only if showByDate is enabled
             if (state.showByDate && state.selectedDate) {
                 filtered = filtered.filter(paper => {
-                    const paperDate = paper.publishedDate.split('T')[0];
+                    const paperDate = getPaperDate(paper);
                     return paperDate === state.selectedDate;
                 });
             }
@@ -1468,7 +1471,7 @@
                     sorted.sort((a, b) => (b.githubStars || 0) - (a.githubStars || 0));
                     break;
                 case 'date':
-                    sorted.sort((a, b) => new Date(b.publishedDate) - new Date(a.publishedDate));
+                    sorted.sort((a, b) => new Date(getPaperDate(b)) - new Date(getPaperDate(a)));
                     break;
                 case 'relevance':
                     // Simple relevance: prioritize search term matches in title
@@ -1495,7 +1498,9 @@
                   + (paper.authors.length > 3 ? ', ...' : '')
                 : 'Unknown authors';
 
-            const pubDate = new Date(paper.publishedDate).toLocaleDateString();
+            // Show the announcement date as-is (plain YYYY-MM-DD); parsing it
+            // as a Date would shift it a day in timezones west of UTC.
+            const pubDate = getPaperDate(paper);
 
             // Thumbnail HTML - support videos and images
             let thumbnailHtml;
@@ -1520,12 +1525,13 @@
                 </div>`;
             }
 
-            const orgHtml = paper.organization
-                ? `<div class="paper-institute-logo">
+            // Organization ships in papers_all.json; HF shows nothing when absent
+            const orgHtml = paper.organization ? `
+                     <div class="paper-institute-logo">
                      <img src="${escapeHtml(paper.organization.avatar)}" alt="${escapeHtml(paper.organization.fullname)}" title="${escapeHtml(paper.organization.fullname)}">
                    </div>
                    <span>${escapeHtml(paper.organization.fullname)}</span>`
-                : `<div style="opacity: 0.6; font-size: 0.9em; padding: 8px; color: var(--text-light);">🏢 Organization...</div>`;
+                : '';
 
             card.innerHTML = `
                 ${thumbnailHtml}
@@ -1685,6 +1691,14 @@
                         <p>Try adjusting your filters or search term.</p>
                     </div>
                 `;
+                document.getElementById('pagination-top').style.display = 'none';
+                document.getElementById('pagination-bottom').style.display = 'none';
+            } else if (state.showByDate) {
+                // Date view: show all papers for the selected date on a single page (no pagination)
+                papersList.innerHTML = '';
+                sorted.forEach(paper => {
+                    papersList.appendChild(renderPaperCard(paper));
+                });
                 document.getElementById('pagination-top').style.display = 'none';
                 document.getElementById('pagination-bottom').style.display = 'none';
             } else {

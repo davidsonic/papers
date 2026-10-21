@@ -48,7 +48,7 @@ def fetch_organizations(
     print(f'✅ Loaded {len(papers)} papers\n')
 
     # Get unique dates
-    dates = sorted(set(p['publishedDate'].split('T')[0] for p in papers), reverse=True)
+    dates = sorted(set(p.get('announcementDate') or p['publishedDate'].split('T')[0] for p in papers), reverse=True)
     print(f'📅 Found {len(dates)} unique dates')
 
     # Filter by start_date if provided
@@ -78,7 +78,7 @@ def fetch_organizations(
     for i, date in enumerate(dates, 1):
         try:
             # Fetch from HuggingFace API
-            url = f'https://huggingface.co/api/papers?date={date}&limit=100'
+            url = f'https://huggingface.co/api/daily_papers?date={date}'
 
             if verbose:
                 print(f'[{i}/{len(dates)}] Fetching {date}... ', end='', flush=True)
@@ -98,7 +98,7 @@ def fetch_organizations(
             # Update papers with organization data
             updated_this_date = 0
             for paper in papers:
-                if paper['publishedDate'].split('T')[0] == date:
+                if (paper.get('announcementDate') or paper['publishedDate'].split('T')[0]) == date:
                     total_processed += 1
                     if 'organization' not in paper and paper['id'] in org_map:
                         paper['organization'] = org_map[paper['id']]

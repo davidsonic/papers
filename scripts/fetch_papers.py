@@ -10,7 +10,7 @@ import sys
 import time
 import urllib.request
 import urllib.error
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
@@ -73,7 +73,7 @@ def fetch_papers_for_date(date: datetime, max_retries: int = 3) -> Optional[List
 
     return None
 
-def extract_paper_fields(entry: Dict[str, Any]) -> Dict[str, Any]:
+def extract_paper_fields(entry: Dict[str, Any], announcement_date: str) -> Dict[str, Any]:
     """Extract fields from HF daily paper entry."""
     paper = entry.get("paper", {})
 
@@ -87,11 +87,15 @@ def extract_paper_fields(entry: Dict[str, Any]) -> Dict[str, Any]:
         "abstract": paper.get("summary", ""),
         "authors": paper.get("authors", []),
         "publishedDate": paper.get("publishedAt"),
+        # Date the paper was featured on HF's daily papers page (the grouping
+        # key huggingface.co/papers uses); differs from the arXiv publish date.
+        "announcementDate": announcement_date,
         "hfUpvotes": paper.get("upvotes", 0),
         "githubRepo": paper.get("githubRepo"),
         "githubStars": paper.get("githubStars"),
         "aiSummary": paper.get("ai_summary"),
         "aiKeywords": paper.get("ai_keywords", []),
+        "organization": entry.get("organization"),  # Org info from HF (may be None)
         "thumbnail": thumbnail,  # User-uploaded video or HF thumbnail image
     }
 
@@ -116,7 +120,9 @@ def fetch_new_papers(days_back: int = 7):
 
     # Fetch papers from the last N days (both new and update existing)
     all_papers = dict(existing_papers)  # Start with existing papers
-    current = datetime.now()
+    # Use UTC: HF publishes the next day's daily-papers page around 20:00 UTC,
+    # so "today" in UTC can already include the next calendar date's papers.
+    current = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(days=1)
     count_fetched = 0
     count_new = 0
     count_updated = 0
@@ -134,7 +140,7 @@ def fetch_new_papers(days_back: int = 7):
             count_fetched += 1
             print(f"  {date_str}: {len(papers)} papers")
             for entry in papers:
-                extracted = extract_paper_fields(entry)
+                extracted = extract_paper_fields(entry, date_str)
                 paper_id = extracted.get("id")
                 if paper_id:
                     if paper_id in existing_papers:

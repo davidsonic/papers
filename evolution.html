@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Evolution Explorer</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f6f8fa;
+  --border: #d0d7de;
+  --text: #1f2328;
+  --text-dim: #57606a;
+  --accent: #0969da;
+  --accent-soft: #ddf4ff;
+  --chip-bg: #f6f8fa;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1117;
+    --bg-alt: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #58a6ff;
+    --accent-soft: #1c2a3a;
+    --chip-bg: #21262d;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1117;
+  --bg-alt: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --accent: #58a6ff;
+  --accent-soft: #1c2a3a;
+  --chip-bg: #21262d;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+.wrap { max-width: 1200px; margin: 0 auto; padding: 24px 16px 60px; }
+h1 { font-size: 1.5rem; margin: 0 0 4px; }
+.sub { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 16px; }
+.sub a { color: var(--accent); text-decoration: none; }
+
+.searchbar { display: flex; gap: 8px; margin: 12px 0 8px; flex-wrap: wrap; }
+.searchbar input[type="text"] {
+  flex: 1; min-width: 200px;
+  padding: 10px 14px; font-size: 1rem;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--text);
+}
+.searchbar button {
+  padding: 10px 20px; font-size: 1rem; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--accent); color: #fff;
+  cursor: pointer;
+}
+.suggestions { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.suggestions button {
+  font-size: 0.8rem; padding: 4px 12px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--chip-bg); color: var(--text-dim);
+  cursor: pointer;
+}
+.suggestions button:hover { border-color: var(--accent); color: var(--accent); }
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.tabs button {
+  padding: 8px 16px; border: none; background: none; cursor: pointer;
+  font-size: 0.95rem; color: var(--text-dim);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tabs button.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+
+.meta { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 16px; }
+
+/* ---------- Lineage view ---------- */
+.labs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+.lab-card {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 16px; background: var(--bg);
+}
+.lab-card h3 { margin: 0 0 2px; font-size: 1rem; }
+.lab-card .count { color: var(--text-dim); font-size: 0.8rem; margin-bottom: 8px; }
+.lab-note { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 10px; white-space: pre-line; }
+.timeline { border-left: 2px solid var(--border); margin-left: 6px; padding-left: 14px; }
+.tl-item { position: relative; margin-bottom: 10px; }
+.tl-item::before {
+  content: ""; position: absolute; left: -19px; top: 7px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+}
+.tl-date { font-size: 0.75rem; color: var(--text-dim); }
+.tl-item a { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+.tl-added { font-size: 0.8rem; color: var(--text-dim); }
+
+/* ---------- Field timeline view ---------- */
+.era {
+  border: 1px solid var(--border); border-radius: 10px;
+  margin-bottom: 20px; overflow: hidden; background: var(--bg);
+}
+.era-head {
+  padding: 12px 16px; background: var(--bg-alt);
+  display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline;
+  border-bottom: 1px solid var(--border);
+}
+.era-head h3 { margin: 0; font-size: 1rem; }
+.era-range { color: var(--text-dim); font-size: 0.8rem; }
+.era-focus { padding: 10px 16px; font-size: 0.88rem; color: var(--text-dim); }
+.era-papers { padding: 0 16px 14px; }
+.era-papers h4 { margin: 8px 0 8px; font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+.pap {
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px; margin-bottom: 8px;
+}
+.pap a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.92rem; }
+.pap .pap-meta { color: var(--text-dim); font-size: 0.78rem; margin: 2px 0; }
+.pap .pap-added { font-size: 0.85rem; }
+.thread-tag {
+  display: inline-block; font-size: 0.7rem; padding: 1px 8px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); margin-left: 6px;
+  vertical-align: middle;
+}
+.thread-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.thread-chips button {
+  font-size: 0.78rem; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--chip-bg); color: var(--text-dim);
+  cursor: pointer;
+}
+.thread-chips button.on { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+
+.narrative {
+  border-left: 3px solid var(--accent); padding: 8px 14px; margin: 0 0 20px;
+  background: var(--bg-alt); border-radius: 0 8px 8px 0; font-size: 0.92rem;
+}
+
+/* ---------- Idea map ---------- */
+.map-track {
+  border: 1px solid var(--border); border-radius: 10px;
+  margin-bottom: 20px; background: var(--bg); overflow: hidden;
+}
+.map-head {
+  padding: 10px 16px; background: var(--bg-alt); border-bottom: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline;
+}
+.map-head h3 { margin: 0; font-size: 1rem; }
+.map-scroll { overflow-x: auto; }
+.map-svg { display: block; min-width: 900px; width: 100%; }
+.map-tick { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
+.map-year { fill: var(--text-dim); font-size: 11px; }
+.map-edge {
+  fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: 0.45;
+  transition: opacity 0.15s;
+}
+.map-node circle {
+  fill: var(--accent); stroke: var(--bg); stroke-width: 2;
+  transition: opacity 0.15s;
+}
+.map-node text {
+  fill: var(--text); font-size: 10.5px;
+  paint-order: stroke; stroke: var(--bg); stroke-width: 3px;
+}
+.map-node:hover circle { stroke: var(--accent); stroke-width: 3; }
+.map-node.dimmed, .map-edge.dimmed { opacity: 0.15; }
+
+.loading, .empty { color: var(--text-dim); padding: 40px 0; text-align: center; }
+@media (max-width: 640px) {
+  .labs-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- PDF hover preview (as in index.html) ---------- */
+.preview-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+.preview-overlay.active { opacity: 1; visibility: visible; }
+.preview-modal {
+  background: var(--bg);
+  border-radius: 8px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
+  height: 95vh;
+  overflow: hidden;
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.preview-overlay.active .preview-modal { transform: scale(1); }
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.preview-title {
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+.preview-close {
+  background: rgba(127, 127, 127, 0.12);
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 1em;
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  border-radius: 6px;
+}
+.preview-close:hover { background: rgba(127, 127, 127, 0.25); color: var(--text); }
+.preview-content {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  position: relative;
+  padding: 0;
+}
+.preview-pdf { border: none; width: 100%; height: 100%; }
+.preview-placeholder { color: var(--text-dim); text-align: center; font-size: 1.1em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Research Evolution Explorer</h1>
+  <div class="sub">How research ideas evolve in a domain — lab lineages and field timelines. <a href="index.html">← Paper explorer</a></div>
+
+  <div class="searchbar">
+    <input type="text" id="kw" placeholder='Enter a research keyword, e.g. "world model"' autocomplete="off">
+    <button id="go">Explore</button>
+  </div>
+  <div class="suggestions" id="suggestions"></div>
+
+  <div class="tabs" id="tabs" hidden></div>
+  <div id="content"><div class="empty">Type a keyword to explore its evolution. Precomputed topics appear as suggestions.</div></div>
+</div>
+
+<!-- PDF hover preview modal (as in index.html) -->
+<div id="previewOverlay" class="preview-overlay">
+  <div class="preview-modal">
+    <div class="preview-header">
+      <div class="preview-title" id="previewTitle"></div>
+      <button class="preview-close" id="previewClose">✕</button>
+    </div>
+    <div class="preview-content" id="previewContent"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const SLUG = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+let DATA = null;
+let activeThread = null;
+let activeTab = "lineage";
+
+// PDF hover preview, as in index.html: hover a paper 1s, the arXiv PDF opens in a modal.
+const preview = {
+  currentPaper: null,
+  hoverTimeout: null,
+
+  init() {
+    const overlay = document.getElementById('previewOverlay');
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) this.close();
+    });
+    document.getElementById('previewClose').addEventListener('click', () => this.close());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) this.close();
+    });
+  },
+
+  show(paper) {
+    this.currentPaper = paper;
+    document.getElementById('previewTitle').textContent = paper.title;
+    const content = document.getElementById('previewContent');
+    content.innerHTML = '';
+    const iframe = document.createElement('iframe');
+    iframe.className = 'preview-pdf';
+    iframe.src = `https://arxiv.org/pdf/${paper.id}.pdf`;
+    iframe.title = 'PDF Preview';
+    content.appendChild(iframe);
+    document.getElementById('previewOverlay').classList.add('active');
+  },
+
+  close() {
+    document.getElementById('previewOverlay').classList.remove('active');
+    clearTimeout(this.hoverTimeout);
+    this.currentPaper = null;
+  },
+
+  // Bind 1s-hover show / leave-cancel to any element carrying a paper id.
+  hover(el, paper) {
+    el.addEventListener('mouseenter', () => {
+      this.hoverTimeout = setTimeout(() => this.show(paper), 1000);
+    });
+    el.addEventListener('mouseleave', () => clearTimeout(this.hoverTimeout));
+  }
+};
+preview.init();
+
+// Make every paper link on the page hover-preview its PDF (click still opens HF).
+function bindPreviews(root) {
+  root.querySelectorAll('a[href*="huggingface.co/papers/"]').forEach(a => {
+    const id = a.href.split('/papers/')[1].split(/[?#\/]/)[0];
+    const title = a.textContent.trim();
+    if (!id || !title || a.dataset.previewBound) return;
+    a.dataset.previewBound = '1';
+    preview.hover(a, { id, title });
+  });
+}
+
+async function loadManifest() {
+  const box = document.getElementById("suggestions");
+  box.innerHTML = "";
+  let m = [];
+  try {
+    const r = await fetch("data/evolution/manifest.json");
+    m = (await r.json()).filter(e => !e.source || e.source === "papers_all.json");
+    m.forEach(e => {
+      const b = document.createElement("button");
+      b.textContent = `${e.keyword} (${e.paperCount} papers)`;
+      b.onclick = () => explore(e.keyword);
+      box.appendChild(b);
+    });
+  } catch {}
+  // Keywords this browser computed online before, cached in localStorage.
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (!k.startsWith(CACHE_PREFIX)) continue;
+      const slug = k.slice(CACHE_PREFIX.length);
+      if (m.some(e => e.slug === slug)) continue;
+      let d;
+      try { d = JSON.parse(localStorage.getItem(k)); } catch { continue; }
+      const b = document.createElement("button");
+      b.textContent = `${d.keyword} (${d.paperCount} papers, cached)`;
+      b.onclick = () => explore(d.keyword);
+      box.appendChild(b);
+    }
+  } catch {}
+  return m;
+}
+
+async function explore(keyword) {
+  const slug = SLUG(keyword);
+  const content = document.getElementById("content");
+  content.innerHTML = '<div class="loading">Loading…</div>';
+  let data;
+  try {
+    const r = await fetch(`data/evolution/${slug}.json`);
+    if (!r.ok) throw new Error(r.status);
+    data = await r.json();
+  } catch {
+    // Not precomputed: compute it online with OpenRouter (cached in localStorage).
+    try {
+      data = await computeOnline(keyword, slug);
+    } catch (e) {
+      statusDone();
+      content.innerHTML = `<div class="empty">Computing “${esc(keyword)}” failed: ${esc(String(e.message || e))}<br><br>
+        Check your OpenRouter key and connection, then try again.</div>`;
+      return;
+    }
+    if (!data) { statusDone(); return; }
+  }
+  DATA = data;
+  activeThread = null;
+  document.getElementById("kw").value = keyword;
+  render();
+}
+
+/* ---------- Online computation (OpenRouter, z-ai/glm-5.3-flash) ---------- */
+const OR_URL = "https://openrouter.ai/api/v1/chat/completions";
+const OR_MODEL = "z-ai/glm-5.3-flash";
+const MAX_PAPERS = 320, BATCH_SIZE = 20, ABSTRACT_CHARS = 700;
+const CACHE_PREFIX = "evo:";
+
+function getKey() {
+  try { return localStorage.getItem("openrouter_key") || ""; } catch { return ""; }
+}
+
+function askKey(content) {
+  content.innerHTML = `<div class="empty">Computing “${esc(lastKw)}” online needs an OpenRouter API key
+    (used only from your browser, stored in localStorage).<br><br>
+    <input type="password" id="orkey" placeholder="sk-or-..." style="padding:8px 12px;border:1px solid var(--border);
+    border-radius:8px;background:var(--bg);color:var(--text);width:min(420px,90%)">
+    <br><br><button id="orsave" style="padding:8px 20px;border-radius:8px;border:1px solid var(--border);
+    background:var(--accent);color:#fff;cursor:pointer">Save and compute</button></div>`;
+  document.getElementById("orsave").onclick = () => {
+    const k = document.getElementById("orkey").value.trim();
+    if (!k) return;
+    try { localStorage.setItem("openrouter_key", k); } catch {}
+    explore(lastKw);
+  };
+}
+
+const OR_TIMEOUT_MS = 180000;
+
+async function orCall(prompt, maxTokens) {
+  // glm-5.3-flash is a reasoning model: thinking consumes the max_tokens
+  // budget, so cap its effort and budget generously or the answer arrives
+  // empty (finish_reason "length").
+  const body = {
+    model: OR_MODEL,
+    max_tokens: maxTokens + 4096, // headroom for thinking
+    temperature: 0.3,
+    reasoning: { effort: "low" },
+    messages: [{ role: "user", content: prompt }],
+  };
+  let lastErr = null;
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), OR_TIMEOUT_MS);
+    try {
+      const r = await fetch(OR_URL, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${getKey()}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+        signal: ctrl.signal,
+      });
+      if (!r.ok) {
+        // Surface the body too: OpenRouter reports quota/model errors there.
+        const detail = await r.text().catch(() => "");
+        throw new Error(`HTTP ${r.status}${detail ? ": " + detail.slice(0, 200) : ""}`);
+      }
+      const data = await r.json();
+      const choice = data.choices && data.choices[0];
+      const msg = choice && choice.message;
+      if (choice && choice.finish_reason === "length" && (!msg || !msg.content))
+        throw new Error("model ran out of tokens while thinking");
+      if (!msg || !msg.content) throw new Error("empty response from model");
+      return msg.content;
+    } catch (e) {
+      lastErr = e.name === "AbortError" ? new Error(`timed out after ${OR_TIMEOUT_MS / 1000}s`) : e;
+      if (attempt === 3) throw lastErr;
+      orNote(`attempt ${attempt + 1} failed (${lastErr.message}), retrying…`);
+      await new Promise(res => setTimeout(res, 3000 * (attempt + 1)));
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  throw lastErr;
+}
+
+// Show a transient note in the status line without losing the main label.
+let orNoteText = "";
+function orNote(msg) {
+  orNoteText = msg;
+  setTimeout(() => { if (orNoteText === msg) orNoteText = ""; }, 8000);
+}
+
+// Models sometimes wrap the requested JSON array in an object; unwrap it.
+function asArray(out) {
+  if (Array.isArray(out)) return out;
+  if (out && typeof out === "object") {
+    for (const key of ["papers", "results", "items", "entries", "list", "data"]) {
+      if (Array.isArray(out[key])) return out[key];
+    }
+  }
+  return null;
+}
+
+function firstJson(text) {
+  if (!text) return null;
+  text = text.trim().replace(/^```[a-z]*\n?/, "").replace(/\n?```$/, "");
+  for (const [a, b] of [["{", "}"], ["[", "]"]]) {
+    const s = text.indexOf(a);
+    if (s === -1) continue;
+    let depth = 0;
+    for (let i = s; i < text.length; i++) {
+      if (text[i] === a) depth++;
+      else if (text[i] === b && --depth === 0) {
+        try { return JSON.parse(text.slice(s, i + 1)); } catch { break; }
+      }
+    }
+  }
+  return null;
+}
+
+let statusMsg = "", statusAt = 0, statusTimer = null;
+
+function status(content, msg) {
+  statusMsg = msg;
+  statusAt = Date.now();
+  const el = document.getElementById("evo-status");
+  const paint = () => {
+    const secs = Math.floor((Date.now() - statusAt) / 1000);
+    const line = orNoteText ? `${orNoteText} — ${statusMsg}` : statusMsg;
+    const text = `${line} · ${secs}s`;
+    if (el) el.textContent = text;
+    else content.innerHTML = `<div class="loading" id="evo-status">${esc(text)}</div>`;
+  };
+  paint();
+  clearInterval(statusTimer);
+  statusTimer = setInterval(paint, 1000);
+}
+
+function statusDone() {
+  clearInterval(statusTimer);
+  statusTimer = null;
+}
+
+let lastKw = "";
+
+async function computeOnline(keyword, slug) {
+  lastKw = keyword;
+  const content = document.getElementById("content");
+  // Per-keyword result cache from a previous online run.
+  try {
+    const cached = localStorage.getItem(CACHE_PREFIX + slug);
+    if (cached) {
+      status(content, "Using cached online result — recomputing anyway would overwrite it; reload to skip this.");
+      statusDone();
+      return JSON.parse(cached);
+    }
+  } catch {}
+
+  if (!getKey()) { askKey(content); return null; }
+  content.innerHTML = '<div class="loading" id="evo-status">Loading paper index…</div>';
+
+  // 1. Select papers (same scoring as the script). The 88MB archive loads once,
+  //    then is kept for further keywords.
+  if (!window.__papers) {
+    const r = await fetch("data/papers_all.json");
+    window.__papers = await r.json();
+  }
+  const kw = keyword.toLowerCase();
+  const scored = [];
+  for (const p of window.__papers) {
+    const title = (p.title || "").toLowerCase();
+    const abstract = (p.abstract || "").toLowerCase();
+    const kws = (p.aiKeywords || []).join(" ").toLowerCase();
+    const th = title.split(kw).length - 1;
+    const ab = abstract.split(kw).length - 1;
+    const kh = kws.split(kw).length - 1;
+    if (!th && !ab && !kh) continue;
+    let score = th * 8 + Math.min(ab, 4) + kh * 2
+      + (p.hfUpvotes || 0) / 50 + Math.min(p.githubStars || 0, 5000) / 5000;
+    scored.push([score, p]);
+  }
+  scored.sort((a, b) => b[0] - a[0]);
+  const selected = scored.slice(0, MAX_PAPERS).map(x => x[1]);
+  if (!selected.length) {
+    content.innerHTML = `<div class="empty">No papers match “${esc(keyword)}”.</div>`;
+    return null;
+  }
+  const compact = selected.map(p => {
+    const org = p.organization;
+    let orgName = (org && typeof org === "object" && org.name) ? org.name : (typeof org === "string" ? org : "");
+    if (!orgName && p.githubRepo) {
+      const owner = p.githubRepo.split("/")[0];
+      if (/^[A-Za-z0-9][A-Za-z0-9_-]*$/.test(owner) && !/^http|^www|^github/i.test(owner)) orgName = owner;
+    }
+    return {
+      id: p.id, title: p.title, date: (p.publishedDate || "").slice(0, 10),
+      org: orgName || "Independent", upvotes: p.hfUpvotes || 0, stars: p.githubStars || 0,
+      github: p.githubRepo, abstract: (p.abstract || "").slice(0, ABSTRACT_CHARS),
+    };
+  });
+  const byId = {};
+  for (const p of compact) byId[p.id] = p;
+
+  // 2. One-liners, batched.
+  const oneLiners = {};
+  const batches = [];
+  for (let i = 0; i < compact.length; i += BATCH_SIZE) batches.push(compact.slice(i, i + BATCH_SIZE));
+  for (let bi = 0; bi < batches.length; bi++) {
+    status(content, `Step 1/3 · writing per-paper contributions (batch ${bi + 1}/${batches.length})…`);
+    const listing = JSON.stringify(batches[bi].map(p => ({ id: p.id, title: p.title, date: p.date, abstract: p.abstract })));
+    const out = firstJson(await orCall(
+      "Below are research papers (arXiv-style) with abstracts, sorted roughly by date. " +
+      "For EACH paper write ONE sentence (max 25 words) describing what NEW capability, " +
+      "technique, or problem shift it introduced relative to work that came before it " +
+      "(the earlier papers in the list are context for the later ones). " +
+      "Be concrete and technical, not generic. Do not praise.\n\nPapers:\n" + listing + "\n\n" +
+      'Return ONLY a JSON array: [{"id": "<id>", "added": "<sentence>"}, ...] ' +
+      "with exactly one entry per input paper, same ids.", 4096));
+    const items = asArray(out);
+    if (items) for (const it of items) if (it && it.id && it.added) oneLiners[it.id] = it.added;
+  }
+  for (const p of compact) if (!oneLiners[p.id]) oneLiners[p.id] = "";
+
+  // 3. Threads.
+  status(content, "Step 2/3 · clustering research threads…");
+  const tListing = JSON.stringify(compact.map(p => ({ id: p.id, title: p.title, date: p.date, added: oneLiners[p.id] })));
+  let threads = [];
+  const tout = firstJson(await orCall(
+    "Below are papers on one research area, each with a one-line 'added' note. " +
+    "Cluster them into distinct RESEARCH THREADS — a thread is a lineage of work " +
+    "tackling the same core problem or building on the same base idea. Rules:\n" +
+    "- 6 to 14 threads total. Every paper goes in exactly one thread.\n" +
+    "- Threads should be distinguishable by the problem they attack, not by venue or team.\n" +
+    "- Papers of the same direct lineage belong together even across years.\n\n" +
+    "Papers:\n" + tListing + "\n\n" +
+    'Return ONLY JSON: {"threads": [{"name": "<short thread name, 3-6 words>", "ids": ["<id>", ...]}, ...]}', 8192));
+  if (tout && tout.threads) {
+    threads = tout.threads.filter(t => t && t.ids && t.ids.length)
+      .map(t => ({ name: t.name || "?", ids: t.ids }));
+    const known = new Set(threads.flatMap(t => t.ids));
+    const leftovers = compact.filter(p => !known.has(p.id)).map(p => p.id);
+    if (leftovers.length) threads.push({ name: "Other", ids: leftovers });
+  } else {
+    threads = [{ name: "All papers", ids: compact.map(p => p.id) }];
+  }
+
+  // 4. Eras + lab lineage + field narrative (one call), then local representative picks.
+  status(content, "Step 3/3 · summarizing eras and lab lineages…");
+  const months = {};
+  for (const p of compact) { const m = p.date.slice(0, 7); months[m] = (months[m] || 0) + 1; }
+  const orgCounts = {};
+  for (const p of compact) orgCounts[p.org] = (orgCounts[p.org] || 0) + 1;
+  const topOrgs = Object.keys(orgCounts).filter(o => o !== "Independent")
+    .sort((a, b) => orgCounts[b] - orgCounts[a]).slice(0, 10);
+  const threadSummary = threads.map(t => {
+    const ds = t.ids.map(i => byId[i] && byId[i].date).filter(Boolean).sort();
+    return { name: t.name, count: t.ids.length, span: ds.length ? [ds[0], ds[ds.length - 1]] : [] };
+  });
+  const sample = [...compact].sort((a, b) => a.date.localeCompare(b.date));
+  const step = Math.max(1, Math.floor(sample.length / 60));
+  const timelineSample = sample.filter((_, i) => i % step === 0)
+    .map(p => ({ date: p.date, added: oneLiners[p.id].slice(0, 120) }));
+  const sout = firstJson(await orCall(
+    "You are analyzing how a research field evolved over time.\n" +
+    "Paper counts by month:\n" + JSON.stringify(months) + "\n\n" +
+    "Research threads (name, count, first/last date):\n" + JSON.stringify(threadSummary) + "\n\n" +
+    "Sample of paper contributions across time (date, what it added):\n" + JSON.stringify(timelineSample) + "\n\n" +
+    "Task 1: Group the timeline into 3-6 ERAS — periods where the field focused on a recognizable set of problems; eras need not be equal-length. For each: start month, end month, 4-8 word label, 2-3 sentence description, and 3-6 paper ids that best represent it.\n\n" +
+    "Task 2: For the top labs, write a 2-4 sentence LINEAGE note: how that lab's work evolved paper to paper and what it pushed toward. Use these EXACT org names as keys: " + JSON.stringify(topOrgs) + ".\n\n" +
+    "Task 3: Write a 4-6 sentence FIELD NARRATIVE: how the field moved from era to era and where it is heading.\n\n" +
+    'Return ONLY JSON:\n{"eras": [{"start": "YYYY-MM", "end": "YYYY-MM", "label": "...", "focus": "...", "representativeIds": ["id", ...]}], "labLineage": [{"org": "<exact org name from the list>", "note": "..."}], "fieldNarrative": "..."}', 8192)) || {};
+
+  // Era representatives picked locally by upvotes inside each era window.
+  for (const era of (sout.eras || [])) {
+    const win = compact.filter(p => era.start <= p.date.slice(0, 7) && p.date.slice(0, 7) <= era.end)
+      .sort((a, b) => (b.upvotes - a.upvotes) || a.date.localeCompare(b.date));
+    era.representativeIds = win.slice(0, 6).map(p => p.id);
+  }
+  const lineageByOrg = {};
+  for (const l of (sout.labLineage || [])) if (l && l.org) lineageByOrg[l.org] = l.note || "";
+
+  const result = {
+    keyword, builtAt: new Date().toISOString().slice(0, 10), paperCount: compact.length,
+    dateRange: [compact[0].date, compact[compact.length - 1].date],
+    threads: threads.map(t => {
+      const ps = t.ids.map(i => byId[i]).filter(Boolean)
+        .sort((a, b) => a.date.localeCompare(b.date));
+      return { name: t.name, count: ps.length, edges: [], papers: ps };
+    }).sort((a, b) => b.count - a.count),
+    eras: sout.eras || [],
+    labs: topOrgs.map(o => ({ org: o, count: orgCounts[o], note: lineageByOrg[o] || "" })),
+    fieldNarrative: sout.fieldNarrative || "",
+    online: true,
+  };
+
+  try { localStorage.setItem(CACHE_PREFIX + slug, JSON.stringify(result)); } catch {}
+  statusDone();
+  return result;
+}
+
+function threadOf(paperId) {
+  for (const t of DATA.threads) if (t.papers.some(p => p.id === paperId)) return t.name;
+  return "";
+}
+
+function fmtDate(d) { return d ? d.slice(0, 7) : ""; }
+
+function renderMeta() {
+  const [a, b] = DATA.dateRange || ["?", "?"];
+  return `${DATA.paperCount} papers · ${a.slice(0,7)} → ${b.slice(0,7)} · built ${DATA.builtAt}`;
+}
+
+/* ---------- Tab 1: lab lineage ---------- */
+function renderLineage() {
+  const c = document.getElementById("content");
+  let html = `<div class="meta">${renderMeta()}</div>`;
+  const labs = DATA.labs || [];
+  if (!labs.length) { html += '<div class="empty">No lab data.</div>'; c.innerHTML = html; return; }
+  html += '<div class="labs-grid">';
+  for (const lab of labs) {
+    // Gather this lab's papers across all threads, sorted by date.
+    const papers = [];
+    for (const t of DATA.threads)
+      for (const p of t.papers) if (p.org === lab.org) papers.push({ ...p, thread: t.name });
+    papers.sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+    if (!papers.length) continue;
+    html += `<div class="lab-card">
+      <h3>${esc(lab.org)}</h3>
+      <div class="count">${lab.count} papers in this domain</div>
+      ${lab.note ? `<div class="lab-note">${esc(lab.note)}</div>` : ""}
+      <div class="timeline">`;
+    for (const p of papers) {
+      html += `<div class="tl-item">
+        <div class="tl-date">${fmtDate(p.date)} · ▲${p.upvotes}${p.stars ? ` · ★${p.stars.toLocaleString()}` : ""} <span class="thread-tag">${esc(p.thread)}</span></div>
+        <a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener">${esc(p.title)}</a>
+        ${p.added ? `<div class="tl-added">${esc(p.added)}</div>` : ""}
+      </div>`;
+    }
+    html += "</div></div>";
+  }
+  html += "</div>";
+  c.innerHTML = html;
+}
+
+/* ---------- Tab 2: field timeline (dynamic eras) ---------- */
+function renderEras() {
+  const c = document.getElementById("content");
+  let html = `<div class="meta">${renderMeta()}</div>`;
+  if (DATA.fieldNarrative) html += `<div class="narrative">${esc(DATA.fieldNarrative)}</div>`;
+
+  html += '<div class="thread-chips">';
+  for (const t of DATA.threads) {
+    html += `<button data-thread="${esc(t.name)}" class="${activeThread === t.name ? "on" : ""}">${esc(t.name)} (${t.count})</button>`;
+  }
+  html += "</div>";
+
+  const eras = DATA.eras || [];
+  for (const era of eras) {
+    html += `<div class="era">
+      <div class="era-head"><h3>${esc(era.label)}</h3>
+        <span class="era-range">${era.start} → ${era.end}</span></div>
+      <div class="era-focus">${esc(era.focus || "")}</div>
+      <div class="era-papers"><h4>Representative papers</h4>`;
+    for (const id of era.representativeIds || []) {
+      const p = findPaper(id);
+      if (!p) continue;
+      const th = threadOf(id);
+      html += `<div class="pap">
+        <a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener">${esc(p.title)}</a>
+        ${th ? `<span class="thread-tag">${esc(th)}</span>` : ""}
+        <div class="pap-meta">${fmtDate(p.date)} · ${esc(p.org || "")} · ▲${p.upvotes}${p.stars ? ` · ★${p.stars.toLocaleString()}` : ""}</div>
+        ${p.added ? `<div class="pap-added">${esc(p.added)}</div>` : ""}
+      </div>`;
+    }
+    html += "</div></div>";
+  }
+  c.innerHTML = html;
+  c.querySelectorAll(".thread-chips button").forEach(b => {
+    b.onclick = () => {
+      const t = b.dataset.thread;
+      activeThread = activeThread === t ? null : t;
+      renderEras();
+      if (activeThread) {
+        // Also show the thread's full lineage below.
+        const div = document.createElement("div");
+        div.innerHTML = threadPanel(t);
+        c.appendChild(div.firstChild);
+      }
+    };
+  });
+}
+
+function threadPanel(name) {
+  const t = DATA.threads.find(x => x.name === name);
+  if (!t) return "";
+  let html = `<div class="era" style="margin-top:16px"><div class="era-head"><h3>Thread: ${esc(t.name)}</h3>
+    <span class="era-range">${t.count} papers · ${t.papers[0]?.date.slice(0,7)} → ${t.papers[t.papers.length-1]?.date.slice(0,7)}</span></div>
+    <div class="era-papers">`;
+  for (const p of t.papers) {
+    html += `<div class="pap">
+      <a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener">${esc(p.title)}</a>
+      <div class="pap-meta">${fmtDate(p.date)} · ${esc(p.org || "")} · ▲${p.upvotes}</div>
+      ${p.added ? `<div class="pap-added">${esc(p.added)}</div>` : ""}
+    </div>`;
+  }
+  return html + "</div></div>";
+}
+
+function findPaper(id) {
+  for (const t of DATA.threads) {
+    const p = t.papers.find(p => p.id === id);
+    if (p) return p;
+  }
+  return null;
+}
+
+/* ---------- Tab 3: idea map (horizontal evolution tracks with branching) ---------- */
+function renderMap() {
+  const c = document.getElementById("content");
+  let html = `<div class="meta">${renderMeta()} · Each track is a research thread; papers flow left (old) → right (new). Lines show "builds on" lineage; a branch point means multiple papers extended the same idea. Scroll horizontally to see recent work.</div>`;
+
+  const threads = [...DATA.threads]
+    .filter(t => t.count >= 3 && t.name !== "Other")
+    .sort((a, b) => b.count - a.count);
+
+  for (const t of threads) {
+    html += mapTrack(t);
+  }
+  c.innerHTML = html;
+
+  // Hover highlight: emphasize a node's ancestors/descendants.
+  c.querySelectorAll(".map-node").forEach(node => {
+    node.addEventListener("mouseenter", () => highlightLineage(node, true));
+    node.addEventListener("mouseleave", () => highlightLineage(node, false));
+  });
+}
+
+function mapTrack(t) {
+  const papers = t.papers;
+  if (!papers.length) return "";
+  const edges = (t.edges || []).filter(e => papers.some(p => p.id === e[0]) && papers.some(p => p.id === e[1]));
+
+  // Lane assignment: children go at least one lane below their parent.
+  const lane = {};
+  const childrenOf = {};
+  for (const [child, parent] of edges) (childrenOf[parent] ||= []).push(child);
+  const hasParent = new Set(edges.map(e => e[0]));
+  const roots = papers.filter(p => !hasParent.has(p.id));
+  // BFS from roots; unattached papers go to lane 0.
+  for (const p of papers) if (!lane[p.id]) lane[p.id] = 0;
+  const queue = roots.map(p => { lane[p.id] = 0; return p.id; });
+  let maxLane = 0;
+  while (queue.length) {
+    const id = queue.shift();
+    for (const ch of childrenOf[id] || []) {
+      if (lane[ch] === undefined || lane[ch] <= lane[id]) {
+        lane[ch] = lane[id] + 1;
+        maxLane = Math.max(maxLane, lane[ch]);
+        queue.push(ch);
+      }
+    }
+  }
+
+  // X position: rank by date, evenly spaced but proportional-ish to time.
+  const times = papers.map(p => new Date(p.date).getTime());
+  const t0 = Math.min(...times), t1 = Math.max(...times);
+  const span = Math.max(1, t1 - t0);
+  const x = {};
+  papers.forEach(p => {
+    const tms = new Date(p.date).getTime();
+    x[p.id] = 60 + ((tms - t0) / span) * 100; // percent 0-100 within track
+  });
+
+  const laneH = Math.min(74, Math.max(26, 420 / Math.max(1, maxLane))), headH = 42;
+  const height = headH + (maxLane + 1) * laneH + 10;
+
+  let svg = `<svg viewBox="0 0 1000 ${height}" preserveAspectRatio="none" class="map-svg" style="height:${height}px">`;
+  // Axis year ticks
+  const years = [];
+  for (let d = new Date(t0); d <= new Date(t1); d.setFullYear(d.getFullYear() + 1)) {
+    years.push(d.getFullYear());
+  }
+  for (const y of years) {
+    const xp = 60 + ((Date.UTC(y, 0, 1) - t0) / span) * 100;
+    if (xp < 2 || xp > 98) continue;
+    svg += `<line x1="${xp}%" y1="${headH - 8}" x2="${xp}%" y2="${height - 4}" class="map-tick"></line>`;
+    svg += `<text x="${xp}%" y="${headH - 14}" text-anchor="middle" class="map-year">${y}</text>`;
+  }
+  // Edges as curved paths
+  for (const [child, parent] of edges) {
+    const x1 = x[parent], y1 = headH + lane[parent] * laneH + 26;
+    const x2 = x[child], y2 = headH + lane[child] * laneH + 26;
+    const mid = (y1 + y2) / 2;
+    svg += `<path d="M ${x1} ${y1} C ${x1} ${mid}, ${x2} ${mid}, ${x2} ${y2}" class="map-edge" data-child="${child}" data-parent="${parent}"></path>`;
+  }
+  // Nodes
+  const labelLen = laneH < 40 ? 14 : 26;
+  for (const p of papers) {
+    const px = x[p.id], py = headH + lane[p.id] * laneH + 26;
+    svg += `<a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener">
+      <g class="map-node" data-id="${p.id}" transform="translate(${px},${py})">
+        <circle r="7"><title>${esc(p.title)} (${p.date.slice(0, 7)}${p.org ? " · " + p.org : ""})</title></circle>
+        <text y="-13" text-anchor="middle" class="map-label">${esc(shorten(p.title, labelLen))}</text>
+      </g></a>`;
+  }
+  svg += "</svg>";
+
+  return `<div class="map-track">
+    <div class="map-head"><h3>${esc(t.name)}</h3>
+      <span class="era-range">${t.count} papers · ${papers[0].date.slice(0, 7)} → ${papers[papers.length - 1].date.slice(0, 7)}</span></div>
+    <div class="map-scroll">${svg}</div>
+  </div>`;
+}
+
+// Break a title into up to maxLines short lines; the last line takes the overflow with "…".
+function shorten(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
+
+function highlightLineage(node, on) {
+  const svg = node.closest("svg");
+  if (!svg) return;
+  const id = node.dataset.id;
+  if (on) {
+    // Walk up: all ancestors via parent edges.
+    const parentOf = {};
+    svg.querySelectorAll(".map-edge").forEach(e => parentOf[e.dataset.child] = e.dataset.parent);
+    let anc = new Set(), cur = id;
+    while (parentOf[cur]) { cur = parentOf[cur]; anc.add(cur); }
+    // Walk down: all descendants.
+    const childEdges = {};
+    svg.querySelectorAll(".map-edge").forEach(e => (childEdges[e.dataset.parent] ||= []).push(e.dataset.child));
+    let desc = new Set(), stack = [id];
+    while (stack.length) {
+      const cur2 = stack.pop();
+      for (const ch of childEdges[cur2] || []) if (!desc.has(ch)) { desc.add(ch); stack.push(ch); }
+    }
+    svg.querySelectorAll(".map-node").forEach(n => {
+      if (n.dataset.id !== id && !anc.has(n.dataset.id) && !desc.has(n.dataset.id))
+        n.classList.add("dimmed");
+    });
+    svg.querySelectorAll(".map-edge").forEach(e => {
+      if (!anc.has(e.dataset.child) && !desc.has(e.dataset.parent) && e.dataset.child !== id && e.dataset.parent !== id)
+        e.classList.add("dimmed");
+    });
+  } else {
+    svg.querySelectorAll(".dimmed").forEach(n => n.classList.remove("dimmed"));
+  }
+}
+
+function render() {
+  const tabbar = document.getElementById("tabs");
+  tabbar.hidden = false;
+  tabbar.innerHTML = `<button id="tab-lineage" class="${activeTab === "lineage" ? "active" : ""}">Lab lineage</button>
+    <button id="tab-eras" class="${activeTab === "eras" ? "active" : ""}">Field timeline</button>
+    <button id="tab-map" class="${activeTab === "map" ? "active" : ""}">Idea map</button>`;
+  document.getElementById("tab-lineage").onclick = () => { activeTab = "lineage"; render(); };
+  document.getElementById("tab-eras").onclick = () => { activeTab = "eras"; render(); };
+  document.getElementById("tab-map").onclick = () => { activeTab = "map"; render(); };
+  if (activeTab === "lineage") renderLineage();
+  else if (activeTab === "map") renderMap();
+  else renderEras();
+  bindPreviews(document.getElementById("content"));
+}
+
+function esc(s) {
+  return String(s || "").replace(/[&<>"']/g, m =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+}
+
+document.getElementById("go").onclick = () => explore(document.getElementById("kw").value.trim());
+document.getElementById("kw").addEventListener("keydown", e => {
+  if (e.key === "Enter") explore(document.getElementById("kw").value.trim());
+});
+
+// Auto-load from ?kw= param or first suggestion.
+const params = new URLSearchParams(location.search);
+loadManifest().then(m => {
+  const kw = params.get("kw");
+  if (kw) explore(kw);
+  else if (m.length) explore(m[0].keyword);
+});
+</script>
+</body>
+</html>
