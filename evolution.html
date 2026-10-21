@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Evolution Explorer</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f6f8fa;
+  --border: #d0d7de;
+  --text: #1f2328;
+  --text-dim: #57606a;
+  --accent: #0969da;
+  --accent-soft: #ddf4ff;
+  --chip-bg: #f6f8fa;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1117;
+    --bg-alt: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #58a6ff;
+    --accent-soft: #1c2a3a;
+    --chip-bg: #21262d;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1117;
+  --bg-alt: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --accent: #58a6ff;
+  --accent-soft: #1c2a3a;
+  --chip-bg: #21262d;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+.wrap { max-width: 1200px; margin: 0 auto; padding: 24px 16px 60px; }
+h1 { font-size: 1.5rem; margin: 0 0 4px; }
+.sub { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 16px; }
+.sub a { color: var(--accent); text-decoration: none; }
+
+.searchbar { display: flex; gap: 8px; margin: 12px 0 8px; flex-wrap: wrap; }
+.searchbar input[type="text"] {
+  flex: 1; min-width: 200px;
+  padding: 10px 14px; font-size: 1rem;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--text);
+}
+.searchbar button {
+  padding: 10px 20px; font-size: 1rem; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--accent); color: #fff;
+  cursor: pointer;
+}
+.suggestions { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.suggestions button {
+  font-size: 0.8rem; padding: 4px 12px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--chip-bg); color: var(--text-dim);
+  cursor: pointer;
+}
+.suggestions button:hover { border-color: var(--accent); color: var(--accent); }
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.tabs button {
+  padding: 8px 16px; border: none; background: none; cursor: pointer;
+  font-size: 0.95rem; color: var(--text-dim);
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tabs button.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+
+.meta { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 16px; }
+
+/* ---------- Lineage view ---------- */
+.labs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+.lab-card {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 16px; background: var(--bg);
+}
+.lab-card h3 { margin: 0 0 2px; font-size: 1rem; }
+.lab-card .count { color: var(--text-dim); font-size: 0.8rem; margin-bottom: 8px; }
+.lab-note { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 10px; white-space: pre-line; }
+.timeline { border-left: 2px solid var(--border); margin-left: 6px; padding-left: 14px; }
+.tl-item { position: relative; margin-bottom: 10px; }
+.tl-item::before {
+  content: ""; position: absolute; left: -19px; top: 7px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+}
+.tl-date { font-size: 0.75rem; color: var(--text-dim); }
+.tl-item a { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+.tl-added { font-size: 0.8rem; color: var(--text-dim); }
+
+/* ---------- Field timeline view ---------- */
+.era {
+  border: 1px solid var(--border); border-radius: 10px;
+  margin-bottom: 20px; overflow: hidden; background: var(--bg);
+}
+.era-head {
+  padding: 12px 16px; background: var(--bg-alt);
+  display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline;
+  border-bottom: 1px solid var(--border);
+}
+.era-head h3 { margin: 0; font-size: 1rem; }
+.era-range { color: var(--text-dim); font-size: 0.8rem; }
+.era-focus { padding: 10px 16px; font-size: 0.88rem; color: var(--text-dim); }
+.era-papers { padding: 0 16px 14px; }
+.era-papers h4 { margin: 8px 0 8px; font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+.pap {
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px; margin-bottom: 8px;
+}
+.pap a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.92rem; }
+.pap .pap-meta { color: var(--text-dim); font-size: 0.78rem; margin: 2px 0; }
+.pap .pap-added { font-size: 0.85rem; }
+.thread-tag {
+  display: inline-block; font-size: 0.7rem; padding: 1px 8px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); margin-left: 6px;
+  vertical-align: middle;
+}
+.thread-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.thread-chips button {
+  font-size: 0.78rem; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--chip-bg); color: var(--text-dim);
+  cursor: pointer;
+}
+.thread-chips button.on { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+
+.narrative {
+  border-left: 3px solid var(--accent); padding: 8px 14px; margin: 0 0 20px;
+  background: var(--bg-alt); border-radius: 0 8px 8px 0; font-size: 0.92rem;
+}
+
+/* ---------- Idea map ---------- */
+.map-track {
+  border: 1px solid var(--border); border-radius: 10px;
+  margin-bottom: 20px; background: var(--bg); overflow: hidden;
+}
+.map-head {
+  padding: 10px 16px; background: var(--bg-alt); border-bottom: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline;
+}
+.map-head h3 { margin: 0; font-size: 1rem; }
+.map-scroll { overflow-x: auto; }
+.map-svg { display: block; min-width: 900px; width: 100%; }
+.map-tick { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
+.map-year { fill: var(--text-dim); font-size: 11px; }
+.map-edge {
+  fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: 0.45;
+  transition: opacity 0.15s;
+}
+.map-node circle {
+  fill: var(--accent); stroke: var(--bg); stroke-width: 2;
+  transition: opacity 0.15s;
+}
+.map-node text {
+  fill: var(--text); font-size: 10.5px;
+  paint-order: stroke; stroke: var(--bg); stroke-width: 3px;
+}
+.map-node:hover circle { stroke: var(--accent); stroke-width: 3; }
+.map-node.dimmed, .map-edge.dimmed { opacity: 0.15; }
+
+.loading, .empty { color: var(--text-dim); padding: 40px 0; text-align: center; }
+@media (max-width: 640px) {
+  .labs-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Research Evolution Explorer</h1>
+  <div class="sub">How research ideas evolve in a domain — lab lineages and field timelines. <a href="index.html">← Paper explorer</a></div>
+
+  <div class="searchbar">
+    <input type="text" id="kw" placeholder='Enter a research keyword, e.g. "world model"' autocomplete="off">
+    <button id="go">Explore</button>
+  </div>
+  <div class="suggestions" id="suggestions"></div>
+
+  <div class="tabs" id="tabs" hidden></div>
+  <div id="content"><div class="empty">Type a keyword to explore its evolution. Precomputed topics appear as suggestions.</div></div>
+</div>
+
+<script>
+const SLUG = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+let DATA = null;
+let activeThread = null;
+let activeTab = "lineage";
+
+async function loadManifest() {
+  try {
+    const r = await fetch("data/evolution/manifest.json");
+    const m = await r.json();
+    const box = document.getElementById("suggestions");
+    box.innerHTML = "";
+    m.forEach(e => {
+      const b = document.createElement("button");
+      b.textContent = `${e.keyword} (${e.paperCount} papers)`;
+      b.onclick = () => explore(e.keyword);
+      box.appendChild(b);
+    });
+    return m;
+  } catch { return []; }
+}
+
+async function explore(keyword) {
+  const slug = SLUG(keyword);
+  const content = document.getElementById("content");
+  content.innerHTML = '<div class="loading">Loading…</div>';
+  let data;
+  try {
+    const r = await fetch(`data/evolution/${slug}.json`);
+    if (!r.ok) throw new Error(r.status);
+    data = await r.json();
+  } catch {
+    content.innerHTML = `<div class="empty">No precomputed analysis for “${keyword}” yet.<br>
+      Run: <code>python3 scripts/build_evolution.py "${keyword}"</code></div>`;
+    return;
+  }
+  DATA = data;
+  activeThread = null;
+  document.getElementById("kw").value = keyword;
+  render();
+}
+
+function threadOf(paperId) {
+  for (const t of DATA.threads) if (t.papers.some(p => p.id === paperId)) return t.name;
+  return "";
+}
+
+function fmtDate(d) { return d ? d.slice(0, 7) : ""; }
+
+function renderMeta() {
+  const [a, b] = DATA.dateRange || ["?", "?"];
+  return `${DATA.paperCount} papers · ${a.slice(0,7)} → ${b.slice(0,7)} · built ${DATA.builtAt}`;
+}
+
+/* ---------- Tab 1: lab lineage ---------- */
+function renderLineage() {
+  const c = document.getElementById("content");
+  let html = `<div class="meta">${renderMeta()}</div>`;
+  const labs = DATA.labs || [];
+  if (!labs.length) { html += '<div class="empty">No lab data.</div>'; c.innerHTML = html; return; }
+  html += '<div class="labs-grid">';
+  for (const lab of labs) {
+    // Gather this lab's papers across all threads, sorted by date.
+    const papers = [];
+    for (const t of DATA.threads)
+      for (const p of t.papers) if (p.org === lab.org) papers.push({ ...p, thread: t.name });
+    papers.sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+    if (!papers.length) continue;
+    html += `<div class="lab-card">
+      <h3>${esc(lab.org)}</h3>
+      <div class="count">${lab.count} papers in this domain</div>
+      ${lab.note ? `<div class="lab-note">${esc(lab.note)}</div>` : ""}
+      <div class="timeline">`;
+    for (const p of papers) {
+      html += `<div class="tl-item">
+        <div class="tl-date">${fmtDate(p.date)} · ▲${p.upvotes}${p.stars ? ` · ★${p.stars.toLocaleString()}` : ""} <span class="thread-tag">${esc(p.thread)}</span></div>
+        <a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener">${esc(p.title)}</a>
+        ${p.added ? `<div class="tl-added">${esc(p.added)}</div>` : ""}
+      </div>`;
+    }
+    html += "</div></div>";
+  }
+  html += "</div>";
+  c.innerHTML = html;
+}
+
+/* ---------- Tab 2: field timeline (dynamic eras) ---------- */
+function renderEras() {
+  const c = document.getElementById("content");
+  let html = `<div class="meta">${renderMeta()}</div>`;
+  if (DATA.fieldNarrative) html += `<div class="narrative">${esc(DATA.fieldNarrative)}</div>`;
+
+  html += '<div class="thread-chips">';
+  for (const t of DATA.threads) {
+    html += `<button data-thread="${esc(t.name)}" class="${activeThread === t.name ? "on" : ""}">${esc(t.name)} (${t.count})</button>`;
+  }
+  html += "</div>";
+
+  const eras = DATA.eras || [];
+  for (const era of eras) {
+    html += `<div class="era">
+      <div class="era-head"><h3>${esc(era.label)}</h3>
+        <span class="era-range">${era.start} → ${era.end}</span></div>
+      <div class="era-focus">${esc(era.focus || "")}</div>
+      <div class="era-papers"><h4>Representative papers</h4>`;
+    for (const id of era.representativeIds || []) {
+      const p = findPaper(id);
+      if (!p) continue;
+      const th = threadOf(id);
+      html += `<div class="pap">
+        <a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener">${esc(p.title)}</a>
+        ${th ? `<span class="thread-tag">${esc(th)}</span>` : ""}
+        <div class="pap-meta">${fmtDate(p.date)} · ${esc(p.org || "")} · ▲${p.upvotes}${p.stars ? ` · ★${p.stars.toLocaleString()}` : ""}</div>
+        ${p.added ? `<div class="pap-added">${esc(p.added)}</div>` : ""}
+      </div>`;
+    }
+    html += "</div></div>";
+  }
+  c.innerHTML = html;
+  c.querySelectorAll(".thread-chips button").forEach(b => {
+    b.onclick = () => {
+      const t = b.dataset.thread;
+      activeThread = activeThread === t ? null : t;
+      renderEras();
+      if (activeThread) {
+        // Also show the thread's full lineage below.
+        const div = document.createElement("div");
+        div.innerHTML = threadPanel(t);
+        c.appendChild(div.firstChild);
+      }
+    };
+  });
+}
+
+function threadPanel(name) {
+  const t = DATA.threads.find(x => x.name === name);
+  if (!t) return "";
+  let html = `<div class="era" style="margin-top:16px"><div class="era-head"><h3>Thread: ${esc(t.name)}</h3>
+    <span class="era-range">${t.count} papers · ${t.papers[0]?.date.slice(0,7)} → ${t.papers[t.papers.length-1]?.date.slice(0,7)}</span></div>
+    <div class="era-papers">`;
+  for (const p of t.papers) {
+    html += `<div class="pap">
+      <a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener">${esc(p.title)}</a>
+      <div class="pap-meta">${fmtDate(p.date)} · ${esc(p.org || "")} · ▲${p.upvotes}</div>
+      ${p.added ? `<div class="pap-added">${esc(p.added)}</div>` : ""}
+    </div>`;
+  }
+  return html + "</div></div>";
+}
+
+function findPaper(id) {
+  for (const t of DATA.threads) {
+    const p = t.papers.find(p => p.id === id);
+    if (p) return p;
+  }
+  return null;
+}
+
+/* ---------- Tab 3: idea map (horizontal evolution tracks with branching) ---------- */
+function renderMap() {
+  const c = document.getElementById("content");
+  let html = `<div class="meta">${renderMeta()} · Each track is a research thread; papers flow left (old) → right (new). Lines show "builds on" lineage; a branch point means multiple papers extended the same idea. Scroll horizontally to see recent work.</div>`;
+
+  const threads = [...DATA.threads]
+    .filter(t => t.count >= 3 && t.name !== "Other")
+    .sort((a, b) => b.count - a.count);
+
+  for (const t of threads) {
+    html += mapTrack(t);
+  }
+  c.innerHTML = html;
+
+  // Hover highlight: emphasize a node's ancestors/descendants.
+  c.querySelectorAll(".map-node").forEach(node => {
+    node.addEventListener("mouseenter", () => highlightLineage(node, true));
+    node.addEventListener("mouseleave", () => highlightLineage(node, false));
+  });
+}
+
+function mapTrack(t) {
+  const papers = t.papers;
+  if (!papers.length) return "";
+  const edges = (t.edges || []).filter(e => papers.some(p => p.id === e[0]) && papers.some(p => p.id === e[1]));
+
+  // Lane assignment: children go at least one lane below their parent.
+  const lane = {};
+  const childrenOf = {};
+  for (const [child, parent] of edges) (childrenOf[parent] ||= []).push(child);
+  const hasParent = new Set(edges.map(e => e[0]));
+  const roots = papers.filter(p => !hasParent.has(p.id));
+  // BFS from roots; unattached papers go to lane 0.
+  for (const p of papers) if (!lane[p.id]) lane[p.id] = 0;
+  const queue = roots.map(p => { lane[p.id] = 0; return p.id; });
+  let maxLane = 0;
+  while (queue.length) {
+    const id = queue.shift();
+    for (const ch of childrenOf[id] || []) {
+      if (lane[ch] === undefined || lane[ch] <= lane[id]) {
+        lane[ch] = lane[id] + 1;
+        maxLane = Math.max(maxLane, lane[ch]);
+        queue.push(ch);
+      }
+    }
+  }
+
+  // X position: rank by date, evenly spaced but proportional-ish to time.
+  const times = papers.map(p => new Date(p.date).getTime());
+  const t0 = Math.min(...times), t1 = Math.max(...times);
+  const span = Math.max(1, t1 - t0);
+  const x = {};
+  papers.forEach(p => {
+    const tms = new Date(p.date).getTime();
+    x[p.id] = 60 + ((tms - t0) / span) * 100; // percent 0-100 within track
+  });
+
+  const laneH = Math.min(74, Math.max(26, 420 / Math.max(1, maxLane))), headH = 42;
+  const height = headH + (maxLane + 1) * laneH + 10;
+
+  let svg = `<svg viewBox="0 0 1000 ${height}" preserveAspectRatio="none" class="map-svg" style="height:${height}px">`;
+  // Axis year ticks
+  const years = [];
+  for (let d = new Date(t0); d <= new Date(t1); d.setFullYear(d.getFullYear() + 1)) {
+    years.push(d.getFullYear());
+  }
+  for (const y of years) {
+    const xp = 60 + ((Date.UTC(y, 0, 1) - t0) / span) * 100;
+    if (xp < 2 || xp > 98) continue;
+    svg += `<line x1="${xp}%" y1="${headH - 8}" x2="${xp}%" y2="${height - 4}" class="map-tick"></line>`;
+    svg += `<text x="${xp}%" y="${headH - 14}" text-anchor="middle" class="map-year">${y}</text>`;
+  }
+  // Edges as curved paths
+  for (const [child, parent] of edges) {
+    const x1 = x[parent], y1 = headH + lane[parent] * laneH + 26;
+    const x2 = x[child], y2 = headH + lane[child] * laneH + 26;
+    const mid = (y1 + y2) / 2;
+    svg += `<path d="M ${x1} ${y1} C ${x1} ${mid}, ${x2} ${mid}, ${x2} ${y2}" class="map-edge" data-child="${child}" data-parent="${parent}"></path>`;
+  }
+  // Nodes
+  const labelLen = laneH < 40 ? 14 : 26;
+  for (const p of papers) {
+    const px = x[p.id], py = headH + lane[p.id] * laneH + 26;
+    svg += `<a href="https://huggingface.co/papers/${p.id}" target="_blank" rel="noopener">
+      <g class="map-node" data-id="${p.id}" transform="translate(${px},${py})">
+        <circle r="7"><title>${esc(p.title)} (${p.date.slice(0, 7)}${p.org ? " · " + p.org : ""})</title></circle>
+        <text y="-13" text-anchor="middle" class="map-label">${esc(shorten(p.title, labelLen))}</text>
+      </g></a>`;
+  }
+  svg += "</svg>";
+
+  return `<div class="map-track">
+    <div class="map-head"><h3>${esc(t.name)}</h3>
+      <span class="era-range">${t.count} papers · ${papers[0].date.slice(0, 7)} → ${papers[papers.length - 1].date.slice(0, 7)}</span></div>
+    <div class="map-scroll">${svg}</div>
+  </div>`;
+}
+
+function shorten(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
+
+function highlightLineage(node, on) {
+  const svg = node.closest("svg");
+  if (!svg) return;
+  const id = node.dataset.id;
+  if (on) {
+    // Walk up: all ancestors via parent edges.
+    const parentOf = {};
+    svg.querySelectorAll(".map-edge").forEach(e => parentOf[e.dataset.child] = e.dataset.parent);
+    let anc = new Set(), cur = id;
+    while (parentOf[cur]) { cur = parentOf[cur]; anc.add(cur); }
+    // Walk down: all descendants.
+    const childEdges = {};
+    svg.querySelectorAll(".map-edge").forEach(e => (childEdges[e.dataset.parent] ||= []).push(e.dataset.child));
+    let desc = new Set(), stack = [id];
+    while (stack.length) {
+      const cur2 = stack.pop();
+      for (const ch of childEdges[cur2] || []) if (!desc.has(ch)) { desc.add(ch); stack.push(ch); }
+    }
+    svg.querySelectorAll(".map-node").forEach(n => {
+      if (n.dataset.id !== id && !anc.has(n.dataset.id) && !desc.has(n.dataset.id))
+        n.classList.add("dimmed");
+    });
+    svg.querySelectorAll(".map-edge").forEach(e => {
+      if (!anc.has(e.dataset.child) && !desc.has(e.dataset.parent) && e.dataset.child !== id && e.dataset.parent !== id)
+        e.classList.add("dimmed");
+    });
+  } else {
+    svg.querySelectorAll(".dimmed").forEach(n => n.classList.remove("dimmed"));
+  }
+}
+
+function render() {
+  const tabbar = document.getElementById("tabs");
+  tabbar.hidden = false;
+  tabbar.innerHTML = `<button id="tab-lineage" class="${activeTab === "lineage" ? "active" : ""}">Lab lineage</button>
+    <button id="tab-eras" class="${activeTab === "eras" ? "active" : ""}">Field timeline</button>
+    <button id="tab-map" class="${activeTab === "map" ? "active" : ""}">Idea map</button>`;
+  document.getElementById("tab-lineage").onclick = () => { activeTab = "lineage"; render(); };
+  document.getElementById("tab-eras").onclick = () => { activeTab = "eras"; render(); };
+  document.getElementById("tab-map").onclick = () => { activeTab = "map"; render(); };
+  if (activeTab === "lineage") renderLineage();
+  else if (activeTab === "map") renderMap();
+  else renderEras();
+}
+
+function esc(s) {
+  return String(s || "").replace(/[&<>"']/g, m =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+}
+
+document.getElementById("go").onclick = () => explore(document.getElementById("kw").value.trim());
+document.getElementById("kw").addEventListener("keydown", e => {
+  if (e.key === "Enter") explore(document.getElementById("kw").value.trim());
+});
+
+// Auto-load from ?kw= param or first suggestion.
+const params = new URLSearchParams(location.search);
+loadManifest().then(m => {
+  const kw = params.get("kw");
+  if (kw) explore(kw);
+  else if (m.length) explore(m[0].keyword);
+});
+</script>
+</body>
+</html>

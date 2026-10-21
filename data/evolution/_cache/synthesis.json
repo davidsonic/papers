@@ -1,0 +1,111 @@
+{
+ "eras": [
+  {
+   "start": "2023-06",
+   "end": "2024-06",
+   "label": "Foundational Exploration",
+   "focus": "Early conceptual work establishing world models as a research direction, with foundational frameworks and initial video generation approaches. The field was sparse and exploratory, laying theoretical groundwork for what would become a major research area.",
+   "representativeIds": [
+    "2402.08268",
+    "2403.00504",
+    "2405.12399",
+    "2306.12672",
+    "2406.08407",
+    "2401.09985"
+   ]
+  },
+  {
+   "start": "2024-07",
+   "end": "2025-03",
+   "label": "Multi-Modality Emergence",
+   "focus": "Expansion into diverse application domains including language-based agents, autonomous driving, and robotic control alongside video generation. The field began connecting world models to embodied AI and agent-based systems, moving beyond pure video synthesis.",
+   "representativeIds": [
+    "2504.01990",
+    "2503.10480",
+    "2410.07484",
+    "2410.13232",
+    "2502.11663",
+    "2411.02385"
+   ]
+  },
+  {
+   "start": "2025-04",
+   "end": "2025-11",
+   "label": "Interactive Scaling",
+   "focus": "Rapid growth in interactive video world models and specialized applications like 3D/4D modeling, physics-aware systems, and embodied interaction. Paper volume accelerated significantly as the field moved toward more complex, interactive, and physically-grounded world models.",
+   "representativeIds": [
+    "2509.12201",
+    "2511.09057",
+    "2510.18135",
+    "2509.07996",
+    "2506.05284",
+    "2510.19430"
+   ]
+  },
+  {
+   "start": "2025-12",
+   "end": "2026-02",
+   "label": "Systematic Consolidation",
+   "focus": "Introduction of benchmarks, evaluation frameworks, and memory/consistency mechanisms alongside continued growth in core threads. The field shifted toward rigor and standardization, establishing evaluation criteria and addressing fundamental challenges in world model coherence.",
+   "representativeIds": [
+    "2602.23152",
+    "2602.09856",
+    "2601.20540",
+    "2601.00393",
+    "2512.08478",
+    "2512.13604"
+   ]
+  },
+  {
+   "start": "2026-03",
+   "end": "2026-06",
+   "label": "Explosive Diversification",
+   "focus": "Peak paper volume with emergence of multi-agent systems, latent planning approaches, and symbolic/code-based world models. The field reached critical mass with 15-37 papers per month, exploring every major dimension of world modeling simultaneously.",
+   "representativeIds": [
+    "2606.18208",
+    "2605.28816",
+    "2604.03144",
+    "2604.22748",
+    "2604.04707",
+    "2606.24597"
+   ]
+  },
+  {
+   "start": "2026-07",
+   "end": "2026-10",
+   "label": "Mature Specialization",
+   "focus": "Sustained high volume (23-30 papers/month) with consolidation around specialized threads: interactive video models, robotic manipulation, autonomous driving, and physics-aware systems. The field matured into distinct research communities, each pushing specific aspects of world modeling toward practical applications.",
+   "representativeIds": [
+    "2608.12564",
+    "2608.16859",
+    "2607.19191",
+    "2608.25518",
+    "2607.28624",
+    "2609.28654"
+   ]
+  }
+ ],
+ "labLineage": [
+  {
+   "org": "nvidia",
+   "note": "NVIDIA's contributions evolved from foundational video generation work toward interactive and physics-aware world models, establishing themselves as a key player in scaling world model architectures and enabling real-time interactive applications."
+  },
+  {
+   "org": "Qwen",
+   "note": "Qwen integrated language-based reasoning with world models, progressively connecting LLM agents to visual world understanding and pushing toward embodied AI systems that combine symbolic reasoning with learned dynamics."
+  },
+  {
+   "org": "Tsinghua",
+   "note": "Tsinghua's work spanned from early foundational frameworks through robotic manipulation and multi-agent systems, establishing themselves as leaders in embodied world models and control applications."
+  },
+  {
+   "org": "Alibaba-DAMO-Academy",
+   "note": "Alibaba-DAMO evolved from video generation foundations toward comprehensive world model benchmarks and evaluation frameworks, contributing critical infrastructure for standardizing the field."
+  },
+  {
+   "org": "tencent",
+   "note": "Tencent's trajectory moved from early exploration through interactive video models and multi-agent systems, focusing on scaling and practical deployment of world models in complex interactive environments."
+  }
+ ],
+ "fieldNarrative": "The world models field underwent a dramatic transformation from 2023 to late 2026, evolving from sparse foundational work into a mature, diversified research area. The initial phase (2023-mid 2024) established conceptual frameworks and basic video generation approaches, but remained largely theoretical. A turning point occurred in late 2024 when researchers began connecting world models to embodied AI, language agents, and robotic control, triggering rapid expansion into multiple application domains. The field entered explosive growth from mid-2025 onward, with paper volume accelerating from single digits to 30+ papers monthly by mid-2026, driven by breakthroughs in interactive video models, physics-aware systems, and multi-agent simulations. A critical inflection came in early 2026 when the community shifted focus toward systematic evaluation, benchmarking, and addressing fundamental challenges like memory consistency and long-horizon coherence\u2014indicating maturation beyond pure capability building. By late 2026, the field had crystallized into specialized research communities, each pursuing distinct threads (interactive video, autonomous driving, robotic manipulation, multi-agent systems) with sustained high publication rates, suggesting world models had transitioned from an emerging concept to an established research infrastructure with clear applications and evaluation standards."
+}
