@@ -1694,6 +1694,14 @@
                 `;
                 document.getElementById('pagination-top').style.display = 'none';
                 document.getElementById('pagination-bottom').style.display = 'none';
+            } else if (state.showByDate) {
+                // Date view: show all papers for the selected date on a single page (no pagination)
+                papersList.innerHTML = '';
+                sorted.forEach(paper => {
+                    papersList.appendChild(renderPaperCard(paper));
+                });
+                document.getElementById('pagination-top').style.display = 'none';
+                document.getElementById('pagination-bottom').style.display = 'none';
             } else {
                 // Get paginated papers
                 const paginated = getPaginatedPapers(sorted);
