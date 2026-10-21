@@ -41,11 +41,15 @@ BATCH_SIZE = 20           # papers per one-liner call
 ABSTRACT_CHARS = 700      # trim abstracts sent to the model
 
 
-def call_claude(prompt: str, model: str, max_tokens: int, retries: int = 3) -> Optional[str]:
+def call_claude(prompt: str, model: str, max_tokens: int, retries: int = 4) -> Optional[str]:
+    # glm-5.3-flash is a reasoning model: thinking consumes the max_tokens
+    # budget, so cap its effort and budget generously or the answer arrives
+    # empty (finish_reason "length").
     payload = {
         "model": model,
-        "max_tokens": max_tokens,
+        "max_tokens": max_tokens + 4096,  # headroom for thinking
         "temperature": 0.3,
+        "reasoning": {"effort": "low"},
         "messages": [{"role": "user", "content": prompt}],
     }
     headers = {
@@ -61,9 +65,13 @@ def call_claude(prompt: str, model: str, max_tokens: int, retries: int = 3) -> O
                 headers=headers,
                 method="POST",
             )
-            with urllib.request.urlopen(req, timeout=120) as resp:
+            with urllib.request.urlopen(req, timeout=180) as resp:
                 data = json.loads(resp.read().decode())
-            return data["choices"][0]["message"]["content"]
+            choice = data["choices"][0]
+            msg = choice.get("message") or {}
+            if choice.get("finish_reason") == "length" and not msg.get("content"):
+                raise RuntimeError("model ran out of tokens while thinking")
+            return msg.get("content")
         except Exception as e:
             print(f"  API error ({e}), retry {attempt + 1}/{retries}", file=sys.stderr)
             time.sleep(3 * (attempt + 1))
@@ -163,8 +171,12 @@ def write_one_liners(papers: List[Dict[str, Any]]) -> Dict[str, str]:
         )
         print(f"  one-liners batch {bi + 1}/{len(batches)}", file=sys.stderr)
         out = extract_json(call_claude(prompt, MODEL_WORKER, 4096))
-        if out:
-            for item in out:
+        items = out if isinstance(out, list) else (
+            next((out[k] for k in ("papers", "results", "items", "entries", "list", "data")
+                  if isinstance(out, dict) and isinstance(out.get(k), list)), None)
+            if out else None)
+        if items:
+            for item in items:
                 if isinstance(item, dict) and "id" in item and "added" in item:
                     results[item["id"]] = item["added"]
     with open(cache, "w") as f:
