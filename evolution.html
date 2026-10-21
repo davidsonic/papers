@@ -346,7 +346,7 @@ async function loadManifest() {
   let m = [];
   try {
     const r = await fetch("data/evolution/manifest.json");
-    m = await r.json();
+    m = (await r.json()).filter(e => !e.source || e.source === "papers_all.json");
     m.forEach(e => {
       const b = document.createElement("button");
       b.textContent = `${e.keyword} (${e.paperCount} papers)`;

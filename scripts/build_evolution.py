@@ -104,9 +104,11 @@ def extract_json(text: Optional[str]) -> Optional[Any]:
     return None
 
 
-def load_papers() -> List[Dict[str, Any]]:
-    with open(DATA_DIR / "papers_all.json") as f:
-        return json.load(f)
+def load_papers(source: str = "papers_all.json") -> List[Dict[str, Any]]:
+    path = DATA_DIR / source
+    with open(path) as f:
+        data = json.load(f)
+    return data
 
 
 def select_papers(keyword: str, papers: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -141,6 +143,9 @@ def compact_paper(p: Dict[str, Any]) -> Dict[str, Any]:
         "upvotes": p.get("hfUpvotes") or 0,
         "stars": p.get("githubStars") or 0,
         "github": p.get("githubRepo"),
+        "venue": p.get("venue", ""),
+        "status": p.get("status", ""),
+        "url": p.get("url", ""),
         "abstract": (p.get("abstract") or "")[:ABSTRACT_CHARS],
     }
 
@@ -370,6 +375,7 @@ def build(keyword: str):
     for mid in missing:
         one_liners[mid] = ""
     threads = write_threads(compact, one_liners)
+
     org_counts = Counter(p["org"] for p in compact)
     top_orgs = [o for o, _ in org_counts.most_common(12) if o != "Independent"][:10]
     synth = write_eras(compact, threads, one_liners, top_orgs)
@@ -388,6 +394,8 @@ def build(keyword: str):
                 "id": p["id"], "title": p["title"], "date": p["date"][:10],
                 "org": p["org"], "upvotes": p["upvotes"],
                 "stars": p["stars"], "github": p["github"],
+                "venue": p.get("venue", ""), "status": p.get("status", ""),
+                "url": p.get("url", ""),
                 "added": one_liners.get(p["id"], ""),
             } for p in papers_t],
         })
@@ -396,11 +404,10 @@ def build(keyword: str):
     # Lab lineage: top orgs by paper count in this keyword set.
     lineage_by_org = {l.get("org"): l.get("note", "") for l in synth.get("labLineage", [])
                       if isinstance(l, dict)}
-    lineage_by_org = {l.get("org"): l.get("note", "") for l in synth.get("labLineage", [])
-                      if isinstance(l, dict)}
 
     result = {
         "keyword": keyword,
+        "source": "papers_all.json",
         "builtAt": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "paperCount": len(selected),
         "dateRange": [min(p["date"] for p in compact), max(p["date"] for p in compact)],
@@ -427,6 +434,7 @@ def build(keyword: str):
         "slug": slug, "keyword": keyword, "builtAt": result["builtAt"],
         "paperCount": result["paperCount"],
         "threads": len(threads_out),
+        "source": "papers_all.json",
     })
     with open(manifest_path, "w") as f:
         json.dump(manifest, f, indent=1)
