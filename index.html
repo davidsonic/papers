@@ -913,6 +913,13 @@
             </div>
 
             <div class="control-row">
+                <label>Institute</label>
+                <select id="orgFilter" style="max-width: 320px;">
+                    <option value="">All institutes</option>
+                </select>
+            </div>
+
+            <div class="control-row">
                 <label>Sort By</label>
                 <div class="sort-buttons">
                     <button class="sort-btn active" data-sort="upvotes">HF Upvotes</button>
@@ -1098,6 +1105,7 @@
             customTags: [],        // User-added custom tags
             selectedTags: [],
             searchTerm: '',
+            selectedOrg: '',      // Institute filter (organization.fullname substring)
             sortBy: 'upvotes',
             currentPage: 1,
             pageSize: 24,
@@ -1312,6 +1320,27 @@
             analyzeTopTags();
             populateTagButtons();
 
+            // Populate institute dropdown from papers present in the dataset
+            const orgCounts = {};
+            state.papers.forEach(p => {
+                const name = p.organization && p.organization.fullname;
+                if (name) orgCounts[name] = (orgCounts[name] || 0) + 1;
+            });
+            const orgSelect = document.getElementById('orgFilter');
+            Object.entries(orgCounts)
+                .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+                .forEach(([name, count]) => {
+                    const opt = document.createElement('option');
+                    opt.value = name;
+                    opt.textContent = `${name} (${count})`;
+                    orgSelect.appendChild(opt);
+                });
+            orgSelect.addEventListener('change', (e) => {
+                state.selectedOrg = e.target.value;
+                state.currentPage = 1;
+                render();
+            });
+
             // Event listeners
             document.getElementById('searchInput').addEventListener('input', (e) => {
                 state.searchTerm = e.target.value.toLowerCase();
@@ -1335,7 +1364,9 @@
             document.getElementById('clearFilters').addEventListener('click', () => {
                 state.selectedTags = [];
                 state.searchTerm = '';
+                state.selectedOrg = '';
                 document.getElementById('searchInput').value = '';
+                document.getElementById('orgFilter').value = '';
                 document.querySelector('.sort-btn.active').classList.remove('active');
                 document.querySelector('[data-sort="upvotes"]').classList.add('active');
                 state.sortBy = 'upvotes';
@@ -1449,6 +1480,14 @@
                     const searchable = `${paper.title} ${paper.abstract}`.toLowerCase();
                     const terms = state.searchTerm.split(/\s+/).filter(Boolean);
                     if (!terms.every(t => searchable.includes(t))) return false;
+                }
+
+                // Institute filter: case-insensitive substring on the HF org
+                // name, so "Google" also catches e.g. "Google DeepMind".
+                // Papers without an org are excluded while filtering.
+                if (state.selectedOrg) {
+                    const org = (paper.organization && paper.organization.fullname || '').toLowerCase();
+                    if (!org.includes(state.selectedOrg.toLowerCase())) return false;
                 }
 
                 // Tag filter
