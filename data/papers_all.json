@@ -242127,7 +242127,7 @@
     "announcementDate": "2024-03-08",
     "hfUpvotes": 64,
     "githubRepo": "https://github.com/01-ai/yi",
-    "githubStars": 7829,
+    "githubStars": 7828,
     "aiSummary": "The Yi model family, based on transformer architecture, showcases strong performance across benchmarks and modalities through optimized data and scalable infrastructure.",
     "aiKeywords": [
       "language models",
@@ -249534,7 +249534,7 @@
     "announcementDate": "2024-03-14",
     "hfUpvotes": 52,
     "githubRepo": "https://github.com/eleutherai/gpt-neox",
-    "githubStars": 7474,
+    "githubStars": 7475,
     "aiSummary": "Simple continual learning strategies, including learning rate re-warming, re-decaying, and data replay, can match the performance of full re-training for large language models with much lower computational cost.",
     "aiKeywords": [
       "learning rate re-warming",
@@ -256439,7 +256439,7 @@
     "announcementDate": "2024-03-20",
     "hfUpvotes": 26,
     "githubRepo": "https://github.com/microsoft/LLMLingua",
-    "githubStars": 6845,
+    "githubStars": 6846,
     "aiSummary": "A task-agnostic prompt compression method uses data distillation and a Transformer encoder to achieve efficient compression with minimal information loss and improved generalization.",
     "aiKeywords": [
       "prompt compression",
@@ -257764,7 +257764,7 @@
     "announcementDate": "2024-03-21",
     "hfUpvotes": 188,
     "githubRepo": "https://github.com/hiyouga/LLaMA-Factory",
-    "githubStars": 76151,
+    "githubStars": 76161,
     "aiSummary": "LlamaFactory is a unified framework enabling efficient fine-tuning of large language models across various tasks using a web-based user interface.",
     "aiKeywords": [
       "efficient fine-tuning",
@@ -264610,7 +264610,7 @@
     "announcementDate": "2024-03-27",
     "hfUpvotes": 30,
     "githubRepo": "https://github.com/hbb1/2d-gaussian-splatting",
-    "githubStars": 3341,
+    "githubStars": 3342,
     "aiSummary": "2D Gaussian Splatting models and reconstructs geometrically accurate radiance fields from multi-view images, improving surface accuracy and rendering efficiency.",
     "aiKeywords": [
       "3D Gaussian Splatting",
@@ -272264,7 +272264,7 @@
     "announcementDate": "2024-04-04",
     "hfUpvotes": 73,
     "githubRepo": "https://github.com/FoundationVision/VAR",
-    "githubStars": 8768,
+    "githubStars": 8769,
     "aiSummary": "Visual AutoRegressive (VAR) modeling improves image generation performance and speed over autoregressive and diffusion transformer models, achieving superior results in image quality, data efficiency, and scalability.",
     "aiKeywords": [
       "Visual AutoRegressive modeling",
@@ -279391,7 +279391,7 @@
     "announcementDate": "2024-04-12",
     "hfUpvotes": 50,
     "githubRepo": "https://github.com/xlang-ai/OSWorld",
-    "githubStars": 3270,
+    "githubStars": 3272,
     "aiSummary": "OSWorld provides a scalable, real computer environment for evaluating multimodal agents across various operating systems and tasks, highlighting significant gaps in current LLM/VLM capabilities.",
     "aiKeywords": [
       "OSWorld",
@@ -300067,7 +300067,7 @@
     "announcementDate": "2024-07-08",
     "hfUpvotes": 38,
     "githubRepo": "https://github.com/funaudiollm/cosyvoice",
-    "githubStars": 24461,
+    "githubStars": 24463,
     "aiSummary": "FunAudioLLM enhances voice interactions by integrating SenseVoice for multilingual speech recognition, emotion detection, and audio event detection with CosyVoice for natural speech generation across languages, timbres, and styles.",
     "aiKeywords": [
       "multi-lingual speech recognition",
@@ -311780,7 +311780,7 @@
     "announcementDate": "2024-07-16",
     "hfUpvotes": 173,
     "githubRepo": "https://github.com/qwenlm/qwen2",
-    "githubStars": 27748,
+    "githubStars": 27752,
     "aiSummary": "The Qwen2 series, comprising 0.5 to 72 billion parameter models, surpasses prior open models across language understanding, generation, multilingualism, coding, math, and reasoning, with exceptional performance in benchmarks like MMLU, GPQA, HumanEval, GSM8K, BBH, MT-Bench, Arena-Hard, and LiveCodeBench.",
     "aiKeywords": [
       "Mixture-of-Experts",
@@ -314022,7 +314022,7 @@
     "announcementDate": "2024-07-17",
     "hfUpvotes": 11,
     "githubRepo": "https://github.com/OpenGVLab/EfficientQAT",
-    "githubStars": 356,
+    "githubStars": 357,
     "aiSummary": "Efficient quantization-aware training compresses large language models with reduced memory and minimal accuracy loss through block-wise parameter training and end-to-end quantization parameter optimization.",
     "aiKeywords": [
       "quantization-aware training",
@@ -314629,7 +314629,7 @@
     "announcementDate": "2024-07-17",
     "hfUpvotes": 4,
     "githubRepo": "https://github.com/modelscope/data-juicer",
-    "githubStars": 7264,
+    "githubStars": 7265,
     "aiSummary": "A novel sandbox suite for integrated data-model co-development enhances performance in multi-modal generative models, improving data quality and model behavior through a \"Probe-Analyze-Refine\" workflow.",
     "aiKeywords": [
       "multi-modal generative models",
@@ -324736,7 +324736,7 @@
     "announcementDate": "2024-07-25",
     "hfUpvotes": 87,
     "githubRepo": "https://github.com/opendevin/opendevin",
-    "githubStars": 93893,
+    "githubStars": 93927,
     "aiSummary": "OpenDevin is a platform for developing AI agents that interact with the world by writing code, using command lines, and browsing the web, with support for multiple agents and evaluation benchmarks.",
     "aiKeywords": [
       "large language models",
@@ -326008,7 +326008,7 @@
     "announcementDate": "2024-07-25",
     "hfUpvotes": 5,
     "githubRepo": "https://github.com/farama-foundation/momaland",
-    "githubStars": 378,
+    "githubStars": 377,
     "aiSummary": "MOMAland introduces standardized environments for multi-objective multi-agent reinforcement learning, offering diverse settings and benchmarking algorithms.",
     "aiKeywords": [
       "multi-objective multi-agent reinforcement learning",
@@ -339600,7 +339600,7 @@
     "announcementDate": "2024-08-05",
     "hfUpvotes": 8,
     "githubRepo": "https://github.com/snap-stanford/relbench",
-    "githubStars": 406,
+    "githubStars": 407,
     "aiSummary": "RelBench is a public benchmark for relational deep learning (RDL) tasks that combines graph neural networks with tabular models, demonstrating superior performance and reduced human effort compared to traditional feature engineering.",
     "aiKeywords": [
       "graph neural networks",
@@ -344475,7 +344475,7 @@
     "announcementDate": "2024-08-09",
     "hfUpvotes": 174,
     "githubRepo": "https://github.com/poloclub/transformer-explainer",
-    "githubStars": 9201,
+    "githubStars": 9203,
     "aiSummary": "Transformer Explainer is an interactive visualization tool that allows non-experts to understand the inner workings of the GPT-2 model through real-time experimentation and visualization in a web browser.",
     "aiKeywords": [
       "Transformers",
@@ -347303,7 +347303,7 @@
     "announcementDate": "2024-08-13",
     "hfUpvotes": 73,
     "githubRepo": "https://github.com/codelion/optillm",
-    "githubStars": 4345,
+    "githubStars": 4344,
     "aiSummary": "rStar enhances small language models' reasoning capabilities through a self-play mutual generation-discrimination process without fine-tuning, improving accuracy across various reasoning tasks.",
     "aiKeywords": [
       "self-play",
@@ -366288,7 +366288,7 @@
     "announcementDate": "2024-08-30",
     "hfUpvotes": 50,
     "githubRepo": "https://github.com/jishengpeng/WavTokenizer",
-    "githubStars": 1329,
+    "githubStars": 1330,
     "aiSummary": "WavTokenizer provides extreme audio compression and state-of-the-art quality by expanding the VQ space, contextual windows, attention networks, and using a multi-scale discriminator and inverse Fourier transform.",
     "aiKeywords": [
       "VQ space",
@@ -377037,7 +377037,7 @@
     "announcementDate": "2024-09-12",
     "hfUpvotes": 21,
     "githubRepo": "https://github.com/sustcsonglin/flash-linear-attention",
-    "githubStars": 6067,
+    "githubStars": 6068,
     "aiSummary": "Gated Slot Attention (GSA) improves memory capacity and efficiency in Transformers through a bounded-memory-control gating mechanism, enhancing recall and facilitating efficient training and inference.",
     "aiKeywords": [
       "Linear attention",
@@ -409320,7 +409320,7 @@
     "announcementDate": "2024-10-10",
     "hfUpvotes": 49,
     "githubRepo": "https://github.com/SWivid/F5-TTS",
-    "githubStars": 15629,
+    "githubStars": 15632,
     "aiSummary": "F5-TTS, a fully non-autoregressive text-to-speech system, improves E2 TTS by leveraging ConvNeXt and Sway Sampling for better performance and efficiency.",
     "aiKeywords": [
       "flow matching",
@@ -423009,7 +423009,7 @@
           "_id": "651c7b3429de5e7f066001d3",
           "avatarUrl": "/avatars/e660a1e84cca5918342f2621f8c44fd9.svg",
           "isPro": false,
-          "fullname": "Yuzhou Nie",
+          "fullname": "Shawn Nie",
           "user": "yuzhounie",
           "type": "user",
           "name": "yuzhounie"
@@ -461097,7 +461097,7 @@
     "announcementDate": "2024-11-13",
     "hfUpvotes": 31,
     "githubRepo": "https://github.com/deepseek-ai/janus",
-    "githubStars": 17770,
+    "githubStars": 17772,
     "aiSummary": "JanusFlow unifies image understanding and generation using rectified flow within a language model framework, demonstrating superior performance across benchmarks.",
     "aiKeywords": [
       "JanusFlow",
@@ -515220,7 +515220,7 @@
     "announcementDate": "2024-12-19",
     "hfUpvotes": 77,
     "githubRepo": "https://github.com/apple/ml-fastvlm",
-    "githubStars": 7444,
+    "githubStars": 7445,
     "aiSummary": "FastVLM, using FastViTHD, optimizes Vision Language Models by scaling image resolution to reduce latency and token count, improving time-to-first-token and maintaining performance.",
     "aiKeywords": [
       "ViTs",
@@ -518428,7 +518428,7 @@
     "announcementDate": "2024-12-20",
     "hfUpvotes": 374,
     "githubRepo": "https://github.com/QwenLM/Qwen2.5",
-    "githubStars": 27748,
+    "githubStars": 27752,
     "aiSummary": "Qwen2.5, an enhanced series of large language models, demonstrates superior performance across various benchmarks and use cases through extensive pre-training and advanced post-training techniques.",
     "aiKeywords": [
       "large language models",
@@ -534077,7 +534077,7 @@
     "announcementDate": "2025-01-07",
     "hfUpvotes": 24,
     "githubRepo": "https://github.com/wileewang/TransPixar",
-    "githubStars": 927,
+    "githubStars": 926,
     "aiSummary": "TransPixar extends pretrained video models to generate RGBA videos using a diffusion transformer with LoRA-based fine-tuning, ensuring consistency between RGB and alpha channels.",
     "aiKeywords": [
       "diffusion transformer",
@@ -535494,7 +535494,7 @@
     "announcementDate": "2025-01-08",
     "hfUpvotes": 97,
     "githubRepo": "https://github.com/OpenRLHF/OpenRLHF",
-    "githubStars": 10171,
+    "githubStars": 10172,
     "aiSummary": "REINFORCE++ is an enhanced reinforcement learning algorithm that combines PPO techniques without a critic network, offering simplicity, stability, and efficiency.",
     "aiKeywords": [
       "Reinforcement Learning from Human Feedback (RLHF)",
@@ -560778,7 +560778,7 @@
           "_id": "651c7b3429de5e7f066001d3",
           "avatarUrl": "/avatars/e660a1e84cca5918342f2621f8c44fd9.svg",
           "isPro": false,
-          "fullname": "Yuzhou Nie",
+          "fullname": "Shawn Nie",
           "user": "yuzhounie",
           "type": "user",
           "name": "yuzhounie"
@@ -585228,7 +585228,7 @@
     "announcementDate": "2025-02-11",
     "hfUpvotes": 15,
     "githubRepo": "https://github.com/HKUDS/MetaChain",
-    "githubStars": 9842,
+    "githubStars": 9840,
     "aiSummary": "MetaChain, a fully-automated natural language-based framework, enables non-technical users to create and deploy LLM agents efficiently, demonstrating superior performance on multi-agent tasks and retrieval-augmented generation.",
     "aiKeywords": [
       "LLM Agents",
@@ -591625,7 +591625,7 @@
     "announcementDate": "2025-02-14",
     "hfUpvotes": 36,
     "githubRepo": "https://github.com/VAST-AI-Research/TripoSG",
-    "githubStars": 1928,
+    "githubStars": 1931,
     "aiSummary": "TripoSG, a novel shape diffusion framework, generates high-fidelity 3D meshes from images using a rectified flow transformer and hybrid training strategy.",
     "aiKeywords": [
       "shape diffusion",
@@ -600595,7 +600595,7 @@
     "announcementDate": "2025-02-19",
     "hfUpvotes": 55,
     "githubRepo": "https://github.com/Phantom-video/Phantom",
-    "githubStars": 1537,
+    "githubStars": 1536,
     "aiSummary": "A unified video generation framework called Phantom integrates text and image inputs to produce subject-consistent videos, focusing on human generation and leveraging cross-modal alignment.",
     "aiKeywords": [
       "text-to-video",
@@ -603950,7 +603950,7 @@
     "announcementDate": "2025-02-20",
     "hfUpvotes": 214,
     "githubRepo": "https://github.com/QwenLM/Qwen2.5-VL",
-    "githubStars": 20239,
+    "githubStars": 20240,
     "aiSummary": "Qwen2.5-VL, the latest vision-language model, advances visual recognition, document parsing, and video comprehension through dynamic resolution processing, Window Attention, and a native Vision Transformer.",
     "aiKeywords": [
       "Vision Transformer",
@@ -620096,7 +620096,7 @@
     "announcementDate": "2025-02-26",
     "hfUpvotes": 15,
     "githubRepo": "https://github.com/HVision-NKU/K-LoRA",
-    "githubStars": 140,
+    "githubStars": 141,
     "aiSummary": "K-LoRA uses LoRA embeddings in diffusion models to effectively merge learned subject and style without additional training.",
     "aiKeywords": [
       "LoRA",
@@ -651322,7 +651322,7 @@
     "announcementDate": "2025-03-13",
     "hfUpvotes": 42,
     "githubRepo": "https://github.com/PeterGriffinJin/Search-R1",
-    "githubStars": 5588,
+    "githubStars": 5589,
     "aiSummary": "Search-R1, an extension of DeepSeek-R1, enhances large language models by autonomously generating multiple search queries during step-by-step reasoning using reinforcement learning, improving performance in retrieval-augmented question-answering tasks.",
     "aiKeywords": [
       "retrieval augmentation",
@@ -656924,7 +656924,7 @@
     "announcementDate": "2025-03-17",
     "hfUpvotes": 178,
     "githubRepo": "https://github.com/docling-project/docling",
-    "githubStars": 70813,
+    "githubStars": 70826,
     "aiSummary": "SmolDocling is a compact vision-language model that performs end-to-end document conversion with robust performance across various document types using 256M parameters and a new markup format.",
     "aiKeywords": [
       "vision-language model",
@@ -661996,7 +661996,7 @@
     "announcementDate": "2025-03-18",
     "hfUpvotes": 8,
     "githubRepo": "https://github.com/NVIDIA/NeMo",
-    "githubStars": 18770,
+    "githubStars": 18775,
     "aiSummary": "A scalable open-source pipeline using NVIDIA NeMo for training and inference of Video Foundation Models addresses challenges in generating high-quality videos.",
     "aiKeywords": [
       "Video Foundation Models",
@@ -791826,7 +791826,7 @@
     "announcementDate": "2025-07-18",
     "hfUpvotes": 61,
     "githubRepo": "https://github.com/yyfz/Pi3",
-    "githubStars": 2270,
+    "githubStars": 2272,
     "aiSummary": "A permutation-equivariant neural network, $\\pi^3$, reconstructs visual geometry without a fixed reference view, achieving state-of-the-art performance in camera pose estimation, depth estimation, and point map reconstruction.",
     "aiKeywords": [
       "feed-forward neural network",
@@ -795145,7 +795145,7 @@
     "announcementDate": "2025-07-22",
     "hfUpvotes": 51,
     "githubRepo": "https://github.com/Alibaba-NLP/WebWalker",
-    "githubStars": 20162,
+    "githubStars": 20163,
     "aiSummary": "WebShaper, a formalization-driven framework, synthesizes information-seeking datasets using set theory and Knowledge Projections to enhance reasoning structure and achieve top performance in open-sourced benchmarks.",
     "aiKeywords": [
       "Large Language Model (LLM)",
@@ -801394,7 +801394,7 @@
     "announcementDate": "2025-07-25",
     "hfUpvotes": 43,
     "githubRepo": "https://github.com/fastino-ai/GLiNER2",
-    "githubStars": 2486,
+    "githubStars": 2490,
     "aiSummary": "GLiNER2 is a unified transformer-based framework that supports multiple NLP tasks with improved efficiency and accessibility compared to large language models.",
     "aiKeywords": [
       "transformer encoder",
@@ -803123,7 +803123,7 @@
     "announcementDate": "2025-07-28",
     "hfUpvotes": 35,
     "githubRepo": "https://github.com/gepa-ai/gepa",
-    "githubStars": 7513,
+    "githubStars": 7517,
     "aiSummary": "GEPA, a prompt optimizer using natural language reflection, outperforms RL methods like GRPO and MIPROv2 with fewer rollouts by learning high-level rules from trial and error.",
     "aiKeywords": [
       "Large language models",
@@ -804273,7 +804273,7 @@
     "announcementDate": "2025-07-29",
     "hfUpvotes": 155,
     "githubRepo": "https://github.com/dongguanting/ARPO",
-    "githubStars": 1143,
+    "githubStars": 1144,
     "aiSummary": "Agentic Reinforced Policy Optimization (ARPO) enhances multi-turn reasoning in large language models by balancing long-horizon capabilities and tool interactions, using entropy-based adaptive rollouts and advantage attribution.",
     "aiKeywords": [
       "reinforcement learning",
@@ -810592,7 +810592,7 @@
     "announcementDate": "2025-08-01",
     "hfUpvotes": 35,
     "githubRepo": "https://github.com/safety-research/persona_vectors",
-    "githubStars": 480,
+    "githubStars": 481,
     "aiSummary": "Persona vectors in large language models can monitor and control personality changes during training and deployment, enabling the identification and mitigation of undesirable traits.",
     "aiKeywords": [
       "activation space",
@@ -812954,7 +812954,7 @@
     "announcementDate": "2025-08-05",
     "hfUpvotes": 277,
     "githubRepo": "https://github.com/QwenLM/Qwen-Image",
-    "githubStars": 8490,
+    "githubStars": 8487,
     "aiSummary": "Qwen-Image, an image generation model, advances text rendering and image editing through a comprehensive data pipeline, progressive training, and dual-encoding mechanism.",
     "aiKeywords": [
       "data pipeline",
@@ -813768,7 +813768,7 @@
     "announcementDate": "2025-08-05",
     "hfUpvotes": 23,
     "githubRepo": "https://github.com/ByteDance-Seed/VeOmni",
-    "githubStars": 2298,
+    "githubStars": 2299,
     "aiSummary": "A modular training framework accelerates the development of omni-modal LLMs through efficient 3D parallelism and flexible configuration.",
     "aiKeywords": [
       "large language models",
@@ -816807,7 +816807,7 @@
     "announcementDate": "2025-08-06",
     "hfUpvotes": 4,
     "githubRepo": "https://github.com/mycustomai/ACES",
-    "githubStars": 29,
+    "githubStars": 30,
     "aiSummary": "ACES, a sandbox environment, studies AI agents' shopping behavior in a mock marketplace, revealing position effects, sensitivity to sponsored tags, endorsements, prices, ratings, and reviews, and highlighting implications for seller strategies and platform design.",
     "aiKeywords": [
       "vision-language-model",
@@ -817711,7 +817711,7 @@
     "announcementDate": "2025-08-07",
     "hfUpvotes": 143,
     "githubRepo": "https://github.com/microsoft/agent-lightning",
-    "githubStars": 18985,
+    "githubStars": 18988,
     "aiSummary": "Agent Lightning is a flexible RL framework for training LLMs in various agents, using a hierarchical RL algorithm and decoupling execution from training to handle complex interactions.",
     "aiKeywords": [
       "Reinforcement Learning",
@@ -825755,7 +825755,7 @@
     "announcementDate": "2025-08-12",
     "hfUpvotes": 101,
     "githubRepo": "https://github.com/EvoAgentX/Awesome-Self-Evolving-Agents",
-    "githubStars": 2527,
+    "githubStars": 2528,
     "aiSummary": "A survey of self-evolving AI agents that adapt to dynamic environments through automatic enhancement based on interaction data and feedback.",
     "aiKeywords": [
       "agent evolution",
@@ -828580,7 +828580,7 @@
     "announcementDate": "2025-08-13",
     "hfUpvotes": 142,
     "githubRepo": "https://github.com/Alibaba-NLP/WebAgent",
-    "githubStars": 20162,
+    "githubStars": 20163,
     "aiSummary": "WebWatcher, a multimodal agent with enhanced visual-language reasoning, outperforms existing agents in complex visual and textual information retrieval tasks using synthetic trajectories and reinforcement learning.",
     "aiKeywords": [
       "multimodal",
@@ -828738,7 +828738,7 @@
     "announcementDate": "2025-08-13",
     "hfUpvotes": 50,
     "githubRepo": "https://github.com/SkyworkAI/Matrix-3D",
-    "githubStars": 854,
+    "githubStars": 855,
     "aiSummary": "Matrix-3D generates wide-coverage 3D worlds from single images or text using panoramic video diffusion and reconstruction models.",
     "aiKeywords": [
       "panoramic representation",
@@ -832160,7 +832160,7 @@
     "announcementDate": "2025-08-14",
     "hfUpvotes": 38,
     "githubRepo": "https://github.com/WeChatCV/Stand-In",
-    "githubStars": 795,
+    "githubStars": 796,
     "aiSummary": "A lightweight framework for identity preservation in video generation using conditional image branches and restricted self-attentions outperforms full-parameter methods with minimal additional parameters.",
     "aiKeywords": [
       "conditional image branch",
@@ -834756,7 +834756,7 @@
     "announcementDate": "2025-08-15",
     "hfUpvotes": 32,
     "githubRepo": "https://github.com/Seed3D/Puppeteer",
-    "githubStars": 449,
+    "githubStars": 451,
     "aiSummary": "Puppeteer is a framework that automates rigging and animation of 3D models using an auto-regressive transformer, attention-based architecture, and differentiable optimization, outperforming existing methods in accuracy and efficiency.",
     "aiKeywords": [
       "auto-regressive transformer",
@@ -848632,7 +848632,7 @@
     "announcementDate": "2025-08-25",
     "hfUpvotes": 73,
     "githubRepo": "https://github.com/agentscope-ai/agentscope",
-    "githubStars": 36360,
+    "githubStars": 36379,
     "aiSummary": "AgentScope enhances agentic applications by providing flexible tool-based interactions, unified interfaces, and advanced infrastructure based on the ReAct paradigm, supporting efficient and safe development and deployment.",
     "aiKeywords": [
       "Large Language Models",
@@ -864532,7 +864532,7 @@
     "announcementDate": "2025-09-03",
     "hfUpvotes": 23,
     "githubRepo": "https://github.com/moonshine-ai/moonshine",
-    "githubStars": 11570,
+    "githubStars": 11575,
     "aiSummary": "Monolingual ASR models trained on a balanced mix of high-quality, pseudo-labeled, and synthetic data outperform multilingual models for small model sizes, achieving superior error rates and enabling on-device ASR for underrepresented languages.",
     "aiKeywords": [
       "automatic speech recognition",
@@ -869594,7 +869594,7 @@
     "announcementDate": "2025-09-08",
     "hfUpvotes": 6,
     "githubRepo": "https://github.com/MINT-SJTU/LeRobot-Anything-U-Arm",
-    "githubStars": 344,
+    "githubStars": 345,
     "aiSummary": "U-Arm is a low-cost, adaptable teleoperation framework for robotic arms that optimizes mechanical design and control logic to enhance data collection efficiency and task success rates.",
     "aiKeywords": [
       "leader-follower teleoperation",
@@ -870188,7 +870188,7 @@
     "announcementDate": "2025-09-09",
     "hfUpvotes": 49,
     "githubRepo": "https://github.com/jmiao24/Paper2Agent",
-    "githubStars": 4068,
+    "githubStars": 4074,
     "aiSummary": "Paper2Agent converts research papers into interactive AI agents to facilitate knowledge dissemination and enable complex scientific queries through natural language.",
     "aiKeywords": [
       "AI agents",
@@ -878783,7 +878783,7 @@
     "announcementDate": "2025-09-15",
     "hfUpvotes": 16,
     "githubRepo": "https://github.com/Y-Research-SBU/QuantAgent",
-    "githubStars": 2902,
+    "githubStars": 2901,
     "aiSummary": "QuantAgent, a multi-agent LLM framework, excels in high-frequency trading by leveraging specialized agents for technical indicators, chart patterns, trends, and risk, outperforming existing neural and rule-based systems.",
     "aiKeywords": [
       "Large Language Models",
@@ -881948,7 +881948,7 @@
     "announcementDate": "2025-09-17",
     "hfUpvotes": 118,
     "githubRepo": "https://github.com/Alibaba-NLP/DeepResearch",
-    "githubStars": 20162,
+    "githubStars": 20163,
     "aiSummary": "AgentFounder, a deep research agent model incorporating Agentic Continual Pre-training, achieves state-of-the-art performance in agentic tasks while maintaining strong tool-use ability.",
     "aiKeywords": [
       "Large language models",
@@ -883365,7 +883365,7 @@
     "announcementDate": "2025-09-17",
     "hfUpvotes": 35,
     "githubRepo": "https://github.com/volcengine/verl",
-    "githubStars": 24292,
+    "githubStars": 24295,
     "aiSummary": "Single-stream Policy Optimization (SPO) improves policy-gradient training for Large Language Models by eliminating group-based issues and providing a stable, low-variance learning signal, leading to better performance and efficiency.",
     "aiKeywords": [
       "policy-gradient optimization",
@@ -906404,7 +906404,7 @@
     "announcementDate": "2025-09-29",
     "hfUpvotes": 185,
     "githubRepo": "https://github.com/opendatalab/MinerU",
-    "githubStars": 84047,
+    "githubStars": 84063,
     "aiSummary": "MinerU2.5, a 1.2B-parameter document parsing vision-language model, achieves state-of-the-art recognition accuracy with computational efficiency through a coarse-to-fine parsing strategy.",
     "aiKeywords": [
       "document parsing",
@@ -910694,7 +910694,7 @@
     "announcementDate": "2025-09-30",
     "hfUpvotes": 115,
     "githubRepo": "https://github.com/thu-ml/SLA",
-    "githubStars": 554,
+    "githubStars": 553,
     "aiSummary": "SLA, a trainable attention method combining sparse and linear attention, accelerates Diffusion Transformer models for video generation with minimal quality loss.",
     "aiKeywords": [
       "Diffusion Transformer",
@@ -911932,7 +911932,7 @@
     "announcementDate": "2025-09-30",
     "hfUpvotes": 40,
     "githubRepo": "https://github.com/mims-harvard/ToolUniverse",
-    "githubStars": 1797,
+    "githubStars": 1798,
     "aiSummary": "ToolUniverse is an ecosystem that standardizes and integrates tools, models, and data for AI scientists, enabling automated refinement, creation, and composition of workflows.",
     "aiKeywords": [
       "AI scientists",
@@ -912873,7 +912873,7 @@
     "announcementDate": "2025-09-30",
     "hfUpvotes": 27,
     "githubRepo": "https://github.com/TencentARC/RollingForcing",
-    "githubStars": 465,
+    "githubStars": 466,
     "aiSummary": "Rolling Forcing is a novel video generation technique that reduces error accumulation in long video streams by using joint denoising, attention sink mechanism, and efficient training with non-overlapping windows.",
     "aiKeywords": [
       "joint denoising",
@@ -922295,7 +922295,7 @@
     "announcementDate": "2025-10-02",
     "hfUpvotes": 37,
     "githubRepo": "https://github.com/showlab/Code2Video",
-    "githubStars": 2417,
+    "githubStars": 2419,
     "aiSummary": "Code2Video generates educational videos using a code-centric agent framework, improving coherence and interpretability compared to direct code generation.",
     "aiKeywords": [
       "generative models",
@@ -932778,7 +932778,7 @@
     "announcementDate": "2025-10-07",
     "hfUpvotes": 135,
     "githubRepo": "https://github.com/ace-agent/ace",
-    "githubStars": 1467,
+    "githubStars": 1469,
     "aiSummary": "ACE, a framework for adaptive context engineering, enhances LLM applications by preserving detailed knowledge through structured updates, outperforming baselines in agent and domain-specific tasks with reduced adaptation costs.",
     "aiKeywords": [
       "Large language model",
@@ -936836,7 +936836,7 @@
     "announcementDate": "2025-10-08",
     "hfUpvotes": 511,
     "githubRepo": "https://github.com/SamsungSAILMontreal/TinyRecursiveModels",
-    "githubStars": 6543,
+    "githubStars": 6544,
     "aiSummary": "Tiny Recursive Model (TRM) achieves high generalization on complex puzzle tasks using a small, two-layer network with minimal parameters, outperforming larger language models.",
     "aiKeywords": [
       "Hierarchical Reasoning Model",
@@ -956871,7 +956871,7 @@
     "announcementDate": "2025-10-14",
     "hfUpvotes": 20,
     "githubRepo": "https://github.com/vita-epfl/Stable-Video-Infinity",
-    "githubStars": 2624,
+    "githubStars": 2626,
     "aiSummary": "Stable Video Infinity generates infinite-length videos with high temporal consistency and controllable storylines by using Error-Recycling Fine-Tuning on the Diffusion Transformer.",
     "aiKeywords": [
       "Error-Recycling Fine-Tuning",
@@ -961910,7 +961910,7 @@
     "announcementDate": "2025-10-15",
     "hfUpvotes": 7,
     "githubRepo": "https://github.com/MasterZhou1/Reasoning-Flow",
-    "githubStars": 65,
+    "githubStars": 66,
     "aiSummary": null,
     "aiKeywords": [],
     "organization": null,
@@ -965660,7 +965660,7 @@
     "announcementDate": "2025-10-16",
     "hfUpvotes": 16,
     "githubRepo": "https://github.com/2toinf/X-VLA",
-    "githubStars": 763,
+    "githubStars": 762,
     "aiSummary": "A novel Soft Prompt approach enhances Vision-Language-Action models by using learnable embeddings for diverse robotic data, enabling superior performance across simulations and real-world robots.",
     "aiKeywords": [
       "Soft Prompt",
@@ -968442,7 +968442,7 @@
     "announcementDate": "2025-10-17",
     "hfUpvotes": 109,
     "githubRepo": "https://github.com/RUC-NLPIR/ARPO",
-    "githubStars": 1143,
+    "githubStars": 1144,
     "aiSummary": "AEPO, an agentic RL algorithm, addresses entropy-related challenges in web agent training, enhancing performance and stability across various datasets.",
     "aiKeywords": [
       "Agentic Reinforcement Learning",
@@ -971211,7 +971211,7 @@
     "announcementDate": "2025-10-17",
     "hfUpvotes": 11,
     "githubRepo": "https://github.com/Lakonik/piFlow",
-    "githubStars": 515,
+    "githubStars": 516,
     "aiSummary": "Policy-based flow models enable efficient and high-quality image generation by distilling teacher models into student models with dynamic flow velocities, improving diversity and quality.",
     "aiKeywords": [
       "velocity-predicting teacher",
@@ -972494,7 +972494,7 @@
     "announcementDate": "2025-10-17",
     "hfUpvotes": 4,
     "githubRepo": "https://github.com/facebookresearch/sam2",
-    "githubStars": 20191,
+    "githubStars": 20193,
     "aiSummary": "A two-pronged data synthesis pipeline generates complex question-answer pairs, enabling the training of more effective web-based research agents with higher diversity in tool use.",
     "aiKeywords": [
       "deep research agents",
@@ -974815,7 +974815,7 @@
     "announcementDate": "2025-10-20",
     "hfUpvotes": 14,
     "githubRepo": "https://github.com/ltjed/freephdlabor",
-    "githubStars": 724,
+    "githubStars": 725,
     "aiSummary": "Freephdlabor is an open-source multiagent framework that supports dynamic workflows, modular architecture, and context management to enable continual and interactive automated scientific research.",
     "aiKeywords": [
       "fully dynamic workflows",
@@ -975886,7 +975886,7 @@
     "announcementDate": "2025-10-21",
     "hfUpvotes": 108,
     "githubRepo": "https://github.com/ruc-datalab/DeepAnalyze",
-    "githubStars": 4828,
+    "githubStars": 4830,
     "aiSummary": "DeepAnalyze-8B, an agentic LLM, autonomously completes the data science pipeline from raw data to research reports using curriculum-based training and data-grounded trajectory synthesis.",
     "aiKeywords": [
       "large language models",
@@ -1037131,7 +1037131,7 @@
     "announcementDate": "2025-11-19",
     "hfUpvotes": 31,
     "githubRepo": "https://github.com/openai/agents.md",
-    "githubStars": 25620,
+    "githubStars": 25624,
     "aiSummary": null,
     "aiKeywords": [],
     "organization": null,
@@ -1049358,7 +1049358,7 @@
     "announcementDate": "2025-11-26",
     "hfUpvotes": 44,
     "githubRepo": "https://github.com/modelscope/ms-swift",
-    "githubStars": 16137,
+    "githubStars": 16136,
     "aiSummary": "Soft Adaptive Policy Optimization (SAPO) enhances the stability and performance of reinforcement learning in large language models by adaptively attenuating off-policy updates with a smooth, temperature-controlled gate, leading to improved training stability and performance.",
     "aiKeywords": [
       "reinforcement learning",
@@ -1055094,7 +1055094,7 @@
     "announcementDate": "2025-12-01",
     "hfUpvotes": 248,
     "githubRepo": "https://github.com/Tongyi-MAI/Z-Image",
-    "githubStars": 12172,
+    "githubStars": 12174,
     "aiSummary": "Z-Image, a 6B-parameter Scalable Single-Stream Diffusion Transformer (S3-DiT) model, achieves high-performance image generation with reduced computational cost, offering sub-second inference and compatibility with consumer hardware.",
     "aiKeywords": [
       "Scalable Single-Stream Diffusion Transformer",
@@ -1064409,7 +1064409,7 @@
     "announcementDate": "2025-12-03",
     "hfUpvotes": 128,
     "githubRepo": "https://github.com/NVlabs/ToolOrchestra",
-    "githubStars": 773,
+    "githubStars": 774,
     "aiSummary": "A small orchestrator using ToolOrchestra method coordinates various intelligent tools with reinforcement learning, achieving higher accuracy and efficiency in solving complex tasks like Humanity's Last Exam compared to larger models.",
     "aiKeywords": [
       "large language models",
@@ -1076609,7 +1076609,7 @@
     "announcementDate": "2025-12-08",
     "hfUpvotes": 22,
     "githubRepo": "https://github.com/teal024/SCAIL-Official",
-    "githubStars": 1068,
+    "githubStars": 1069,
     "aiSummary": "SCAIL framework improves character animation by using a novel 3D pose representation and a diffusion-transformer architecture with full-context pose injection, achieving studio-grade quality and realism.",
     "aiKeywords": [
       "3D pose representation",
@@ -1081593,7 +1081593,7 @@
     "announcementDate": "2025-12-10",
     "hfUpvotes": 35,
     "githubRepo": "https://github.com/HKUDS/DeepCode",
-    "githubStars": 16856,
+    "githubStars": 16857,
     "aiSummary": "DeepCode, a fully autonomous framework, addresses the challenges of document-to-codebase synthesis by optimizing information flow through source compression, structured indexing, knowledge injection, and error correction, achieving state-of-the-art performance and surpassing human experts.",
     "aiKeywords": [
       "large language models",
@@ -1099458,7 +1099458,7 @@
     "announcementDate": "2025-12-18",
     "hfUpvotes": 70,
     "githubRepo": "https://github.com/QwenLM/Qwen-Image-Layered",
-    "githubStars": 2199,
+    "githubStars": 2201,
     "aiSummary": "A diffusion model for decomposing RGB images into semantically disentangled RGBA layers enables consistent image editing through independent manipulation of individual layers.",
     "aiKeywords": [
       "diffusion models",
@@ -1118036,7 +1118036,7 @@
     "announcementDate": "2025-12-25",
     "hfUpvotes": 44,
     "githubRepo": "https://github.com/NVIDIA-NeMo/Nemotron",
-    "githubStars": 2370,
+    "githubStars": 2372,
     "aiSummary": null,
     "aiKeywords": [],
     "organization": {
@@ -1140201,7 +1140201,7 @@
     "announcementDate": "2026-01-12",
     "hfUpvotes": 60,
     "githubRepo": "https://github.com/QwenLM/Qwen3-VL-Embedding",
-    "githubStars": 1433,
+    "githubStars": 1434,
     "aiSummary": "The Qwen3-VL-Embedding and Qwen3-VL-Reranker models form an end-to-end multimodal search pipeline, leveraging multi-stage training and cross-attention mechanisms to achieve high-precision retrieval across diverse modalities.",
     "aiKeywords": [
       "Qwen3-VL-Embedding",
@@ -1161629,7 +1161629,7 @@
     "announcementDate": "2026-01-21",
     "hfUpvotes": 33,
     "githubRepo": "https://github.com/rattlesnakey/Awesome-Actionable-MI-Survey",
-    "githubStars": 163,
+    "githubStars": 164,
     "aiSummary": "Mechanistic interpretability is presented as an actionable framework for understanding and optimizing large language models through systematic localization, steering, and improvement methods.",
     "aiKeywords": [
       "Mechanistic Interpretability",
@@ -1167805,7 +1167805,7 @@
     "announcementDate": "2026-01-23",
     "hfUpvotes": 44,
     "githubRepo": "https://github.com/bytedance/Sa2VA",
-    "githubStars": 1701,
+    "githubStars": 1702,
     "aiSummary": "SAMTok enables pixel-wise capabilities in multi-modal large language models through discrete mask tokenization and standard training methods, achieving state-of-the-art performance on various vision-language tasks.",
     "aiKeywords": [
       "multi-modal LLMs",
@@ -1168423,7 +1168423,7 @@
     "announcementDate": "2026-01-23",
     "hfUpvotes": 38,
     "githubRepo": "https://github.com/laude-institute/terminal-bench",
-    "githubStars": 2623,
+    "githubStars": 2624,
     "aiSummary": "Terminal-Bench 2.0 presents a challenging benchmark with 89 terminal-based tasks to evaluate AI agents' capabilities in real-world scenarios.",
     "aiKeywords": [
       "AI agents",
@@ -1173218,7 +1173218,7 @@
     "announcementDate": "2026-01-27",
     "hfUpvotes": 36,
     "githubRepo": "https://github.com/QwenLM/Qwen-Agent",
-    "githubStars": 17277,
+    "githubStars": 17278,
     "aiSummary": "DeepPlanning benchmark addresses limitations of current LLM planning assessments by introducing complex, real-world tasks requiring both global optimization and local constraint reasoning.",
     "aiKeywords": [
       "agent evaluation",
@@ -1177372,7 +1177372,7 @@
     "announcementDate": "2026-01-28",
     "hfUpvotes": 50,
     "githubRepo": "https://github.com/robbyant/lingbot-vla",
-    "githubStars": 1894,
+    "githubStars": 1892,
     "aiSummary": "A Vision-Language-Action model trained on extensive real-world robotic data demonstrates superior performance and generalization across multiple platforms while offering enhanced efficiency through optimized training infrastructure.",
     "aiKeywords": [
       "Vision-Language-Action",
@@ -1179587,7 +1179587,7 @@
     "announcementDate": "2026-01-29",
     "hfUpvotes": 133,
     "githubRepo": "https://github.com/Robbyant/lingbot-world",
-    "githubStars": 4592,
+    "githubStars": 4591,
     "aiSummary": "LingBot-World is an open-source world simulator with high-fidelity dynamics, long-term memory capabilities, and real-time interactivity for diverse environments.",
     "aiKeywords": [
       "world simulator",
@@ -1180065,7 +1180065,7 @@
     "announcementDate": "2026-01-29",
     "hfUpvotes": 51,
     "githubRepo": "https://github.com/lasgroup/SDPO",
-    "githubStars": 1151,
+    "githubStars": 1152,
     "aiSummary": "Self-Distillation Policy Optimization (SDPO) enhances reinforcement learning with verifiable rewards by utilizing rich textual feedback to improve sample efficiency and accuracy in language model training.",
     "aiKeywords": [
       "reinforcement learning",
@@ -1203546,7 +1203546,7 @@
     "announcementDate": "2026-02-05",
     "hfUpvotes": 102,
     "githubRepo": "https://github.com/RLinf/RLinf",
-    "githubStars": 5684,
+    "githubStars": 5685,
     "aiSummary": "Multi-agent systems using reinforcement learning enable parallel information seeking with scalable orchestration, achieving performance comparable to larger single agents.",
     "aiKeywords": [
       "Large Language Models",
@@ -1213153,7 +1213153,7 @@
     "announcementDate": "2026-04-16",
     "hfUpvotes": 50,
     "githubRepo": "https://github.com/gameworld-project/gameworld",
-    "githubStars": 253,
+    "githubStars": 293,
     "aiSummary": "GameWorld presents a standardized benchmark for evaluating multimodal large language model agents in video games, featuring diverse games and verified metrics for comprehensive assessment.",
     "aiKeywords": [
       "Multimodal Large Language Model",
@@ -1235147,7 +1235147,7 @@
     "announcementDate": "2026-04-28",
     "hfUpvotes": 37,
     "githubRepo": "https://github.com/Brandon-Collins7/sketchvlm",
-    "githubStars": 178,
+    "githubStars": 179,
     "aiSummary": "SketchVLM is a training-free framework that enables vision-language models to generate editable SVG overlays for visual explanations, improving reasoning accuracy and annotation quality across multiple benchmarks.",
     "aiKeywords": [
       "vision-language models",
@@ -1248719,7 +1248719,7 @@
     "announcementDate": "2026-05-05",
     "hfUpvotes": 1,
     "githubRepo": "https://github.com/stefanos50/Hybrid-Sim2Real",
-    "githubStars": 6,
+    "githubStars": 7,
     "aiSummary": "A hybrid approach combining diffusion-based and image-to-image translation methods improves photorealism in synthetic datasets while maintaining semantic consistency.",
     "aiKeywords": [
       "diffusion models",
@@ -1253583,7 +1253583,7 @@
     "announcementDate": "2026-05-07",
     "hfUpvotes": 3,
     "githubRepo": "https://github.com/aipoch/medical-research-skills",
-    "githubStars": 2073,
+    "githubStars": 2075,
     "aiSummary": "A domain-specific audit framework for medical research agent skills demonstrates reliable assessment consistency compared to expert review, supporting governance of specialized AI capabilities in healthcare applications.",
     "aiKeywords": [
       "MedSkillAudit",
@@ -1272820,7 +1272820,7 @@
     "announcementDate": "2026-05-14",
     "hfUpvotes": 21,
     "githubRepo": "https://github.com/Lakonik/LakonLab",
-    "githubStars": 514,
+    "githubStars": 516,
     "aiSummary": "Asymmetric Flow Modeling enables efficient high-dimensional flow-based generation by restricting noise prediction to low-rank subspaces while maintaining full-dimensional data prediction, achieving superior performance in pixel-space text-to-image generation through effective fine-tuning from latent models.",
     "aiKeywords": [
       "flow-based generation",
@@ -1273159,7 +1273159,7 @@
     "announcementDate": "2026-05-14",
     "hfUpvotes": 12,
     "githubRepo": "https://github.com/chiennv2000/orthrus",
-    "githubStars": 483,
+    "githubStars": 484,
     "aiSummary": "Orthrus is a dual-architecture framework that combines autoregressive LLMs with diffusion models to achieve fast parallel token generation while maintaining exact inference fidelity through shared KV caches and consensus mechanisms.",
     "aiKeywords": [
       "autoregressive Large Language Models",
@@ -1278984,7 +1278984,18 @@
     "authors": [
       {
         "_id": "6a077ed475184a0d71e0210a",
+        "user": {
+          "_id": "64f8b03f83807928d25e766f",
+          "avatarUrl": "/avatars/56f0588d02b7db419ce8eed9b0cdf701.svg",
+          "isPro": false,
+          "fullname": "Tuna Han Salih Meral",
+          "user": "tmeral",
+          "type": "user",
+          "name": "tmeral"
+        },
         "name": "Tuna Han Salih Meral",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.397Z",
         "hidden": false
       },
       {
@@ -1297935,7 +1297946,7 @@
     "announcementDate": "2026-05-22",
     "hfUpvotes": 51,
     "githubRepo": "https://github.com/physx-omni/PhysX-Omni",
-    "githubStars": 331,
+    "githubStars": 332,
     "aiSummary": "PhysX-Omni presents a unified framework for generating simulation-ready 3D assets with physical properties across multiple categories using a novel geometry representation and evaluation benchmarks.",
     "aiKeywords": [
       "3D generation",
@@ -1329413,7 +1329424,18 @@
       },
       {
         "_id": "6a1e3eab808ddbc3c7d43be3",
+        "user": {
+          "_id": "64f8b03f83807928d25e766f",
+          "avatarUrl": "/avatars/56f0588d02b7db419ce8eed9b0cdf701.svg",
+          "isPro": false,
+          "fullname": "Tuna Han Salih Meral",
+          "user": "tmeral",
+          "type": "user",
+          "name": "tmeral"
+        },
         "name": "Tuna Han Salih Meral",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.406Z",
         "hidden": false
       },
       {
@@ -1333261,7 +1333283,7 @@
     "announcementDate": "2026-06-03",
     "hfUpvotes": 26,
     "githubRepo": "https://github.com/PaddlePaddle/PaddleOCR",
-    "githubStars": 92942,
+    "githubStars": 92953,
     "aiSummary": "PaddleOCR-VL-1.6 enhances document parsing performance through targeted data optimization and progressive post-training techniques, achieving state-of-the-art results on OmniDocBench v1.6.",
     "aiKeywords": [
       "document parsing",
@@ -1343797,7 +1343819,7 @@
     "announcementDate": "2026-06-05",
     "hfUpvotes": 10,
     "githubRepo": "https://github.com/SJTU-DENG-Lab/WLA",
-    "githubStars": 152,
+    "githubStars": 153,
     "aiSummary": "World-language-action models combine textual instruction processing with robot state prediction through an autoregressive transformer backbone, enabling efficient long-horizon task execution and cross-embodiment learning.",
     "aiKeywords": [
       "embodied foundation models",
@@ -1352231,7 +1352253,7 @@
     "announcementDate": "2026-06-09",
     "hfUpvotes": 271,
     "githubRepo": "https://github.com/rdi-berkeley/agents-last-exam",
-    "githubStars": 1187,
+    "githubStars": 1186,
     "aiSummary": "Agents' Last Exam (ALE) is a benchmark for evaluating AI agents on long-term, economically valuable real-world tasks across 13 industry clusters with 1K+ tasks, revealing significant gaps between benchmark performance and practical deployment.",
     "aiKeywords": [
       "AI agents",
@@ -1402947,7 +1402969,7 @@
     "announcementDate": "2026-06-26",
     "hfUpvotes": 8,
     "githubRepo": "https://github.com/nicklashansen/mmbench2",
-    "githubStars": 118,
+    "githubStars": 119,
     "aiSummary": "World models exhibit hallucinations in low-data regions of state-action space, which can be detected and mitigated using data-centric signals and coverage-aware sampling techniques.",
     "aiKeywords": [
       "world models",
@@ -1425547,7 +1425569,18 @@
       },
       {
         "_id": "6a4cf4d725849b193a83471f",
+        "user": {
+          "_id": "67d198850e00700a6b9f1715",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/no-auth/oBAOklXUYODJ7XxxNndqu.png",
+          "isPro": false,
+          "fullname": "Sahil Dua",
+          "user": "sahildua2305",
+          "type": "user",
+          "name": "sahildua2305"
+        },
         "name": "Sahil Dua",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.422Z",
         "hidden": false
       },
       {
@@ -1426737,7 +1426770,7 @@
     "announcementDate": "2026-07-08",
     "hfUpvotes": 33,
     "githubRepo": "https://github.com/OpenSenseNova/SenseNova-Vision",
-    "githubStars": 732,
+    "githubStars": 733,
     "aiSummary": "A unified multimodal model formulates computer vision tasks as generation problems using natural language and visual prompts, achieving performance comparable to specialized systems across diverse vision tasks.",
     "aiKeywords": [
       "multimodal generation",
@@ -1430377,7 +1430410,7 @@
     "announcementDate": "2026-07-09",
     "hfUpvotes": 58,
     "githubRepo": "https://github.com/robbyant/lingbot-video",
-    "githubStars": 988,
+    "githubStars": 989,
     "aiSummary": "LingBot-Video presents a DiT-based video pretraining framework with Mixture-of-Experts architecture, specialized data augmentation, and multi-dimensional reward system for embodied intelligence applications.",
     "aiKeywords": [
       "DiT-based video pretraining",
@@ -1430647,7 +1430680,7 @@
     "announcementDate": "2026-07-09",
     "hfUpvotes": 45,
     "githubRepo": "https://github.com/robbyant/lingbot-world-v2",
-    "githubStars": 1912,
+    "githubStars": 1913,
     "aiSummary": "An advanced world modeling system with extended interaction capabilities, real-time processing, diverse interactive elements, and multi-agent behavior control for collaborative virtual environments.",
     "aiKeywords": [
       "causal pretraining paradigm",
@@ -1431009,7 +1431042,7 @@
     "announcementDate": "2026-07-09",
     "hfUpvotes": 14,
     "githubRepo": "https://github.com/RoboDojo-Benchmark/RoboDojo",
-    "githubStars": 939,
+    "githubStars": 940,
     "aiSummary": "RoboDojo presents a unified sim-and-real benchmark for evaluating generalist robot manipulation policies across diverse tasks and evaluation dimensions.",
     "aiKeywords": [
       ""
@@ -1435262,7 +1435295,7 @@
     "announcementDate": "2026-07-13",
     "hfUpvotes": 4,
     "githubRepo": "https://github.com/juice500ml/phonespam",
-    "githubStars": 11,
+    "githubStars": 12,
     "aiSummary": "Self-supervised speech representations are guided via phonological activation mapping to jointly perform phone segmentation and recognition with minimal labeled data.",
     "aiKeywords": [
       "self-supervised speech models",
@@ -1462418,7 +1462451,7 @@
     "announcementDate": "2026-07-28",
     "hfUpvotes": 6,
     "githubRepo": "https://github.com/google/GNM",
-    "githubStars": 1646,
+    "githubStars": 1647,
     "aiSummary": "A new parametric human head model called GNM integrates high-resolution 3D scans with detailed ocular and intra-oral anatomy to improve geometric fidelity and generative conditioning.",
     "aiKeywords": [
       "parametric model",
@@ -1465601,7 +1465634,7 @@
     "announcementDate": "2026-07-30",
     "hfUpvotes": 72,
     "githubRepo": "https://github.com/Human-CLAW/HumanCLAW",
-    "githubStars": 128,
+    "githubStars": 129,
     "aiSummary": "HumanCLAW decouples high-level vision-language decisions from low-level motor execution to evaluate embodied action intelligence, revealing that current vision-language models lack embodied self-awareness.",
     "aiKeywords": [
       "vision-language model",
@@ -1473257,7 +1473290,7 @@
     "announcementDate": "2026-08-04",
     "hfUpvotes": 135,
     "githubRepo": "https://github.com/AMAP-ML/LongHorizon-Harness",
-    "githubStars": 1882,
+    "githubStars": 1884,
     "aiSummary": "LongHorizon-Harness improves long-horizon agent performance by explicitly tracking verified task states outside context via a manage-execute-audit loop.",
     "aiKeywords": [
       "large language model agents",
@@ -1477132,7 +1477165,7 @@
     "announcementDate": "2026-08-05",
     "hfUpvotes": 45,
     "githubRepo": "https://github.com/Tencent-Hunyuan/Hunyuan3D-Buffalo1.0",
-    "githubStars": 262,
+    "githubStars": 263,
     "aiSummary": "Hunyuan3D-Buffalo 1.0 unifies 3D understanding, generation, editing, and part generation via a multimodal architecture trained on a large-scale 3D corpus, achieving leading benchmark results.",
     "aiKeywords": [
       "multimodal models",
@@ -1486795,7 +1486828,7 @@
     "announcementDate": "2026-08-10",
     "hfUpvotes": 59,
     "githubRepo": "https://github.com/MatrAIx-ai/MatrAIx-Persona-8B",
-    "githubStars": 2119,
+    "githubStars": 2118,
     "aiSummary": "MatrAIx is a large-scale simulated-user evaluation framework that uses diverse persona records and interactive environments to test AI systems across many domains.",
     "aiKeywords": [
       "Persona 8B",
@@ -1495822,7 +1495855,7 @@
     "announcementDate": "2026-08-13",
     "hfUpvotes": 9,
     "githubRepo": "https://github.com/EMI-Group/genesis",
-    "githubStars": 785,
+    "githubStars": 789,
     "aiSummary": "Genesis organizes long-horizon software development around a persistent project rather than persistent agents, enabling multi-day compiler construction and numerical module reimplementation with low cost and high performance.",
     "aiKeywords": [
       "DeepSeek V4 Flash",
@@ -1510443,7 +1510476,7 @@
     "announcementDate": "2026-08-19",
     "hfUpvotes": 3,
     "githubRepo": "https://github.com/csslc/PixRestore",
-    "githubStars": 160,
+    "githubStars": 161,
     "aiSummary": "PixRestore is a compact, VAE-free pixel-space diffusion transformer trained from scratch for unified image restoration, using flow matching on patchified pixels, DINO-based reliability-guided feature fusion, and adversarial fine-tuning to a one-step generator for efficient high-fidelity inference.",
     "aiKeywords": [
       "unified image restoration",
@@ -1513711,7 +1513744,7 @@
     "announcementDate": "2026-08-21",
     "hfUpvotes": 11,
     "githubRepo": "https://github.com/sii-research/tau-0-vla",
-    "githubStars": 644,
+    "githubStars": 645,
     "aiSummary": "A hierarchical vision-language-action model improves long-horizon robot manipulation by using world-model-guided test-time search to scale computation for high-level subtask decisions.",
     "aiKeywords": [
       "vision-language-action",
@@ -1514633,7 +1514666,7 @@
     "announcementDate": "2026-08-24",
     "hfUpvotes": 67,
     "githubRepo": "https://github.com/DEEP-JLU/Awesome-Graph-Engineering",
-    "githubStars": 407,
+    "githubStars": 408,
     "aiSummary": "Graph Engineering organizes multi-agent LLM systems through dynamic graph structures to coordinate specialized agents and manage complex, evolving tasks.",
     "aiKeywords": [
       "Prompt Engineering",
@@ -1518720,7 +1518753,7 @@
     "announcementDate": "2026-08-25",
     "hfUpvotes": 25,
     "githubRepo": "https://github.com/EvoMap/AutoResearch",
-    "githubStars": 3105,
+    "githubStars": 3107,
     "aiSummary": "AutoResearch is a two-stage autonomous system that grounds research ideas through integrated generation and evidence-based execution to improve experimental reliability and measurable outcomes.",
     "aiKeywords": [
       "cross-modal retrieval",
@@ -1520216,7 +1520249,7 @@
     "announcementDate": "2026-08-26",
     "hfUpvotes": 72,
     "githubRepo": "https://github.com/Tencent/WeMM-Embedding",
-    "githubStars": 1822,
+    "githubStars": 1823,
     "aiSummary": "WeMM-Embedding is a family of universal multimodal embedding models that align text, images, videos, and interleaved inputs in a shared space, achieving state-of-the-art retrieval and recommendation performance across public benchmarks and large-scale WeChat applications.",
     "aiKeywords": [
       "multimodal embeddings",
@@ -1520999,7 +1521032,7 @@
     "announcementDate": "2026-08-26",
     "hfUpvotes": 18,
     "githubRepo": "https://github.com/LAION-AI/bvd",
-    "githubStars": 83,
+    "githubStars": 84,
     "aiSummary": "LAION-BVD is a large-scale open video dataset enabling multimodal pre-training across video, audio, and image modalities with synthetic captions and strong benchmark performance.",
     "aiKeywords": [
       "multimodal learning",
@@ -1534499,7 +1534532,7 @@
     "announcementDate": "2026-09-02",
     "hfUpvotes": 53,
     "githubRepo": "https://github.com/Danzer1xxxxChan/H3-World",
-    "githubStars": 343,
+    "githubStars": 344,
     "aiSummary": null,
     "aiKeywords": [],
     "organization": null,
@@ -1563972,7 +1564005,7 @@
     "announcementDate": "2026-04-14",
     "hfUpvotes": 17,
     "githubRepo": "https://github.com/ScalingIntelligence/TRACE",
-    "githubStars": 128,
+    "githubStars": 129,
     "aiSummary": "TRACE enables LLM agents to improve in agentic environments by identifying capability gaps through trajectory comparison, creating targeted training environments, and using LoRA adapters for efficient, environment-specific self-improvement.",
     "aiKeywords": [
       "large language models",
@@ -1564294,7 +1564327,7 @@
     "announcementDate": "2026-04-14",
     "hfUpvotes": 17,
     "githubRepo": "https://github.com/NVIDIA/Model-Optimizer",
-    "githubStars": 5642,
+    "githubStars": 5643,
     "aiSummary": "Speculative Decoding evaluation requires diverse workloads to accurately measure performance, which existing benchmarks lack, prompting the introduction of SPEED-Bench for standardized assessment across semantic domains and serving regimes.",
     "aiKeywords": [
       "Speculative Decoding",
@@ -1564781,7 +1564814,7 @@
     "announcementDate": "2026-04-14",
     "hfUpvotes": 5,
     "githubRepo": "https://github.com/awwkl/ZWM",
-    "githubStars": 44,
+    "githubStars": 45,
     "aiSummary": "A computational model called Zero-shot Visual World Model demonstrates how children can efficiently learn physical world understanding from limited first-person experiences, generating competent behavior across multiple benchmarks while mimicking developmental patterns and brain-like representations.",
     "aiKeywords": [
       "Zero-shot Visual World Model",
@@ -1569013,7 +1569046,7 @@
     "announcementDate": "2026-04-10",
     "hfUpvotes": 208,
     "githubRepo": "https://github.com/AMAP-ML/SkillClaw",
-    "githubStars": 2761,
+    "githubStars": 2762,
     "aiSummary": "SkillClaw enables collective skill evolution in multi-user LLM agent systems by aggregating user interactions to autonomously update and improve reusable skills across the ecosystem.",
     "aiKeywords": [
       "large language model agents",
@@ -1573246,7 +1573279,7 @@
     "announcementDate": "2026-04-09",
     "hfUpvotes": 68,
     "githubRepo": "https://github.com/mll-lab-nu/RAGEN",
-    "githubStars": 2846,
+    "githubStars": 2849,
     "aiSummary": "Research identifies template collapse in multi-turn LLM agents as a hidden failure mode undetectable by entropy, proposing mutual information proxies and SNR-aware filtering to improve reasoning quality and task performance.",
     "aiKeywords": [
       "entropy",
@@ -1584213,7 +1584246,7 @@
     "announcementDate": "2026-04-03",
     "hfUpvotes": 248,
     "githubRepo": "https://github.com/OpenDCAI/DataFlex",
-    "githubStars": 3674,
+    "githubStars": 3679,
     "aiSummary": "DataFlex is a unified framework for dynamic data-centric training of large language models that supports sample selection, domain mixture adjustment, and sample reweighting while maintaining compatibility with standard training workflows and enabling efficient large-scale deployment.",
     "aiKeywords": [
       "data-centric training",
@@ -1584596,7 +1584629,7 @@
     "announcementDate": "2026-04-03",
     "hfUpvotes": 85,
     "githubRepo": "https://github.com/ShandaAI/AlayaRenderer",
-    "githubStars": 652,
+    "githubStars": 653,
     "aiSummary": "A large-scale dynamic dataset derived from AAA games is introduced to improve generative inverse and forward rendering, featuring high-resolution synchronized RGB and G-buffer data alongside a novel VLM-based evaluation method that correlates well with human judgment.",
     "aiKeywords": [
       "G-buffer",
@@ -1585670,7 +1585703,7 @@
     "announcementDate": "2026-04-03",
     "hfUpvotes": 27,
     "githubRepo": "https://github.com/GAIR-NLP/ASI-Evolve",
-    "githubStars": 871,
+    "githubStars": 873,
     "aiSummary": "ASI-Evolve is an agentic framework that demonstrates AI-driven discovery across key AI development components, achieving superior performance in neural architecture design, data curation, and reinforcement learning algorithm design.",
     "aiKeywords": [
       "agentic framework",
@@ -1620481,7 +1620514,7 @@
     "announcementDate": "2026-03-20",
     "hfUpvotes": 4,
     "githubRepo": "https://github.com/tangqh03/PF-RPN",
-    "githubStars": 119,
+    "githubStars": 120,
     "aiSummary": "A prompt-free region proposal network uses sparse image-aware adapters and cascade self-prompting to identify potential objects without external prompts across diverse computer vision applications.",
     "aiKeywords": [
       "Prompt-Free Universal Region Proposal Network",
@@ -1624013,7 +1624046,7 @@
     "announcementDate": "2026-03-18",
     "hfUpvotes": 165,
     "githubRepo": "https://github.com/CSJianYang/Industrial-Coder",
-    "githubStars": 198,
+    "githubStars": 217,
     "aiSummary": "InCoder-32B is a 32-billion-parameter code model trained on industrial datasets with extended context length and execution verification to improve performance in hardware-aware programming tasks.",
     "aiKeywords": [
       "code foundation model",
@@ -1642184,7 +1642217,7 @@
     "announcementDate": "2026-03-12",
     "hfUpvotes": 25,
     "githubRepo": "https://github.com/ID-LoRA/ID-LoRA",
-    "githubStars": 367,
+    "githubStars": 366,
     "aiSummary": "ID-LoRA enables joint generation of visual appearance and voice using a single model, improving personalization through identity-driven in-context LoRA adaptation and identity guidance techniques.",
     "aiKeywords": [
       "ID-LoRA",
@@ -1645085,7 +1645118,7 @@
     "announcementDate": "2026-03-11",
     "hfUpvotes": 37,
     "githubRepo": "https://github.com/fishaudio/fish-speech",
-    "githubStars": 33807,
+    "githubStars": 33814,
     "aiSummary": "Fish Audio S2 is an open-source text-to-speech system with multi-speaker capabilities, multi-turn generation, and instruction-following control through natural-language descriptions, utilizing a multi-stage training approach and production-ready inference engine.",
     "aiKeywords": [
       "text-to-speech",
@@ -1658409,7 +1658442,7 @@
     "announcementDate": "2026-03-04",
     "hfUpvotes": 60,
     "githubRepo": "https://github.com/QwenLM/Qwen3-Coder",
-    "githubStars": 16866,
+    "githubStars": 16869,
     "aiSummary": "Qwen3-Coder-Next is an 80-billion-parameter language model that activates only 3 billion parameters during inference, achieving strong coding capabilities through agentic training with verifiable task synthesis and reinforcement learning.",
     "aiKeywords": [
       "language model",
@@ -1660971,7 +1661004,7 @@
     "announcementDate": "2026-03-04",
     "hfUpvotes": 3,
     "githubRepo": "https://github.com/joshseth/cores",
-    "githubStars": 18,
+    "githubStars": 20,
     "aiSummary": "Research reveals that independently trained transformers converge to shared algorithmic cores despite different weight configurations, indicating low-dimensional invariants in transformer computations.",
     "aiKeywords": [
       "transformers",
@@ -1703081,7 +1703114,7 @@
     "announcementDate": "2026-02-12",
     "hfUpvotes": 4,
     "githubRepo": "https://github.com/ucla-mobility/TIC-VLA",
-    "githubStars": 180,
+    "githubStars": 181,
     "aiSummary": "Vision-language-action models for robotics are enhanced with a latency-aware framework that compensates for delayed semantic reasoning during real-time action generation through delayed semantic-control interfaces and latency-consistent training.",
     "aiKeywords": [
       "vla models",
@@ -1707393,7 +1707426,7 @@
     "announcementDate": "2026-02-11",
     "hfUpvotes": 8,
     "githubRepo": "https://github.com/zksha/alma",
-    "githubStars": 305,
+    "githubStars": 306,
     "aiSummary": "ALMA is a framework that uses meta-learning to automatically discover memory designs for agentic systems, enabling continual learning without human engineering across diverse domains.",
     "aiKeywords": [
       "foundation models",
@@ -1715491,7 +1715524,7 @@
     "announcementDate": "2026-02-09",
     "hfUpvotes": 59,
     "githubRepo": "https://github.com/xufangzhi/Odyssey-Arena",
-    "githubStars": 34,
+    "githubStars": 35,
     "aiSummary": "OdysseyArena presents a new framework for evaluating large language models on long-horizon, inductive agent tasks that emphasize autonomous discovery of environmental transition laws.",
     "aiKeywords": [
       "Large Language Models",
@@ -1752795,7 +1752828,7 @@
     "announcementDate": "2025-05-13",
     "hfUpvotes": 14,
     "githubRepo": "https://github.com/PrimeIntellect-ai/prime-rl",
-    "githubStars": 2264,
+    "githubStars": 2267,
     "aiSummary": "INTELLECT-2, a globally distributed reinforcement learning training of a 32 billion parameter language model, uses fully asynchronous RL across a dynamic, heterogeneous swarm of contributors, improving upon QwQ-32B with custom infrastructure and training modifications.",
     "aiKeywords": [
       "reinforcement learning",
@@ -1758743,7 +1758776,7 @@
     "announcementDate": "2025-05-07",
     "hfUpvotes": 191,
     "githubRepo": "https://github.com/LeapLabTHU/Absolute-Zero-Reasoner",
-    "githubStars": 1932,
+    "githubStars": 1931,
     "aiSummary": "Absolute Zero Reasoner (AZR) achieves state-of-the-art performance on coding and mathematical reasoning tasks through self-generated, verified learning without external data.",
     "aiKeywords": [
       "reinforcement learning with verifiable rewards",
@@ -1759586,7 +1759619,7 @@
     "announcementDate": "2025-05-07",
     "hfUpvotes": 16,
     "githubRepo": "https://github.com/SWE-bench/SWE-smith",
-    "githubStars": 836,
+    "githubStars": 835,
     "aiSummary": "SWE-smith automates the generation of large-scale software engineering training data and improves the performance of language models on automated software engineering tasks.",
     "aiKeywords": [
       "Language Models",
@@ -1759793,7 +1759826,7 @@
     "announcementDate": "2025-05-07",
     "hfUpvotes": 10,
     "githubRepo": "https://github.com/VITA-MLLM/VITA-Audio",
-    "githubStars": 738,
+    "githubStars": 739,
     "aiSummary": "VITA-Audio, an end-to-end speech model, introduces a lightweight MCTP module to generate multiple audio tokens efficiently, reducing latency in streaming applications with enhanced speech processing capabilities.",
     "aiKeywords": [
       "Multiple Cross-modal Token Prediction (MCTP)",
@@ -1761136,7 +1761169,7 @@
     "announcementDate": "2025-05-06",
     "hfUpvotes": 37,
     "githubRepo": "https://github.com/sihyeong/awesome-llm-inference-engine",
-    "githubStars": 255,
+    "githubStars": 256,
     "aiSummary": "A comprehensive evaluation of 25 open-source and commercial LLM inference engines across various criteria and optimization techniques is provided, with an outline of future research directions.",
     "aiKeywords": [
       "LLM",
@@ -1762077,7 +1762110,7 @@
     "announcementDate": "2025-05-06",
     "hfUpvotes": 19,
     "githubRepo": "https://github.com/Ingrid789/SkillMimic-V2",
-    "githubStars": 162,
+    "githubStars": 163,
     "aiSummary": "The approach uses data augmentation techniques and adaptive sampling to improve robust skill acquisition and generalization in Reinforcement Learning from Interaction Demonstration despite noisy and sparse demonstrations.",
     "aiKeywords": [
       "Reinforcement Learning from Interaction Demonstration (RLID)",
@@ -1765889,7 +1765922,7 @@
     "announcementDate": "2025-05-01",
     "hfUpvotes": 59,
     "githubRepo": "https://github.com/RUC-NLPIR/WebThinker",
-    "githubStars": 1473,
+    "githubStars": 1474,
     "aiSummary": "WebThinker, an autonomous deep research agent, improves LRM performance on complex tasks by integrating a Deep Web Explorer for dynamic web information gathering and using RL-based training through Direct Preference Optimization.",
     "aiKeywords": [
       "Large reasoning models (LRMs)",
@@ -1767989,7 +1768022,7 @@
     "announcementDate": "2025-05-01",
     "hfUpvotes": 10,
     "githubRepo": "https://github.com/RoboVerseOrg/RoboVerse",
-    "githubStars": 1883,
+    "githubStars": 1880,
     "aiSummary": "RoboVerse provides a comprehensive framework with high-quality synthetic data, simulation platform, and unified benchmarks to address data scaling and evaluation challenges in robotics.",
     "aiKeywords": [
       "synthetic data",
@@ -1769564,7 +1769597,7 @@
     "announcementDate": "2025-04-30",
     "hfUpvotes": 7,
     "githubRepo": "https://github.com/RAGEN-AI/RAGEN",
-    "githubStars": 2846,
+    "githubStars": 2849,
     "aiSummary": "StarPO and RAGEN enable trajectory-level reinforcement learning for LLM agents, revealing Echo Trap instability and the need for stabilized training, diverse rollouts, and reasoning-aware rewards to improve multi-turn agent reasoning.",
     "aiKeywords": [
       "large language models (LLMs)",
@@ -1781936,7 +1781969,7 @@
     "announcementDate": "2025-04-22",
     "hfUpvotes": 29,
     "githubRepo": "https://github.com/microsoft/UFO",
-    "githubStars": 10226,
+    "githubStars": 10228,
     "aiSummary": "UFO2, an AgentOS for Windows, integrates multimodal LLMs with native APIs and hybrid control detection to enhance robust and scalable desktop automation.",
     "aiKeywords": [
       "multimodal large language models",
@@ -1810877,7 +1810910,7 @@
     "announcementDate": "2025-04-04",
     "hfUpvotes": 303,
     "githubRepo": "https://github.com/FoundationAgents/awesome-foundation-agents",
-    "githubStars": 2234,
+    "githubStars": 2233,
     "aiSummary": "This survey covers the design, evaluation, and improvement of intelligent agents based on modular, brain-inspired architectures, focusing on self-enhancement, multi-agent collaboration, and safety in AI systems.",
     "aiKeywords": [
       "large language models",
@@ -1818849,7 +1818882,7 @@
     "announcementDate": "2025-04-02",
     "hfUpvotes": 27,
     "githubRepo": "https://github.com/simular-ai/Agent-S",
-    "githubStars": 13011,
+    "githubStars": 13013,
     "aiSummary": "Agent S2, a compositional framework using Mixture-of-Grounding and Proactive Hierarchical Planning, achieves state-of-the-art performance in computer use automation across various benchmarks and operating systems.",
     "aiKeywords": [
       "Mixture-of-Grounding",
@@ -1825252,7 +1825285,7 @@
     "announcementDate": "2025-03-31",
     "hfUpvotes": 9,
     "githubRepo": "https://github.com/VAST-AI-Research/TripoSF",
-    "githubStars": 783,
+    "githubStars": 784,
     "aiSummary": "SparseFlex enables high-resolution 3D mesh reconstruction and generation, achieving superior accuracy and efficiency using a sparse voxel structure and rendering losses.",
     "aiKeywords": [
       "sparse-structured isosurface representation",
@@ -1835693,7 +1835726,7 @@
     "announcementDate": "2025-03-26",
     "hfUpvotes": 9,
     "githubRepo": "https://github.com/Jianghanxiao/PhysTwin",
-    "githubStars": 490,
+    "githubStars": 491,
     "aiSummary": "PhysTwin is a framework using physics-informed and generative models to create a realistic digital twin from sparse video, supporting various deformable objects and real-time simulation.",
     "aiKeywords": [
       "physics-informed representation",
@@ -1836766,7 +1836799,7 @@
     "announcementDate": "2025-03-26",
     "hfUpvotes": 4,
     "githubRepo": "https://github.com/taeyeopl/Any6D",
-    "githubStars": 514,
+    "githubStars": 512,
     "aiSummary": "Any6D estimates the 6D pose and size of unknown objects using a single RGB-D image through a model-free framework, enhancing 2D-3D alignment and scale estimation across challenging conditions.",
     "aiKeywords": [
       "6D object pose estimation",
@@ -1857000,7 +1857033,7 @@
     "announcementDate": "2024-07-03",
     "hfUpvotes": 52,
     "githubRepo": "https://github.com/NJU-PCALab/OpenVid-1M",
-    "githubStars": 480,
+    "githubStars": 481,
     "aiSummary": "The paper introduces OpenVid-1M and OpenVidHD-0.4M datasets, along with MVDiT, a Multi-modal Video Diffusion Transformer, to enhance text-to-video generation by leveraging high-quality data and comprehensive text information.",
     "aiKeywords": [
       "Text-to-video generation",
@@ -1876229,7 +1876262,7 @@
     "announcementDate": "2024-06-21",
     "hfUpvotes": 10,
     "githubRepo": "https://github.com/modelscope/DiffSynth-Studio",
-    "githubStars": 13420,
+    "githubStars": 13422,
     "aiSummary": "A novel post-tuning methodology named ExVideo enhances video synthesis models to generate longer videos with lower computational cost while maintaining quality and generalization.",
     "aiKeywords": [
       "diffusion models",
@@ -1878881,7 +1878914,7 @@
     "announcementDate": "2024-06-19",
     "hfUpvotes": 35,
     "githubRepo": "https://github.com/thudm/chatglm-6b",
-    "githubStars": 40846,
+    "githubStars": 40847,
     "aiSummary": "GLM-4 language models, trained on diverse datasets, outperform GPT-4 in various tasks and feature tool integration capabilities that match or surpass those of GPT-4 All Tools.",
     "aiKeywords": [
       "ChatGLM",
@@ -1888982,7 +1889015,7 @@
     "announcementDate": "2024-06-14",
     "hfUpvotes": 46,
     "githubRepo": "https://github.com/openvla/openvla",
-    "githubStars": 7326,
+    "githubStars": 7325,
     "aiSummary": "OpenVLA, a 7B-parameter open-source vision-language-action model, demonstrates strong performance in generalist manipulation and efficient fine-tuning for new tasks, outperforming larger closed models and from-scratch imitation learning methods.",
     "aiKeywords": [
       "Llama 2",
@@ -1893105,7 +1893138,7 @@
     "announcementDate": "2024-06-13",
     "hfUpvotes": 40,
     "githubRepo": "https://github.com/bujiazi/motionclone",
-    "githubStars": 550,
+    "githubStars": 551,
     "aiSummary": "MotionClone, a training-free framework, uses motion cloning to control text-to-video generation, yielding superior motion fidelity, textual alignment, and temporal consistency.",
     "aiKeywords": [
       "motion-based controllable text-to-video generation",
@@ -1896039,7 +1896072,7 @@
     "announcementDate": "2024-06-12",
     "hfUpvotes": 30,
     "githubRepo": "https://github.com/zou-group/textgrad",
-    "githubStars": 3800,
+    "githubStars": 3801,
     "aiSummary": "TextGrad, a novel framework, uses text-based feedback from LLMs to optimize variables in compound AI systems across diverse applications, enhancing performance and generality.",
     "aiKeywords": [
       "backpropagation",
@@ -1899147,7 +1899180,7 @@
     "announcementDate": "2024-06-10",
     "hfUpvotes": 55,
     "githubRepo": "https://github.com/togethercomputer/moa",
-    "githubStars": 2994,
+    "githubStars": 2995,
     "aiSummary": "A Mixture-of-Agents (MoA) methodology combines multiple large language models (LLMs) to achieve state-of-the-art performance on various evaluations.",
     "aiKeywords": [
       "Mixture-of-Agents",
@@ -1916162,7 +1916195,7 @@
     "announcementDate": "2024-05-21",
     "hfUpvotes": 39,
     "githubRepo": "https://github.com/OpenLLMAI/OpenRLHF",
-    "githubStars": 10171,
+    "githubStars": 10172,
     "aiSummary": "OpenRLHF is an open-source RLHF framework that enhances training efficiency and accessibility for researchers and practitioners.",
     "aiKeywords": [
       "Reinforcement Learning from Human Feedback",
@@ -1926249,7 +1926282,7 @@
     "announcementDate": "2026-09-16",
     "hfUpvotes": 25,
     "githubRepo": "https://github.com/Gen-Verse/ScienceBuddy",
-    "githubStars": 426,
+    "githubStars": 427,
     "aiSummary": "ScienceBuddy is an interactive workspace that integrates self-improving scientific agents into research workflows through recursive harness evolution and model reinforcement learning.",
     "aiKeywords": [
       "recursive-in-recursive self-improvement",
@@ -1933625,7 +1933658,7 @@
     "announcementDate": "2026-09-18",
     "hfUpvotes": 89,
     "githubRepo": "https://github.com/NVlabs/SoL-Pi",
-    "githubStars": 3691,
+    "githubStars": 3690,
     "aiSummary": "SoL-Pi improves token efficiency in autonomous coding agents through recursive self-improvement mechanisms, reducing costs by about one third while maintaining performance.",
     "aiKeywords": [
       "recursive self-improvement",
@@ -1938841,7 +1938874,7 @@
     "announcementDate": "2026-09-22",
     "hfUpvotes": 13,
     "githubRepo": "https://github.com/3587jjh/HuRo",
-    "githubStars": 70,
+    "githubStars": 71,
     "aiSummary": "Robotized human video data improves vision-language-action model pretraining and real-world manipulation robustness across diverse tasks.",
     "aiKeywords": [
       "VLA pretraining",
@@ -1940428,7 +1940461,7 @@
     "announcementDate": "2026-09-22",
     "hfUpvotes": 139,
     "githubRepo": "https://github.com/inclusionAI/Realtime-Venus",
-    "githubStars": 288,
+    "githubStars": 290,
     "aiSummary": "A proactive full-duplex system with separate audio-visual and audio models enables continuous perception, native speech generation, and asynchronous tool execution for real-time dialogue.",
     "aiKeywords": [
       "full-duplex interaction",
@@ -1950400,7 +1950433,7 @@
     "announcementDate": "2026-09-29",
     "hfUpvotes": 156,
     "githubRepo": "https://github.com/multimodal-art-projection/YuE",
-    "githubStars": 13624,
+    "githubStars": 13631,
     "aiSummary": "YuE2 unifies symbolic and audio music generation via symbolic planning, producing readable scores and full-song audio with state-of-the-art quality and agentic editing capabilities.",
     "aiKeywords": [
       "AR-NAR Mixture-of-Transformers",
@@ -1956059,7 +1956092,7 @@
     "announcementDate": "2026-09-30",
     "hfUpvotes": 46,
     "githubRepo": "https://github.com/Hongcheng-Gao/EngiWorld",
-    "githubStars": 54,
+    "githubStars": 55,
     "aiSummary": "EngiWorld introduces a benchmark for autonomous engineering agents across six domains, evaluating geometric and physical validity via artifact-centric verification and revealing major gaps in current models.",
     "aiKeywords": [
       "EngiWorld",
@@ -1959387,7 +1959420,7 @@
     "announcementDate": "2026-09-29",
     "hfUpvotes": 36,
     "githubRepo": "https://github.com/PSRben/VisionHOPE",
-    "githubStars": 1411,
+    "githubStars": 1412,
     "aiSummary": "VisionHOPE introduces a self-modifying visual backbone where memory and learning co-evolve through coupled memories and stability-controlled updates, achieving strong results across vision tasks.",
     "aiKeywords": [
       "VisionHOPE",
@@ -1960010,7 +1960043,7 @@
     "announcementDate": "2026-10-01",
     "hfUpvotes": 86,
     "githubRepo": "https://github.com/VectorSpaceLab/AREX-2",
-    "githubStars": 80,
+    "githubStars": 81,
     "aiSummary": "AREX-2 trains LLM agents on synthetic long-horizon improvement trajectories to enable iterative test-time refinement, yielding strong results across coding, research, and reasoning benchmarks.",
     "aiKeywords": [
       "self-improving LLM agents",
@@ -1968428,7 +1968461,7 @@
     "announcementDate": "2026-10-01",
     "hfUpvotes": 9,
     "githubRepo": "https://github.com/Indigma-Innovations/SeLMRoute",
-    "githubStars": 3,
+    "githubStars": 4,
     "aiSummary": "SeLMRoute improves LLM routing by extracting interpretable semantic evidence about query requirements to estimate model performance and apply deployment objectives separately.",
     "aiKeywords": [
       "LLM routing",
@@ -1981645,7 +1981678,7 @@
     ],
     "publishedDate": "2026-09-29T00:00:00.000Z",
     "announcementDate": "2026-10-08",
-    "hfUpvotes": 71,
+    "hfUpvotes": 74,
     "githubRepo": "https://github.com/Dreamer-Toby/STEPQuant",
     "githubStars": 105,
     "aiSummary": "STEPQuant is a spatial-temporal quantization framework that reduces memory usage of linear attention recurrent states by allocating precision based on error magnitude and memory lifetime.",
@@ -2012194,7 +2012227,7 @@
     "announcementDate": "2026-10-16",
     "hfUpvotes": 15,
     "githubRepo": "https://github.com/Supra-3D/SUPRA-Tex",
-    "githubStars": 1011,
+    "githubStars": 1019,
     "aiSummary": "SUPRA-Tex decouples visible-material estimation, surface alignment, and 3D completion to generate relightable 3D materials that preserve reference image details and complete unobserved surfaces.",
     "aiKeywords": [
       "single image 3D generation",
@@ -2013509,7 +2013542,7 @@
     "announcementDate": "2026-10-16",
     "hfUpvotes": 18,
     "githubRepo": "https://github.com/Interactive-Active-AI/OneWM",
-    "githubStars": 95,
+    "githubStars": 82,
     "aiSummary": "OneWM unifies causal training of world and action modeling, showing that learning action-conditioned dynamics improves policies and action learning improves multi-view world prediction.",
     "aiKeywords": [
       "causal training",
@@ -2039176,7 +2039209,7 @@
     "announcementDate": "2026-10-23",
     "hfUpvotes": 45,
     "githubRepo": "https://github.com/Tencent/WeVisOne-VL",
-    "githubStars": 1242,
+    "githubStars": 1244,
     "aiSummary": "WeVisOne-VL unifies object-level and pixel-level visual perception via structured token prediction, supporting detection, localization, counting, OCR, segmentation, and matting with a lightweight pixel decoder and multi-stage training.",
     "aiKeywords": [
       "vision-language models",
@@ -2042668,7 +2042701,7 @@
     "announcementDate": "2026-10-23",
     "hfUpvotes": 5,
     "githubRepo": "https://github.com/seemandhar/SplatLab",
-    "githubStars": 30,
+    "githubStars": 31,
     "aiSummary": "SplatLab autonomously reproduces 3D Gaussian Splatting baselines, proposes extensions, and writes manuscripts with fully traceable training logs, improving PSNR by up to 3.78 dB.",
     "aiKeywords": [
       "3D Gaussian Splatting",
@@ -2057689,7 +2057722,18 @@
       },
       {
         "_id": "6ae1622ba5eb0647c2907256",
+        "user": {
+          "_id": "67d198850e00700a6b9f1715",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/no-auth/oBAOklXUYODJ7XxxNndqu.png",
+          "isPro": false,
+          "fullname": "Sahil Dua",
+          "user": "sahildua2305",
+          "type": "user",
+          "name": "sahildua2305"
+        },
         "name": "Sahil Dua",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.443Z",
         "hidden": false
       },
       {
@@ -2061426,7 +2061470,7 @@
     "announcementDate": "2026-10-30",
     "hfUpvotes": 20,
     "githubRepo": "https://github.com/JiongfanYang/SpecSlot",
-    "githubStars": 59,
+    "githubStars": 48,
     "aiSummary": "SpecSlot improves pixel-space generative Transformers by using localized spectral slots and restricted global attention to increase image detail without raising computational cost.",
     "aiKeywords": [
       "rectified-flow Transformer",
@@ -2066777,7 +2066821,7 @@
     "announcementDate": "2026-11-02",
     "hfUpvotes": 21,
     "githubRepo": "https://github.com/inclusionAI/DefakerOne2",
-    "githubStars": 187,
+    "githubStars": 188,
     "aiSummary": "Venus-DefakerOne2 is a unified anti-forgery foundation model that extends detection to diverse forgery forms and media types through alternating LoRA and full-parameter tuning and entropy-based test adaptation.",
     "aiKeywords": [
       "LoRA",
@@ -2068222,7 +2068266,7 @@
     "announcementDate": "2026-11-02",
     "hfUpvotes": 2,
     "githubRepo": "https://github.com/GVCLab/SketchDirector",
-    "githubStars": 17,
+    "githubStars": 18,
     "aiSummary": "SketchDirector is an agentic framework that decomposes text prompts into draft vector assets, arranges them via iterative reasoning with self-evolving memory, and refines details using diffusion priors for complex scene sketching.",
     "aiKeywords": [
       "agentic framework",
@@ -2068976,7 +2069020,7 @@
     "announcementDate": "2026-11-03",
     "hfUpvotes": 100,
     "githubRepo": "https://github.com/RUC-NLPIR/CoworkOS",
-    "githubStars": 178,
+    "githubStars": 179,
     "aiSummary": "CoworkOS is a long-horizon agent harness that separates strategy from execution, supports human-in-the-loop collaboration via shared artifacts, and improves model performance through sustained automated post-training.",
     "aiKeywords": [
       "cowork agents",
@@ -2069128,7 +2069172,7 @@
     "announcementDate": "2026-11-03",
     "hfUpvotes": 49,
     "githubRepo": "https://github.com/xlyu0106/CUA-Master",
-    "githubStars": 129,
+    "githubStars": 106,
     "aiSummary": "CUA-Master uses nested recursive loops with open-world data and feedback-driven retries to continuously improve computer-use agents across diverse benchmarks.",
     "aiKeywords": [
       "CUA-Master",
@@ -2074050,7 +2074094,7 @@
     "announcementDate": "2026-10-05",
     "hfUpvotes": 8,
     "githubRepo": "https://github.com/microsoft/Webwright",
-    "githubStars": 6097,
+    "githubStars": 6099,
     "aiSummary": "CUAWright replaces fixed GUI harnesses with a minimal bash-based terminal interface and dynamic file-system tool creation, substantially improving agent performance and reducing cost across digital tasks.",
     "aiKeywords": [
       "computer-use agents",
@@ -2082152,7 +2082196,7 @@
     "announcementDate": "2026-11-05",
     "hfUpvotes": 7,
     "githubRepo": "https://github.com/LAW1223/VidDub",
-    "githubStars": 136,
+    "githubStars": 137,
     "aiSummary": "VidDub is a two-step diffusion video dubbing model that uses replacement-aware cross-audio supervision to avoid conflicting source-mouth targets and achieves strong lip synchronization with high visual fidelity.",
     "aiKeywords": [
       "cross-audio supervision",
@@ -2089842,7 +2089886,7 @@
     "announcementDate": "2026-11-10",
     "hfUpvotes": 109,
     "githubRepo": "https://github.com/Robbyant/lingbot-touch",
-    "githubStars": 781,
+    "githubStars": 784,
     "aiSummary": "LingBot-Touch is a tactile foundation model that learns a unified, extensible representation across heterogeneous tactile sensors, yielding plug-and-play tactile tokens that consistently enhance manipulation policies such as diffusion policy and VLA models.",
     "aiKeywords": [
       "tactile foundation model",
@@ -2091265,7 +2091309,7 @@
     ],
     "publishedDate": "2026-11-05T16:19:52.000Z",
     "announcementDate": "2026-11-10",
-    "hfUpvotes": 28,
+    "hfUpvotes": 29,
     "githubRepo": "https://github.com/EDAPINENUT/fewsteprl-sd35",
     "githubStars": 48,
     "aiSummary": "Reinforcement learning objectives for diffusion models are reformulated for few-step samplers through x-space transformation, gradient decomposition, and anchor adaptation, yielding modular few-step variants of several methods and showing reward-gradient methods excel with differentiable rewards while DiffusionNFT-style methods achieve high rewards in fewer iterations.",
@@ -2091698,7 +2091742,7 @@
     "announcementDate": "2026-11-10",
     "hfUpvotes": 2,
     "githubRepo": "https://github.com/Naturalpad-studio/InstantHMR",
-    "githubStars": 425,
+    "githubStars": 426,
     "aiSummary": null,
     "aiKeywords": [],
     "organization": {
@@ -2092890,7 +2092934,7 @@
     "announcementDate": "2026-11-10",
     "hfUpvotes": 21,
     "githubRepo": "https://github.com/facebookresearch/faiss",
-    "githubStars": 41831,
+    "githubStars": 41837,
     "aiSummary": null,
     "aiKeywords": [],
     "organization": {
@@ -2095531,7 +2095575,18 @@
       },
       {
         "_id": "6af4a664dc6658cf91639b1f",
+        "user": {
+          "_id": "679430d935e53e8e7ffcd087",
+          "avatarUrl": "/avatars/e7ea0fc32c8d9e46ec36a157b3e41901.svg",
+          "isPro": false,
+          "fullname": "Changhe Chen",
+          "user": "AisenGinn",
+          "type": "user",
+          "name": "AisenGinn"
+        },
         "name": "Changhe Chen",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.462Z",
         "hidden": false
       },
       {
@@ -2095541,17 +2095596,50 @@
       },
       {
         "_id": "6af4a664dc6658cf91639b21",
+        "user": {
+          "_id": "6454dbc0e4952d1c6cb34f76",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/6454dbc0e4952d1c6cb34f76/oiV2Zvg8L2pNd2u4TMrdx.jpeg",
+          "isPro": false,
+          "fullname": "Chi Gui",
+          "user": "Penguin-N",
+          "type": "user",
+          "name": "Penguin-N"
+        },
         "name": "Chi Gui",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.453Z",
         "hidden": false
       },
       {
         "_id": "6af4a664dc6658cf91639b22",
+        "user": {
+          "_id": "648d172c80bf2c9599264e10",
+          "avatarUrl": "/avatars/42f8c66dcec0719c493a398f98ee4897.svg",
+          "isPro": false,
+          "fullname": "Feishi Wang",
+          "user": "Fisher-Wang",
+          "type": "user",
+          "name": "Fisher-Wang"
+        },
         "name": "Feishi Wang",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.469Z",
         "hidden": false
       },
       {
         "_id": "6af4a664dc6658cf91639b23",
+        "user": {
+          "_id": "6483af58571c2dcfa98cae82",
+          "avatarUrl": "https://cdn-avatars.huggingface.co/v1/production/uploads/6483af58571c2dcfa98cae82/d8Vnh_EG1KxeEoNAAQXHZ.jpeg",
+          "isPro": false,
+          "fullname": "Canyu Chen",
+          "user": "canyuchen",
+          "type": "user",
+          "name": "canyuchen"
+        },
         "name": "Canyu Chen",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.479Z",
         "hidden": false
       },
       {
@@ -2098059,7 +2098147,7 @@
     "announcementDate": "2026-11-13",
     "hfUpvotes": 47,
     "githubRepo": "https://github.com/inclusionAI/Duo",
-    "githubStars": 159,
+    "githubStars": 160,
     "aiSummary": "A reciprocal world model enables real-time full-duplex audiovisual interaction by jointly modeling intent and realization using autoregressive reasoning, synchronized attention, and dual rollout distillation.",
     "aiKeywords": [
       "Reciprocal World Model",
@@ -2098471,7 +2098559,7 @@
     "announcementDate": "2026-11-13",
     "hfUpvotes": 41,
     "githubRepo": "https://github.com/OpenVisionBanana/OpenVisionBanana",
-    "githubStars": 115,
+    "githubStars": 117,
     "aiSummary": null,
     "aiKeywords": [],
     "organization": {
@@ -2101467,7 +2101555,7 @@
     "announcementDate": "2026-11-16",
     "hfUpvotes": 13,
     "githubRepo": "https://github.com/mdlm-steprefine/mdlm-steprefine",
-    "githubStars": 31,
+    "githubStars": 34,
     "aiSummary": "StepRefine, a plug-and-play decoding strategy, mitigates hallucinations in multimodal diffusion language models by switching between discrete denoising and latent refinement based on entropy spikes and distributional stability.",
     "aiKeywords": [
       "multimodal diffusion language models (MDLMs)",
@@ -2108336,7 +2108424,7 @@
     "announcementDate": "2026-11-17",
     "hfUpvotes": 9,
     "githubRepo": "https://github.com/wwillchen/ebr",
-    "githubStars": 89,
+    "githubStars": 90,
     "aiSummary": "Energy-Based Reasoners guide looped latent reasoning by learning an energy function whose gradient refines states and signals when to stop, with exploration-based training improving performance and efficiency.",
     "aiKeywords": [
       "inductive bias",
@@ -2109473,7 +2109561,7 @@
     ],
     "publishedDate": "2026-11-17T00:00:00.000Z",
     "announcementDate": "2026-11-18",
-    "hfUpvotes": 57,
+    "hfUpvotes": 58,
     "githubRepo": "https://github.com/effl-lab/Weight-Space-Programming",
     "githubStars": 47,
     "aiSummary": "When large language models write neural network weights without gradient-based training, they tend to design sparse table or associative-memory models that outperform same-sized Transformers with far fewer parameters and faster GPU inference, though pretrained LLMs remain more accurate.",
@@ -2112353,7 +2112441,7 @@
     ],
     "publishedDate": "2026-11-18T00:00:00.000Z",
     "announcementDate": "2026-11-19",
-    "hfUpvotes": 141,
+    "hfUpvotes": 146,
     "githubRepo": "https://github.com/Carol-lyh/Jeveration",
     "githubStars": 72,
     "aiSummary": "Jeveration repurposes a frozen vision-language model to generate coherent images and perform image-to-image and dense prediction tasks in a single forward pass with fast 512x512 generation.",
@@ -2112875,7 +2112963,7 @@
     ],
     "publishedDate": "2026-11-12T00:00:00.000Z",
     "announcementDate": "2026-11-19",
-    "hfUpvotes": 21,
+    "hfUpvotes": 22,
     "githubRepo": "https://github.com/eilamshapira/LightTAR",
     "githubStars": 3,
     "aiSummary": "LightTAR adapts dimensionality reduction to the prediction task by adding target-aware features from encoder layers via regularized partial least squares, improving multimodal tabular model performance with minimal runtime overhead.",
@@ -2113850,7 +2113938,7 @@
     ],
     "publishedDate": "2026-11-10T00:00:00.000Z",
     "announcementDate": "2026-11-19",
-    "hfUpvotes": 64,
+    "hfUpvotes": 65,
     "githubRepo": "https://github.com/Afterglow231/Tideway",
     "githubStars": 7,
     "aiSummary": "TIDEWAY enables efficient inference of large Mixture-of-Experts models on memory-constrained consumer devices by treating host RAM and GPU VRAM as a unified memory pool with phase-aware layouts and optimized CUDA Graph execution under expert paging.",
@@ -2114422,7 +2114510,7 @@
     ],
     "publishedDate": "2026-11-18T00:00:00.000Z",
     "announcementDate": "2026-11-19",
-    "hfUpvotes": 6,
+    "hfUpvotes": 7,
     "githubRepo": null,
     "githubStars": null,
     "aiSummary": "A novel framework addresses the limitations of current reinforcement learning-based red-teaming methods by employing dictionary learning and on-policy adversarial training to improve the robustness of LLM agents against indirect prompt injection attacks.",
@@ -2114838,7 +2114926,7 @@
     ],
     "publishedDate": "2026-11-18T10:05:18.000Z",
     "announcementDate": "2026-11-19",
-    "hfUpvotes": 3,
+    "hfUpvotes": 8,
     "githubRepo": "https://github.com/xiaoqian-shen/AVTR",
     "githubStars": 1,
     "aiSummary": "Adaptive Visual-Textual Reasoning combines generative visual reflection with textual reasoning and learns to route between them per input, improving multimodal task accuracy while reducing inference latency.",
@@ -2114994,7 +2115082,7 @@
     "announcementDate": "2026-11-19",
     "hfUpvotes": 14,
     "githubRepo": "https://github.com/middle-chunjie/AnyS1",
-    "githubStars": 3,
+    "githubStars": 4,
     "aiSummary": "AnyS1 converts procedural skills into shared decision points, trains a small calibrated pointer model to resolve routine choices, and falls back to a large model when uncertain, reducing cost and latency while preserving reliability.",
     "aiKeywords": [
       "autonomous LLM agents",
@@ -2116414,7 +2116502,7 @@
     ],
     "publishedDate": "2026-11-16T00:00:00.000Z",
     "announcementDate": "2026-11-20",
-    "hfUpvotes": 47,
+    "hfUpvotes": 49,
     "githubRepo": "https://github.com/Tencent/WeVisForensics",
     "githubStars": 45,
     "aiSummary": "WeVisForensics coordinates self-evolving visual and audio forensic inspector agents under a dual-timescale reinforcement learning policy to detect generated-video artifacts with localized evidence and high accuracy.",
@@ -2116567,7 +2116655,7 @@
     ],
     "publishedDate": "2026-11-19T00:00:00.000Z",
     "announcementDate": "2026-11-20",
-    "hfUpvotes": 34,
+    "hfUpvotes": 35,
     "githubRepo": null,
     "githubStars": null,
     "aiSummary": null,
@@ -2116791,7 +2116879,7 @@
     "announcementDate": "2026-11-20",
     "hfUpvotes": 30,
     "githubRepo": "https://github.com/jhxcho/voda",
-    "githubStars": 10,
+    "githubStars": 18,
     "aiSummary": "A plug-and-play objective, VODA, groups per-pixel contributors by local depth to supervise all Gaussians in selected depth clusters, improving volumetric segmentation and enabling evaluation via Removal-3D and Removal Depth Error.",
     "aiKeywords": [
       "3D Gaussian Splatting",
@@ -2117967,7 +2118055,7 @@
     ],
     "publishedDate": "2026-11-18T00:00:00.000Z",
     "announcementDate": "2026-11-20",
-    "hfUpvotes": 11,
+    "hfUpvotes": 12,
     "githubRepo": null,
     "githubStars": null,
     "aiSummary": "FlashMorph2 performs on-policy layer selection and weight adaptation for hybrid attention Transformers, improving long-context benchmark scores while selecting layers efficiently across model scales.",
@@ -2118021,7 +2118109,7 @@
     "announcementDate": "2026-11-20",
     "hfUpvotes": 9,
     "githubRepo": "https://github.com/IlyaGusev/twicetold",
-    "githubStars": 0,
+    "githubStars": 1,
     "aiSummary": "Critique overlap among peer reviews is rising, and reviews identified as LLM-generated are less distinct from each other, indicating decreasing diversity of critiques.",
     "aiKeywords": [
       "LLM-generated text",
@@ -2118221,7 +2118309,7 @@
     ],
     "publishedDate": "2026-11-19T00:00:00.000Z",
     "announcementDate": "2026-11-20",
-    "hfUpvotes": 2,
+    "hfUpvotes": 3,
     "githubRepo": null,
     "githubStars": null,
     "aiSummary": null,
@@ -2118289,7 +2118377,7 @@
     ],
     "publishedDate": "2026-11-18T00:00:00.000Z",
     "announcementDate": "2026-11-20",
-    "hfUpvotes": 4,
+    "hfUpvotes": 5,
     "githubRepo": "https://github.com/be2rlab/ACCORD",
     "githubStars": 9,
     "aiSummary": null,
@@ -2118338,7 +2118426,7 @@
     "announcementDate": "2026-11-20",
     "hfUpvotes": 2,
     "githubRepo": "https://github.com/yaozhang182/inhabitant",
-    "githubStars": 0,
+    "githubStars": 1,
     "aiSummary": "Inhabitant enables a language-model agent to plan and execute long-horizon human-scene interactions by specifying motions spatially, measuring deviations, and revising control, achieving high task completion on the Inhabit benchmark.",
     "aiKeywords": [
       "human-scene interaction (HSI) generation",
@@ -2118589,7 +2118677,7 @@
     ],
     "publishedDate": "2026-11-14T00:00:00.000Z",
     "announcementDate": "2026-11-20",
-    "hfUpvotes": 5,
+    "hfUpvotes": 7,
     "githubRepo": null,
     "githubStars": null,
     "aiSummary": null,
@@ -2118923,7 +2119011,7 @@
     ],
     "publishedDate": "2026-11-19T00:00:00.000Z",
     "announcementDate": "2026-11-20",
-    "hfUpvotes": 2,
+    "hfUpvotes": 3,
     "githubRepo": "https://github.com/Youngwoo-git/VETO",
     "githubStars": 0,
     "aiSummary": "VETO suppresses shortcut learning in VideoLLMs by projecting supervised fine-tuning updates onto the orthogonal complement of the text-only activation subspace, improving out-of-distribution video reasoning.",
@@ -2119053,7 +2119141,18 @@
       },
       {
         "_id": "6b006c26ecb204ffe44e6a2a",
+        "user": {
+          "_id": "6afce948920a9c341ef00a9d",
+          "avatarUrl": "/avatars/9544e18f372bcd9b8473e574c5712232.svg",
+          "isPro": false,
+          "fullname": "Michail Klontzas",
+          "user": "mklont",
+          "type": "user",
+          "name": "mklont"
+        },
         "name": "Michail E. Klontzas",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.512Z",
         "hidden": false
       }
     ],
@@ -2119303,7 +2119402,7 @@
     ],
     "publishedDate": "2026-11-19T00:00:00.000Z",
     "announcementDate": "2026-11-20",
-    "hfUpvotes": 4,
+    "hfUpvotes": 5,
     "githubRepo": "https://github.com/ZJUSCL/TwinLab-Bench",
     "githubStars": 4,
     "aiSummary": null,
@@ -2119445,7 +2119544,18 @@
     "authors": [
       {
         "_id": "6b0092e7ecb204ffe44e6a9f",
+        "user": {
+          "_id": "64f8b03f83807928d25e766f",
+          "avatarUrl": "/avatars/56f0588d02b7db419ce8eed9b0cdf701.svg",
+          "isPro": false,
+          "fullname": "Tuna Han Salih Meral",
+          "user": "tmeral",
+          "type": "user",
+          "name": "tmeral"
+        },
         "name": "Tuna Han Salih Meral",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-21T00:45:04.531Z",
         "hidden": false
       },
       {
@@ -2119767,5 +2119877,128 @@
       "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/69f779a686d6e8395f369251/xEEfNR1rI5dwwGgbbZ__X.png"
     },
     "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2611.15941.png"
+  },
+  {
+    "id": "2611.26239",
+    "title": "Teaching Vision-Language-Action Models to Stop Safely",
+    "abstract": "Vision-language-action (VLA) models enable robots to perform diverse tasks from visual observations and language instructions. While prior work has explored task suppression and refusal, stopping prohibited behavior once execution is underway and controlling the resulting physical response remain challenging. Our evaluation reveals that policies which suppress a task from its initial state can still complete it when taking over partway through execution. Even when the task remains unfinished, the robot may drop a held object, making non-completion an incomplete measure of safety. To address these challenges, we introduce State-Aware Fallback Imitation (SAFI) for tasks where holding provides an appropriate alternative response. SAFI comprises two stages, (1) fallback target construction, which assigns stationary arm commands and consistent gripper targets throughout prohibited-task demonstrations, and (2) joint policy adaptation, which learns these targets alongside the original actions of retained tasks. This supervision teaches an explicit alternative response at intermediate execution states while maintaining the robot's other skills. Extensive experiments with OpenVLA-OFT across LIBERO and BadLIBERO tasks evaluate prohibited completion, physical incidents, and retained-task performance. On the evaluated LIBERO tasks, SAFI reduces aggregate target success after takeover to 1.3\\%, with no recorded physical incidents or action saturation, while preserving high retained-task success.",
+    "authors": [
+      {
+        "_id": "6b00f0ffecb204ffe44e6b91",
+        "name": "Zheyuan Liu",
+        "hidden": false
+      },
+      {
+        "_id": "6b00f0ffecb204ffe44e6b92",
+        "name": "Chuhan Wang",
+        "hidden": false
+      },
+      {
+        "_id": "6b00f0ffecb204ffe44e6b93",
+        "name": "Jinduo Guo",
+        "hidden": false
+      },
+      {
+        "_id": "6b00f0ffecb204ffe44e6b94",
+        "name": "Yue Huang",
+        "hidden": false
+      },
+      {
+        "_id": "6b00f0ffecb204ffe44e6b95",
+        "name": "Xiangchi Yuan",
+        "hidden": false
+      },
+      {
+        "_id": "6b00f0ffecb204ffe44e6b96",
+        "name": "Ningshan Ma",
+        "hidden": false
+      },
+      {
+        "_id": "6b00f0ffecb204ffe44e6b97",
+        "name": "Meng Jiang",
+        "hidden": false
+      }
+    ],
+    "publishedDate": "2026-11-19T00:00:00.000Z",
+    "announcementDate": "2026-11-20",
+    "hfUpvotes": 1,
+    "githubRepo": "https://github.com/franciscoliu/SAFI",
+    "githubStars": null,
+    "aiSummary": null,
+    "aiKeywords": [],
+    "organization": {
+      "_id": "698a2b8c599fceb2ec79b6a6",
+      "name": "DM2-ND",
+      "fullname": "University of Notre Dame DM2 Lab",
+      "avatar": "https://cdn-avatars.huggingface.co/v1/production/uploads/642f742270daaa6e7209a2c8/HftV6o39IOFmMo-d5pSvc.jpeg"
+    },
+    "thumbnail": "https://cdn-uploads.huggingface.co/production/uploads/6539a5c4821b9e4a34ad7034/XFFW9SGn_u3KSQf2dKti5.png"
+  },
+  {
+    "id": "2611.25604",
+    "title": "PAD: Policy-Aware Data Valuation for Autonomous Driving",
+    "abstract": "End-to-end autonomous driving increasingly depends on scaling training demonstrations, yet data growth does not guarantee proportional gains. However, additional data do not guarantee better policies: a demonstration that benefits one planner may be redundant or harmful to another. Existing curation methods typically infer data value from intrinsic sample properties or training-dependent proxies that do not measure downstream policy utility. To address this, we introduce Policy-Aware Data Valuation (PAD), a framework that assigns each candidate demonstration a utility specific to the target driving policy. PAD combines scene-level calibration feedback with projected policy gradients and a regularized approximation of local training geometry, producing scalable influence-based values for the policy. A controlled group-removal study establishes the directional fidelity of these values, while cross-planner analysis shows that the same candidate pool induces markedly different rankings across planner families. On DiffusionDrive, PAD improves EPDMS over real-only training by 3.5 points on NavTest and 5.0 points on NavHard. Policy-specific curation consistently outperforms real-only and full-pool training across diffusion-, regression-, and flow-matching-based planners while substantially reducing scene-level regressions. These results establish policy-aware data valuation as a basis for replacing indiscriminate data accumulation with targeted policy improvement, enabling more efficient and reliable scaling of autonomous-driving systems.",
+    "authors": [
+      {
+        "_id": "6b0053f1ecb204ffe44e69d2",
+        "user": {
+          "_id": "6ab7d214f32cad26a0dcfbdb",
+          "avatarUrl": "/avatars/32ce8b96eb248c6fe0f311eca21270f7.svg",
+          "isPro": false,
+          "fullname": "Chengkai Xu",
+          "user": "ChengkaiXu",
+          "type": "user",
+          "name": "ChengkaiXu"
+        },
+        "name": "Chengkai Xu",
+        "status": "claimed_verified",
+        "statusLastChangedAt": "2026-11-20T16:45:04.876Z",
+        "hidden": false
+      },
+      {
+        "_id": "6b0053f1ecb204ffe44e69d3",
+        "name": "Yicheng Guo",
+        "hidden": false
+      },
+      {
+        "_id": "6b0053f1ecb204ffe44e69d4",
+        "name": "Jiaqi Liu",
+        "hidden": false
+      },
+      {
+        "_id": "6b0053f1ecb204ffe44e69d5",
+        "name": "Yiming Cui",
+        "hidden": false
+      },
+      {
+        "_id": "6b0053f1ecb204ffe44e69d6",
+        "name": "Shiyu Fang",
+        "hidden": false
+      },
+      {
+        "_id": "6b0053f1ecb204ffe44e69d7",
+        "name": "Peng Hang",
+        "hidden": false
+      },
+      {
+        "_id": "6b0053f1ecb204ffe44e69d8",
+        "name": "Hao Zhang",
+        "hidden": false
+      },
+      {
+        "_id": "6b0053f1ecb204ffe44e69d9",
+        "name": "Jian Sun",
+        "hidden": false
+      }
+    ],
+    "publishedDate": "2026-11-19T00:00:00.000Z",
+    "announcementDate": "2026-11-20",
+    "hfUpvotes": 0,
+    "githubRepo": "https://github.com/PerfectXu88/PAD",
+    "githubStars": 2,
+    "aiSummary": null,
+    "aiKeywords": [],
+    "organization": null,
+    "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2611.25604.png"
   }
 ]
